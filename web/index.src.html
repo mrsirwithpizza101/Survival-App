@@ -33,7 +33,7 @@ section.on{display:block}
 .card.ok{border-color:#4b6b3d;background:#18221a}
 .legacy ol,.legacy ul{padding-left:22px;margin:6px 0}
 .legacy li{margin:4px 0}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.lgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
 .stat{background:var(--panel2);border-radius:10px;padding:10px 12px}
 .stat b{display:block;font-size:1.35rem}
 .stat span{color:var(--mute);font-size:.82rem}
@@ -258,7 +258,7 @@ footer{color:var(--mute);font-size:.8rem;max-width:860px;margin:0 auto;padding:0
   <p>Even so, preparing is smart. The same kit covers far likelier events: earthquakes, wildfires, multi-day power shutoffs, storms, and water main breaks. Build for those first. Then you're ready for worse.</p>
 
   <h3>Priority order (Rule of 3s)</h3>
-  <div class="grid">
+  <div class="lgrid">
     <div class="stat"><b>3 min</b><span>without air or with major bleeding → <b>Medical</b></span></div>
     <div class="stat"><b>3 hrs</b><span>exposed in harsh weather → <b>Shelter/warmth</b></span></div>
     <div class="stat"><b>3 days</b><span>without water → <b>Water</b></span></div>
@@ -270,7 +270,7 @@ footer{color:var(--mute);font-size:.8rem;max-width:860px;margin:0 auto;padding:0
   <div class="card" id="freeList"></div>
 
   <h3>Your progress</h3>
-  <div class="grid" id="progStats"></div>
+  <div class="lgrid" id="progStats"></div>
 </section>
 
 <!-- MAP -->
@@ -385,7 +385,7 @@ footer{color:var(--mute);font-size:.8rem;max-width:860px;margin:0 auto;padding:0
   <h2>$1,000 shopping list</h2>
   <p class="mute">Prices are typical estimates and will vary by store. Tax isn't included. The core list comes to about $925, which leaves roughly $75 for tax. Items marked <span class="tag">optional</span> are only worth buying if there's room left. Check items off as you buy them.</p>
   <div class="card">
-    <div class="grid">
+    <div class="lgrid">
       <div class="stat"><b id="planTot">$0</b><span>planned (core + checked optional)</span></div>
       <div class="stat"><b id="spentTot">$0</b><span>bought so far</span></div>
       <div class="stat"><b id="leftTot">$1000</b><span>left of $1,000</span></div>
@@ -408,7 +408,7 @@ footer{color:var(--mute);font-size:.8rem;max-width:860px;margin:0 auto;padding:0
       <div><label class="f">Days</label><input type="number" id="wDays" min="1" value="14"></div>
     </div>
     <label class="f">Pets (dogs/cats)</label><input type="number" id="wPets" min="0" value="0">
-    <div class="grid" style="margin-top:12px">
+    <div class="lgrid" style="margin-top:12px">
       <div class="stat"><b id="wGal">28</b><span>gallons to store</span></div>
       <div class="stat"><b id="wCont">4</b><span>7-gal containers</span></div>
     </div>
@@ -449,7 +449,7 @@ footer{color:var(--mute);font-size:.8rem;max-width:860px;margin:0 auto;padding:0
       <div><label class="f">People</label><input type="number" id="fPeople" min="1" value="2"></div>
       <div><label class="f">Days</label><input type="number" id="fDays" min="1" value="21"></div>
     </div>
-    <div class="grid" style="margin-top:12px">
+    <div class="lgrid" style="margin-top:12px">
       <div class="stat"><b id="fKcal">84,000</b><span>calories needed (~2,000/person/day)</span></div>
       <div class="stat"><b id="fRice">17 lb</b><span>rice (≈40% of calories)</span></div>
       <div class="stat"><b id="fBeans">11 lb</b><span>dry beans/lentils (≈20%)</span></div>
