@@ -22,6 +22,7 @@ Map data © OpenStreetMap contributors (ODbL). Local points for The Dalles come 
 
 ## Updates
 
+- **Nov 15, 2026 (fixer-upper)**: Tap any map icon for details and actions: **Guide me** (an offline compass arrow with live distance), Directions, open in your map app, Street View, Save, and Copy GPS. Added one-tap **Find nearest** hospital, water, shelter and fuel on the home screen. Search now finds towns and points saved on the phone with no signal. New icon set and cleaner panels.
 - **Nov 15, 2026 (fix)**: Every build now uses the same signing key, so updates install over the old app. If you installed an earlier version, uninstall it once first.
 - **Nov 15, 2026**: New home-screen layout (AEGIS). Emergency points for the whole U.S. now come built in: hospitals, fire and police, water, shelters, fuel, food, campgrounds, peaks and towns. The map opens in satellite view and has a one-button map-type switch. Added a triage tree, calculators and an offline-downloads checklist. About 790,000 points and 7,700 city and town labels.
 - **Nov 14, 2026**: First APK. Offline manual with a map of The Dalles.

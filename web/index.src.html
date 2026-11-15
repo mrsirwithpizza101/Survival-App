@@ -107,7 +107,45 @@ section.on{display:block}
 .mcross{position:absolute;left:50%;top:50%;width:22px;height:22px;margin:-11px 0 0 -11px;pointer-events:none;z-index:2;opacity:.75}
 .mcross:before,.mcross:after{content:"";position:absolute;background:#fff;box-shadow:0 0 2px #000}
 .mcross:before{left:10px;top:0;width:2px;height:22px}.mcross:after{top:10px;left:0;height:2px;width:22px}
-.sheet{position:absolute;left:0;right:0;bottom:0;max-height:72%;overflow:auto;background:var(--panel);border-top:1px solid var(--line);border-radius:16px 16px 0 0;padding:14px 16px 24px;z-index:5;display:none;box-shadow:0 -8px 24px #0008}
+/* modern sheets */
+.sheet{-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+.sheet:before{content:"";display:block;width:40px;height:4px;border-radius:9px;background:#475569;margin:-4px auto 12px}
+.dhead{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+.dic{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex:0 0 auto;color:#fff;box-shadow:0 4px 14px #0006}
+.dic svg{width:24px;height:24px}
+.dhead h4{margin:0!important;font-size:1.08rem!important;line-height:1.25;color:#fff}
+.dcat{font-size:.78rem;color:var(--mute);margin-top:2px}
+.dstats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:4px 0 10px}
+.dstats div{background:#0b1220;border:1px solid #1f2a3c;border-radius:12px;padding:8px 10px}
+.dstats b{display:block;font-size:1rem;color:#fff;font-variant-numeric:tabular-nums}
+.dstats span{font-size:.7rem;color:var(--mute);text-transform:uppercase;letter-spacing:.06em}
+.dnote{font-size:.85rem;color:#cbd5e1;margin:0 0 12px;line-height:1.45}
+.dact{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.legacy a.act{color:#e2e8f0;text-decoration:none}
+.act{display:flex;align-items:center;justify-content:center;gap:7px;background:#1e293b;color:#e2e8f0;border:1px solid #334155;border-radius:14px;padding:12px 10px;font:inherit;font-size:.86rem;font-weight:600;cursor:pointer;text-decoration:none!important}
+.act svg{width:17px;height:17px}
+.act.primary{grid-column:1/-1;background:#10b981;border-color:#10b981;color:#04261a;font-size:.95rem;padding:14px}
+.act:active{transform:scale(.97)}
+.dcoord{font-size:.75rem;color:var(--mute);margin:10px 0 0;font-variant-numeric:tabular-nums;text-align:center}
+.bpin i svg,.prow .ic svg,.fchip i svg{width:62%;height:62%}
+.pin .dot span svg{width:16px;height:16px}
+.bpin i{color:#fff}
+/* guidance overlay */
+.guide{position:absolute;inset:0;z-index:8;background:radial-gradient(circle at 50% 40%,#0f1b2e,#05080f 70%);display:none;flex-direction:column;align-items:center;justify-content:space-between;padding:18px 18px 28px;color:#fff}
+.guide.on{display:flex}
+.gtop{width:100%;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.gtop span{font-weight:700;font-size:1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gtop button{background:#f43f5e;color:#fff;border:0;border-radius:999px;padding:9px 16px;font:inherit;font-weight:700}
+.gdial{position:relative;width:260px;height:260px;border-radius:50%;border:2px solid #1e3a5f;box-shadow:inset 0 0 40px #0b2440,0 0 60px #10b98122;display:flex;align-items:center;justify-content:center}
+.gdial .n{position:absolute;top:8px;left:50%;transform:translateX(-50%);font-size:.8rem;font-weight:800;color:#f43f5e}
+.garrow{width:120px;height:120px;transition:transform .25s ease-out}
+.gstats{text-align:center}.gstats b{display:block;font-size:2.6rem;font-weight:800;letter-spacing:-.02em}
+.gstats span{display:block;color:#94a3b8;font-size:.9rem;margin-top:2px}
+.ghint{font-size:.78rem;color:#94a3b8;text-align:center;max-width:320px;margin:0}
+.gbtns{display:flex;gap:8px;width:100%}.gbtns .act{flex:1}
+#route{position:absolute;inset:0;pointer-events:none;z-index:1}
+.sres{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--mute);margin:12px 0 2px}
+.sheet{position:absolute;left:0;right:0;bottom:0;max-height:72%;overflow:auto;background:#0f172aee;border-top:1px solid var(--line);border-radius:16px 16px 0 0;padding:14px 16px 24px;z-index:5;display:none;box-shadow:0 -8px 24px #0008}
 .sheet.on{display:block}
 .sheet h4{margin:0 0 8px;font-size:1rem}
 .sheet .x{float:right;background:none;border:0;color:var(--mute);font-size:1.4rem;cursor:pointer;line-height:1}
@@ -165,6 +203,15 @@ footer{color:var(--mute);font-size:.8rem;max-width:860px;margin:0 auto;padding:0
 
 <!-- HOME SCREEN APP GRID -->
 <main class="flex-1 max-w-md md:max-w-3xl lg:max-w-5xl w-full mx-auto p-4 sm:p-6">
+  <div class="mb-6">
+    <div class="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold flex items-center gap-2 mb-3"><i data-lucide="locate-fixed" class="w-3.5 h-3.5 text-emerald-400"></i> Find nearest</div>
+    <div class="grid grid-cols-4 gap-2">
+      <button onclick="findNearest('medical')" class="flex flex-col items-center gap-1.5 py-3 rounded-2xl bg-slate-900 border border-slate-800 active:scale-95 transition"><span class="p-2 rounded-xl bg-rose-500/15 text-rose-400"><i data-lucide="cross" class="w-5 h-5"></i></span><span class="text-[11px] text-slate-300 font-medium">Hospital</span></button>
+      <button onclick="findNearest('water')" class="flex flex-col items-center gap-1.5 py-3 rounded-2xl bg-slate-900 border border-slate-800 active:scale-95 transition"><span class="p-2 rounded-xl bg-sky-500/15 text-sky-400"><i data-lucide="droplet" class="w-5 h-5"></i></span><span class="text-[11px] text-slate-300 font-medium">Water</span></button>
+      <button onclick="findNearest('shelter')" class="flex flex-col items-center gap-1.5 py-3 rounded-2xl bg-slate-900 border border-slate-800 active:scale-95 transition"><span class="p-2 rounded-xl bg-violet-500/15 text-violet-400"><i data-lucide="tent" class="w-5 h-5"></i></span><span class="text-[11px] text-slate-300 font-medium">Shelter</span></button>
+      <button onclick="findNearest('fuel')" class="flex flex-col items-center gap-1.5 py-3 rounded-2xl bg-slate-900 border border-slate-800 active:scale-95 transition"><span class="p-2 rounded-xl bg-amber-500/15 text-amber-400"><i data-lucide="fuel" class="w-5 h-5"></i></span><span class="text-[11px] text-slate-300 font-medium">Fuel</span></button>
+    </div>
+  </div>
   <div class="flex items-center justify-between mb-4">
     <span class="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold flex items-center gap-2"><i data-lucide="layout-grid" class="w-3.5 h-3.5 text-emerald-400"></i> Off-Grid Apps</span>
     <span id="appCount" class="text-xs font-mono text-slate-500"></span>
@@ -233,22 +280,22 @@ footer{color:var(--mute);font-size:.8rem;max-width:860px;margin:0 auto;padding:0
     <div class="mcross"></div>
     <div class="mtop">
       <div class="mbar">
-        <input id="mSearch" type="search" placeholder="Search any place in the U.S." enterkeyhint="search">
+        <input id="mSearch" type="search" placeholder="Search towns, hospitals, water…" enterkeyhint="search">
         <button class="mbtn" id="mGo">⌕</button>
       </div>
       <div class="fbar" id="fbar"></div>
     </div>
     <div class="mside">
-      <button class="mbtn" id="bGps" title="My location">◎</button>
-      <button class="mbtn" id="bList" title="Nearby list">☰</button>
-      <button class="mbtn" id="bAdd" title="Drop pin at crosshair">📍</button>
+      <button class="mbtn" id="bGps" title="My location"><i data-lucide="locate-fixed" style="width:20px;height:20px"></i></button>
+      <button class="mbtn" id="bList" title="Nearby list"><i data-lucide="list" style="width:20px;height:20px"></i></button>
+      <button class="mbtn" id="bAdd" title="Drop pin at crosshair"><i data-lucide="map-pin-plus" style="width:20px;height:20px"></i></button>
       <button class="mbtn" id="mZin">＋</button>
       <button class="mbtn" id="mZout">－</button>
-      <button class="mbtn" id="bSave" title="Save area offline">⤓</button>
+      <button class="mbtn" id="bSave" title="Save area offline"><i data-lucide="download" style="width:20px;height:20px"></i></button>
     </div>
     <div class="mbl">
       <button class="mode" id="bMode"><span class="sw"></span><b id="modeName">Topo</b></button>
-      <a class="mbtn" id="bStreet" href="#" target="_blank" rel="noopener" title="Street view (needs signal)">🚶</a>
+      <a class="mbtn" id="bStreet" href="#" target="_blank" rel="noopener" title="Street view (needs signal)"><i data-lucide="person-standing" style="width:20px;height:20px"></i></a>
     </div>
     <div class="pill" id="mPill"></div>
     <div class="mnote" id="mNote"></div>
@@ -268,6 +315,29 @@ footer{color:var(--mute);font-size:.8rem;max-width:860px;margin:0 auto;padding:0
       <button class="btn ghost" id="expBtn">Copy all pins</button> <button class="btn ghost" id="impBtn">Paste pins…</button>
       <textarea id="impTxt" style="display:none;margin-top:8px" placeholder="Paste copied pins here, then tap Import"></textarea>
       <button class="btn" id="impGo" style="display:none">Import</button>
+    </div>
+    <svg id="route"></svg>
+    <div class="sheet" id="sDetail"><button class="x" data-close>×</button>
+      <div class="dhead"><div class="dic" id="dIcon"></div><div style="min-width:0"><h4 id="dName"></h4><div class="dcat" id="dCat"></div></div></div>
+      <div class="dstats"><div><b id="dDist">—</b><span>Distance</span></div><div><b id="dBrg">—</b><span>Direction</span></div><div><b id="dElev">—</b><span>Elevation</span></div></div>
+      <p class="dnote" id="dNote"></p>
+      <div class="dact">
+        <button class="act primary" id="aGuide"><i data-lucide="navigation"></i> Guide me here (works offline)</button>
+        <a class="act" id="aNav" href="#" target="_blank" rel="noopener"><i data-lucide="car"></i> Directions</a>
+        <a class="act" id="aGeo" href="#"><i data-lucide="map"></i> Map app</a>
+        <a class="act" id="aStreet" href="#" target="_blank" rel="noopener"><i data-lucide="person-standing"></i> Street View</a>
+        <button class="act" id="aSave"><i data-lucide="bookmark-plus"></i> <span>Save</span></button>
+        <button class="act" id="aCenter"><i data-lucide="crosshair"></i> Center map</button>
+        <button class="act" id="aCopy"><i data-lucide="copy"></i> Copy GPS</button>
+      </div>
+      <p class="dcoord" id="dCoord"></p>
+    </div>
+    <div class="guide" id="guide">
+      <div class="gtop"><span id="gName"></span><button id="gEnd">End</button></div>
+      <div class="gdial"><span class="n">N</span><svg class="garrow" id="gArrow" viewBox="0 0 100 100"><path d="M50 6 L80 86 L50 70 L20 86 Z" fill="#10b981" stroke="#d1fae5" stroke-width="3" stroke-linejoin="round"/></svg></div>
+      <div class="gstats"><b id="gDist">—</b><span id="gSub"></span></div>
+      <p class="ghint" id="gHint"></p>
+      <div class="gbtns"><a class="act" id="gNav" href="#" target="_blank" rel="noopener"><i data-lucide="car"></i> Road directions</a><button class="act" id="gMap"><i data-lucide="map"></i> Show on map</button></div>
     </div>
     <div class="sheet" id="sPin"><button class="x" data-close>×</button><h4 id="pinTitle">New pin</h4>
       <label class="f">Name</label><input type="text" id="pName">
@@ -744,6 +814,12 @@ var CATS={
   rally:{n:'Rally point',e:'★',c:'#2e8b57'},camp:{n:'Campground / public land',e:'🌲',c:'#3f6b2a'},
   route:{n:'Route / crossing',e:'➤',c:'#008b8b'},hazard:{n:'Hazard / avoid',e:'⚠',c:'#8b0000'},civic:{n:'Government / info',e:'🏛',c:'#4a6fa5'},place:{n:'Town names',e:'◦',c:'#444'},home:{n:'Home / family',e:'⌂',c:'#a0522d'},other:{n:'Other',e:'•',c:'#555'}};
 var GN=[["Mid-Columbia Medical Center (ER, now Adventist Health Columbia Gorge)", "medical", 45.587316, -121.164462, "1700 E 19th St · (541) 296-1111 · 24/7 emergency dept · helipad"], ["North Central Public Health District", "medical", 45.59858, -121.182536, "County public health office"], ["Skyline Ambulance (Dallesport, WA)", "medical", 45.618832, -121.179463, "Klickitat County Public Hospital District 2"], ["Mid-Columbia Fire & Rescue", "fire", 45.607039, -121.205023, "Office (541) 296-9445 · after hours (541) 298-4178"], ["Mid-Columbia Fire & Rescue Station 2", "fire", 45.598929, -121.13542, "East side station"], ["Dallesport / Murdock Fire Dept", "fire", 45.619032, -121.179465, "Klickitat County Fire District 6 (WA side)"], ["The Dalles Police Department", "fire", 45.601182, -121.184189, "Downtown, next to City Hall"], ["Wasco County Sheriff's Office", "fire", 45.599811, -121.184088, "At the county courthouse"], ["Oregon State Police, The Dalles", "fire", 45.6063, -121.131829, ""], ["The Dalles Middle School", "shelter", 45.592342, -121.175886, "1100 E 12th St · Used as a Red Cross shelter (pets allowed) during past wildfires"], ["The Dalles Civic Auditorium", "shelter", 45.599835, -121.18216, "Large public building. Watch for official shelter announcements."], ["The Dalles–Wahtonka High School", "shelter", 45.5964, -121.188, "Public school (possible shelter site; confirm with officials)"], ["Columbia Gorge Community College", "shelter", 45.590724, -121.190197, "Public campus (possible shelter site; confirm with officials)"], ["Colonel Wright Elementary", "shelter", 45.597481, -121.198128, "Public school"], ["Dry Hollow Elementary", "shelter", 45.586619, -121.17317, "Public school"], ["Chenowith Elementary", "shelter", 45.625318, -121.221892, "Public school"], ["American Red Cross office (The Dalles)", "shelter", 45.600591, -121.193494, "Red Cross Columbia River District office"], ["The Dalles City Hall", "civic", 45.601582, -121.18391, "City government"], ["Wasco County Courthouse", "civic", 45.599799, -121.18406, "County government, emergency management"], ["The Dalles–Wasco County Library", "civic", 45.598746, -121.185485, "Public building, information"], ["The Dalles Post Office", "civic", 45.602798, -121.184503, ""], ["The Dalles Public Works", "civic", 45.607909, -121.191412, "City water and roads"], ["Wasco County Public Works", "civic", 45.598211, -121.147383, ""], ["Columbia River", "water", 45.605954, -121.165071, "Large river. Must be filtered AND treated. Avoid water near industry and outfalls."], ["Port of The Dalles Marina boat ramp", "water", 45.601426, -121.169847, "River access point"], ["Mill Creek", "water", 45.606509, -121.187293, "Stream through town. Treat before drinking."], ["Chenoweth Creek", "water", 45.634009, -121.200349, "Stream. Treat before drinking."], ["Threemile Creek", "water", 45.60401, -121.147848, "Stream. Treat before drinking."], ["Fifteenmile Creek", "water", 45.61401, -121.122848, "Stream. Treat before drinking."], ["Eightmile Creek", "water", 45.606233, -121.08618, "Stream. Treat before drinking."], ["Fivemile Creek", "water", 45.593177, -121.080903, "Stream. Treat before drinking."], ["Badger Creek", "water", 45.629009, -121.236183, "Stream. Treat before drinking."], ["Brown Creek", "water", 45.612064, -121.260628, "Stream. Treat before drinking."], ["Anderson Spring", "water", 45.566508, -121.223405, "Spring. Flow not verified; treat before drinking. May be on private land."], ["Cold Spring", "water", 45.679878, -121.220187, "Spring. Flow not verified; treat before drinking. May be on private land."], ["Frantz Spring", "water", 45.655186, -121.212602, "Spring. Flow not verified; treat before drinking. May be on private land."], ["Gooseberry Spring", "water", 45.643844, -121.210243, "Spring. Flow not verified; treat before drinking. May be on private land."], ["Marsh Spring", "water", 45.643902, -121.230721, "Spring. Flow not verified; treat before drinking. May be on private land."], ["Rowland Spring", "water", 45.682319, -121.215114, "Spring. Flow not verified; treat before drinking. May be on private land."], ["Taylor Spring", "water", 45.647434, -121.208409, "Spring. Flow not verified; treat before drinking. May be on private land."], ["Thornton Spring", "water", 45.632319, -121.236077, "Spring. Flow not verified; treat before drinking. May be on private land."], ["Spearfish Lake (WA)", "water", 45.628044, -121.130719, "Lake. Treat before drinking."], ["Horsethief Lake (WA)", "water", 45.645354, -121.103103, "Lake in state park. Treat before drinking."], ["Taylor Lake", "water", 45.642214, -121.206169, "Lake. Treat before drinking."], ["Sorosis Reservoir", "water", 45.589287, -121.19396, "City reservoir. Not for public access."], ["Horsethief Lake State Park (WA)", "camp", 45.645399, -121.10507, "Public park, part of Columbia Hills"], ["Seufert County Park", "camp", 45.610399, -121.127848, "Public park by the river"], ["Sorosis Park", "camp", 45.590675, -121.194516, "City park on the bluff with views over town"], ["Thompson Park", "camp", 45.604287, -121.192294, "City park"], ["Hess Park (Dallesport)", "camp", 45.617343, -121.140626, "Park"], ["Howe Park", "camp", 45.591509, -121.173404, "City park"], ["Fort Dalles Rodeo Grounds", "camp", 45.615597, -121.203999, "Large open ground"], ["The Dalles Bridge (US-197)", "route", 45.611232, -121.140626, "Columbia River crossing to Washington"], ["The Dalles Dam", "route", 45.612343, -121.134515, "Dam"], ["Columbia Gorge Regional Airport", "route", 45.618446, -121.17264, "Airport (Dallesport, WA)"], ["Rowena Gap", "route", 45.677065, -121.245628, "Gap west of town (Historic Columbia River Hwy area)"], ["Signal Hill", "rally", 45.623455, -121.092847, "Summit. High ground for line of sight and radio."], ["Horsethief Butte (WA)", "rally", 45.649566, -121.095625, "Summit. High ground."], ["Pulpit Rock", "rally", 45.595548, -121.18928, "Well-known landmark. An easy-to-find meeting point."], ["Big Eddy Substation", "hazard", 45.60651, -121.115625, "High-voltage. Keep clear of downed lines."], ["Celilo Converter Station", "hazard", 45.595121, -121.114514, "High-voltage DC station. Keep clear."], ["The Dalles Substation", "hazard", 45.612342, -121.215072, "High-voltage"], ["Chenoweth Substation", "hazard", 45.635676, -121.20396, "High-voltage"], ["Wastewater Treatment Plant", "hazard", 45.601598, -121.179446, "Don't collect water downstream of here."], ["The Dalles", "place", 45.594564, -121.178682, ""], ["Dallesport (WA)", "place", 45.617343, -121.179515, ""], ["Chenoweth", "place", 45.62762, -121.243406, ""], ["Murdock (WA)", "place", 45.654287, -121.188405, ""], ["Cherry Heights", "place", 45.602897, -121.240906, ""], ["Petersburg", "place", 45.610955, -121.078125, ""], ["Boyd", "place", 45.489288, -121.082291, ""], ["Endersby", "place", 45.492342, -121.152015, ""]];
+var ICONS={water:'Droplet',medical:'Cross',fire:'Siren',shelter:'Tent',supply:'ShoppingCart',fuel:'Fuel',rally:'Mountain',camp:'Trees',route:'Route',hazard:'TriangleAlert',civic:'Landmark',home:'House',other:'MapPin',place:'Building2',mine:'Bookmark'};
+var ICACHE={};
+function iconHTML(k){if(ICACHE[k])return ICACHE[k];var c=CATS[k]||CATS.other,h=c.e;
+  try{if(window.lucide&&lucide.icons&&lucide.createElement){var nm=ICONS[k]||'MapPin',node=lucide.icons[nm];if(node){var el=lucide.createElement(node);el.setAttribute('stroke-width','2.4');h=el.outerHTML}}}catch(e){}
+  return ICACHE[k]=h}
+function lucideRefresh(){try{if(window.lucide)lucide.createIcons()}catch(e){}}
 var S=store.get('mapstate',{lat:45.5946,lon:-121.1787,z:13,base:'topo',ov:{}});if(S.bi===undefined)S.bi=true;
 var pins=store.get('pins',[]),hidden=store.get('pinhide',{}),gps=null,selId=null,tileFail=0,tileOk=0;
 function save(){store.set('mapstate',S)}function savePins(){store.set('pins',pins)}
@@ -778,11 +854,11 @@ function render(){
   OV.className=S.ov.hill?'hill':'';
   Object.keys(OVS).forEach(function(k){if(S.ov[k])layerTiles(OV,OVS[k].u,'ov'+k,Math.min(S.z,18),o,sz,keep)});
   for(var id in live)if(!keep[id]){live[id].remove();delete live[id]}
-  renderPins(o);renderPlaces(o);if(BUNDLED)renderBundled(o);else renderPoi(o);renderMe(o);readout();if(BUNDLED)bundledTick();else poiTick();
+  renderPins(o);renderPlaces(o);if(BUNDLED)renderBundled(o);else renderPoi(o);renderMe(o);drawRoute(o);readout();if(BUNDLED)bundledTick();else poiTick();
   document.getElementById('bStreet').href='https://www.google.com/maps/@?api=1&map_action=pano&viewpoint='+S.lat.toFixed(6)+','+S.lon.toFixed(6);
   var a=[BASES[S.base].a];Object.keys(OVS).forEach(function(k){if(S.ov[k])a.push(OVS[k].a)});document.getElementById('mAttr').textContent=a.join(' · ');
 }
-var noteOff=false;function note(){var n=document.getElementById('mNote');if(noteOff)return;
+var noteOff=false,noteT=null;function note(){var n=document.getElementById('mNote');if(noteOff)return;clearTimeout(noteT);noteT=setTimeout(function(){n.style.display='none';noteOff=true},7000);
   if(tileFail>6&&tileOk===0){n.style.display='block';
     n.innerHTML='No map imagery here: you\'re offline and this area isn\'t saved yet. Points still work. With signal, view an area and tap ⤓ to keep it. <u>Dismiss</u>';n.onclick=function(){n.style.display='none';noteOff=true}}
   else n.style.display='none'}
@@ -791,13 +867,13 @@ function renderPins(o){PL.innerHTML='';var sz0=size();
   if(S.bi&&S.z>=11)GN.forEach(function(g){if(hidden[g[1]])return;var w=ll2w(g[2],g[3],S.z),x=w[0]-o[0],y=w[1]-o[1];if(x<-80||y<-40||x>sz0[0]+80||y>sz0[1]+40)return;
     var c=CATS[g[1]]||CATS.other,d=document.createElement('div');
     if(g[1]==='place'){d.className='plabel';d.textContent=g[0];d.style.left=x+'px';d.style.top=y+'px';if(S.z<11&&g[0]!=='The Dalles')return;PL.appendChild(d);return}
-    d.className='bpin';d.style.left=x+'px';d.style.top=y+'px';d.innerHTML='<i></i><b></b>';d.firstChild.style.background=c.c;d.firstChild.textContent=c.e;d.lastChild.textContent=g[0];
+    d.className='bpin';d.style.left=x+'px';d.style.top=y+'px';d.innerHTML='<i></i><b></b>';d.firstChild.style.background=c.c;d.firstChild.innerHTML=iconHTML(g[1]);d.lastChild.textContent=g[0];
     if(S.z<14)d.lastChild.style.display='none';
     d.addEventListener('pointerdown',function(e){e.stopPropagation()});d.onclick=function(e){e.stopPropagation();openBuiltin(g)};PL.appendChild(d)});
   pins.forEach(function(p){if(hidden[p.cat]||hidden.mine)return;var w=ll2w(p.lat,p.lon,S.z),x=w[0]-o[0],y=w[1]-o[1],sz=size();
   if(x<-60||y<-60||x>sz[0]+60||y>sz[1]+60)return;var c=CATS[p.cat]||CATS.other;
   var d=document.createElement('div');d.className='pin'+(p.id===selId?' sel':'');d.style.left=x+'px';d.style.top=y+'px';
-  d.innerHTML='<div class="dot"><span></span></div><div class="lbl"></div>';d.firstChild.style.background=c.c;d.firstChild.firstChild.textContent=c.e;d.lastChild.textContent=p.name||c.n;
+  d.innerHTML='<div class="dot"><span></span></div><div class="lbl"></div>';d.firstChild.style.background=c.c;d.firstChild.firstChild.innerHTML=iconHTML(p.cat);d.lastChild.textContent=p.name||c.n;
   if(S.z<12)d.lastChild.style.display='none';
   d.addEventListener('pointerdown',function(e){e.stopPropagation()});d.onclick=function(e){e.stopPropagation();openPin(p)};PL.appendChild(d)})}
 function renderMe(o){if(!gps){ME.style.display='none';return}var w=ll2w(gps.lat,gps.lon,S.z);ME.style.display='block';ME.style.left=(w[0]-o[0])+'px';ME.style.top=(w[1]-o[1])+'px'}
@@ -852,8 +928,22 @@ function pill(){var p=document.getElementById('mPill'),ks=poiKeys();
 function renderPoi(o){if(S.z<PQZ)return;var sz=size(),cnt=0;poiKeys().forEach(function(k){(POI[k]||[]).forEach(function(g){if(hidden[g[1]]||cnt>700)return;
   var w=ll2w(g[2],g[3],S.z),x=w[0]-o[0],y=w[1]-o[1];if(x<-20||y<-20||x>sz[0]+20||y>sz[1]+20)return;cnt++;
   var c=CATS[g[1]]||CATS.other,d=document.createElement('div');d.className='bpin';d.style.left=x+'px';d.style.top=y+'px';d.innerHTML='<i></i><b></b>';
-  d.firstChild.style.background=c.c;d.firstChild.textContent=c.e;d.lastChild.textContent=g[0];if(S.z<15)d.lastChild.style.display='none';
+  d.firstChild.style.background=c.c;d.firstChild.innerHTML=iconHTML(g[1]);d.lastChild.textContent=g[0];if(S.z<15)d.lastChild.style.display='none';
   d.addEventListener('pointerdown',function(e){e.stopPropagation()});d.onclick=function(e){e.stopPropagation();openBuiltin(g,'Map point')};PL.appendChild(d)})})}
+/* ===== nearest point of a type, from GPS (works offline) ===== */
+function loadAround(lat,lon){if(!BUNDLED)return;var w=ll2w(lat,lon,BZ),tx=Math.floor(w[0]/256),ty=Math.floor(w[1]/256);
+  for(var dx=-1;dx<=1;dx++)for(var dy=-1;dy<=1;dy++){var k=(tx+dx)+'_'+(ty+dy);if(BTst[k]||!BMETA.set[k])continue;BTst[k]='l';
+    (function(k){fetch('poi/9/'+k+'.json').then(function(r){return r.json()}).then(function(a){BT[k]=a;BTst[k]='ok';BORDER.push(k)}).catch(function(){BTst[k]='err'})})(k)}}
+window.findNearestOnMap=function(cat){var nm={medical:'hospital or clinic',water:'water source',shelter:'shelter',fuel:'fuel'}[cat]||'point';
+  gpsCenter=true;startGps();var t0=Date.now();toast('Finding the nearest '+nm+'…',6000);
+  (function wait(){if(!gps){if(Date.now()-t0<25000)return setTimeout(wait,400);toast('Need a GPS fix first. Try again outside.',4000);return}
+    loadAround(gps.lat,gps.lon);
+    if(BUNDLED&&Object.keys(BTst).some(function(k){return BTst[k]==='l'})&&Date.now()-t0<12000)return setTimeout(wait,300);
+    var best=null,bd=1e9;function chk(g){if(g[1]!==cat)return;if(cat==='medical'&&!/hospital|clinic|medical|emergency/i.test(g[0]+' '+g[4]))return;var d=dist(gps.lat,gps.lon,g[2],g[3]);if(d<bd){bd=d;best=g}}
+    GN.forEach(chk);Object.keys(BT).forEach(function(k){BT[k].forEach(chk)});Object.keys(POI).forEach(function(k){POI[k].forEach(chk)});
+    pins.forEach(function(p){chk([p.name,p.cat,p.lat,p.lon,p.notes||''])});
+    if(!best){toast('No '+nm+' found within about 50 miles in the saved data.',4500);return}
+    S.lat=best[2];S.lon=best[3];S.z=Math.min(15,maxZ());save();render();openBuiltin(best)})()};
 /* ===== points bundled inside the app (whole U.S., built from OpenStreetMap at release time) ===== */
 var BUNDLED=false,BMETA=null,BZ=9,BT={},BTst={},BORDER=[],PLACES=[];
 try{fetch('poi/meta.json').then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(m){BMETA=m;BMETA.set={};(m.tiles||[]).forEach(function(k){BMETA.set[k]=1});BUNDLED=true;render()}).catch(function(){})}catch(e){}
@@ -868,7 +958,7 @@ function renderBundled(o){if(S.z<10)return;var sz=size(),cnt=0,keys=bKeys();
     var w=ll2w(g[2],g[3],S.z),x=w[0]-o[0],y=w[1]-o[1];if(x<-20||y<-20||x>sz[0]+20||y>sz[1]+20)return;cnt++;
     if(g[1]==='place'){var lb=document.createElement('div');lb.className='plabel small';lb.textContent=g[0];lb.style.left=x+'px';lb.style.top=y+'px';PL.appendChild(lb);return}
     var c=CATS[g[1]]||CATS.other,d=document.createElement('div');d.className='bpin';d.style.left=x+'px';d.style.top=y+'px';d.innerHTML='<i></i><b></b>';
-    d.firstChild.style.background=c.c;d.firstChild.textContent=c.e;d.lastChild.textContent=g[0];if(S.z<15)d.lastChild.style.display='none';
+    d.firstChild.style.background=c.c;d.firstChild.innerHTML=iconHTML(g[1]);d.lastChild.textContent=g[0];if(S.z<15)d.lastChild.style.display='none';
     d.addEventListener('pointerdown',function(e){e.stopPropagation()});d.onclick=function(e){e.stopPropagation();openBuiltin(g,'Map point')};PL.appendChild(d)})})}
 function renderPlaces(o){if(!PLACES.length||hidden.place||S.z>=12)return;var sz=size(),n=0;
   var taken=[];
@@ -927,7 +1017,7 @@ function renderTopChips(){var f=document.getElementById('fbar');f.innerHTML='';
   var all=document.createElement('button');var anyOff=FILTERS.some(function(x){return hidden[x[0]]});all.className='fchip';all.textContent=anyOff?'Show all':'Hide all';
   all.onclick=function(){var off=!FILTERS.some(function(x){return hidden[x[0]]});FILTERS.forEach(function(x){hidden[x[0]]=off});store.set('pinhide',hidden);render();renderTopChips()};f.appendChild(all);
   FILTERS.forEach(function(x){var k=x[0],c=CATS[k]||{e:'📍',c:'#a0522d'};var b=document.createElement('button');b.className='fchip'+(hidden[k]?' off':'');
-    b.innerHTML='<i></i><span></span>';b.firstChild.style.background=c.c;b.firstChild.textContent=c.e;b.lastChild.textContent=x[1];
+    b.innerHTML='<i></i><span></span>';b.firstChild.style.background=c.c;b.firstChild.innerHTML=iconHTML(k);b.lastChild.textContent=x[1];
     b.onclick=function(){hidden[k]=!hidden[k];store.set('pinhide',hidden);render();renderTopChips()};f.appendChild(b)})}
 function renderList(){var L=document.getElementById('pinList');L.innerHTML='';var ref=gps||{lat:S.lat,lon:S.lon};
   document.getElementById('listFrom').textContent=gps?'· distance from you':'· distance from map center';
@@ -935,16 +1025,16 @@ function renderList(){var L=document.getElementById('pinList');L.innerHTML='';va
   pins.slice().sort(function(a,b){return dist(ref.lat,ref.lon,a.lat,a.lon)-dist(ref.lat,ref.lon,b.lat,b.lon)}).forEach(function(p){
     var c=CATS[p.cat]||CATS.other,mi=dist(ref.lat,ref.lon,p.lat,p.lon),b=brg(ref.lat,ref.lon,p.lat,p.lon);
     var r=document.createElement('div');r.className='prow';r.innerHTML='<div class="ic"></div><div class="t"><b></b><small></small></div><div class="d"></div>';
-    r.children[0].style.background=c.c;r.children[0].textContent=c.e;r.querySelector('b').textContent=p.name||c.n;r.querySelector('small').textContent=c.n+(p.notes?' · '+p.notes:'');
+    r.children[0].style.background=c.c;r.children[0].innerHTML=iconHTML(p.cat);r.querySelector('b').textContent=p.name||c.n;r.querySelector('small').textContent=c.n+(p.notes?' · '+p.notes:'');
     r.children[2].innerHTML=fmtD(mi)+'<br>'+Math.round(b)+'° '+card(b);if(hidden[p.cat])r.style.opacity=.45;
-    r.onclick=function(){S.lat=p.lat;S.lon=p.lon;if(S.z<15)S.z=Math.min(15,maxZ());save();render();openPin(p)};L.appendChild(r)});
+    r.onclick=function(){S.lat=p.lat;S.lon=p.lon;if(S.z<15)S.z=Math.min(15,maxZ());save();render();openPin(p);sheetOff('sList')};L.appendChild(r)});
   nearBuiltins(L,ref)}
 function nearBuiltins(L,ref){var h=document.createElement('h4');h.style.marginTop='16px';h.textContent='Nearest map points';L.appendChild(h);
   GN.concat([].concat.apply([],Object.keys(POI).map(function(k){return POI[k]}))).filter(function(g){return g[1]!=='place'&&!hidden[g[1]]}).map(function(g){return[g,dist(ref.lat,ref.lon,g[2],g[3])]}).sort(function(a,b){return a[1]-b[1]}).slice(0,15).forEach(function(a){
     var g=a[0],c=CATS[g[1]],b=brg(ref.lat,ref.lon,g[2],g[3]),r=document.createElement('div');r.className='prow';
-    r.innerHTML='<div class="ic"></div><div class="t"><b></b><small></small></div><div class="d"></div>';r.children[0].style.background=c.c;r.children[0].textContent=c.e;
+    r.innerHTML='<div class="ic"></div><div class="t"><b></b><small></small></div><div class="d"></div>';r.children[0].style.background=c.c;r.children[0].innerHTML=iconHTML(g[1]);
     r.querySelector('b').textContent=g[0];r.querySelector('small').textContent=c.n+(g[4]?' · '+g[4]:'');r.children[2].innerHTML=fmtD(a[1])+'<br>'+Math.round(b)+'° '+card(b);
-    r.onclick=function(){S.lat=g[2];S.lon=g[3];if(S.z<15)S.z=Math.min(15,maxZ());save();render();openBuiltin(g)};L.appendChild(r)})}
+    r.onclick=function(){S.lat=g[2];S.lon=g[3];if(S.z<15)S.z=Math.min(15,maxZ());save();render();openBuiltin(g);sheetOff('sList')};L.appendChild(r)})}
 /* pin editor */
 var editing=null;
 function catChips(sel){var el=document.getElementById('pCats');el.innerHTML='';Object.keys(CATS).forEach(function(k){var c=document.createElement('button');c.className='chip'+(sel===k?' on':'');
@@ -952,8 +1042,61 @@ function catChips(sel){var el=document.getElementById('pCats');el.innerHTML='';O
 function info(p){var s=p.lat.toFixed(5)+', '+p.lon.toFixed(5);if(p.elev!=null)s+=' · elev '+Math.round(p.elev*3.281).toLocaleString()+' ft';
   if(gps){var mi=dist(gps.lat,gps.lon,p.lat,p.lon),b=brg(gps.lat,gps.lon,p.lat,p.lon);s+=' · '+fmtD(mi)+' at '+Math.round(b)+'° '+card(b)+' from you'}
   if(p.addr)s+=' · '+p.addr;document.getElementById('pInfo').textContent=s}
-function openBuiltin(g,ttl){editing={id:null,lat:g[2],lon:g[3],cat:g[1]==='place'?'other':g[1],name:g[0],notes:g[4]||''};showEditor('USGS map point');if(ttl)document.getElementById('pinTitle').textContent=ttl;
-  document.getElementById('pSaveBtn').textContent='Save copy to my pins';elev(editing)}
+function sheetOff(id){document.getElementById(id).classList.remove('on')}
+/* ---- point details: tap any icon ---- */
+var cur=null;
+function openBuiltin(g){openDetail({name:g[0],cat:g[1]==='place'?'other':g[1],lat:g[2],lon:g[3],note:g[4]||''})}
+function openPin(p){selId=p.id;render();openDetail({name:p.name||(CATS[p.cat]||CATS.other).n,cat:p.cat,lat:p.lat,lon:p.lon,note:p.notes||'',elev:p.elev,addr:p.addr,pinId:p.id})}
+function gmapsDir(o){return 'https://www.google.com/maps/dir/?api=1&destination='+o.lat.toFixed(6)+','+o.lon.toFixed(6)+(gps?'&origin='+gps.lat.toFixed(6)+','+gps.lon.toFixed(6):'')}
+function openDetail(o){cur=o;var c=CATS[o.cat]||CATS.other;
+  var di=document.getElementById('dIcon');di.style.background=c.c;di.innerHTML=iconHTML(o.cat);
+  document.getElementById('dName').textContent=o.name;document.getElementById('dCat').textContent=c.n+(o.pinId?' · your pin':'');
+  document.getElementById('dNote').textContent=[o.note,o.addr].filter(Boolean).join(' · ');document.getElementById('dNote').style.display=(o.note||o.addr)?'':'none';
+  document.getElementById('dCoord').textContent=o.lat.toFixed(5)+', '+o.lon.toFixed(5);
+  document.getElementById('aNav').href=gmapsDir(o);
+  document.getElementById('aGeo').href='geo:'+o.lat.toFixed(6)+','+o.lon.toFixed(6)+'?q='+o.lat.toFixed(6)+','+o.lon.toFixed(6)+'('+encodeURIComponent(o.name)+')';
+  document.getElementById('aStreet').href='https://www.google.com/maps/@?api=1&map_action=pano&viewpoint='+o.lat.toFixed(6)+','+o.lon.toFixed(6);
+  document.querySelector('#aSave span').textContent=o.pinId?'Edit pin':'Save';
+  detailStats();sheet('sDetail');document.getElementById('sDetail').classList.add('on');lucideRefresh();
+  if(o.elev==null)elev(o)}
+function detailStats(){if(!cur)return;var o=cur;
+  if(gps){var mi=dist(gps.lat,gps.lon,o.lat,o.lon),b=brg(gps.lat,gps.lon,o.lat,o.lon);document.getElementById('dDist').textContent=fmtD(mi);document.getElementById('dBrg').textContent=Math.round(b)+'° '+card(b)}
+  else{document.getElementById('dDist').textContent='—';document.getElementById('dBrg').textContent='Need GPS'}
+  document.getElementById('dElev').textContent=o.elev!=null?Math.round(o.elev*3.281).toLocaleString()+' ft':'—'}
+document.getElementById('aCenter').onclick=function(){if(!cur)return;S.lat=cur.lat;S.lon=cur.lon;if(S.z<15)S.z=Math.min(16,maxZ());save();render();sheetOff('sDetail')};
+document.getElementById('aCopy').onclick=function(){if(!cur)return;var t=cur.lat.toFixed(6)+', '+cur.lon.toFixed(6);
+  try{navigator.clipboard.writeText(t).then(function(){toast('Copied '+t)},function(){toast(t,5000)})}catch(e){toast(t,5000)}};
+document.getElementById('aSave').onclick=function(){if(!cur)return;sheetOff('sDetail');
+  if(cur.pinId){var p=pins.filter(function(x){return x.id===cur.pinId})[0];if(p){editing=JSON.parse(JSON.stringify(p));showEditor('Edit pin')}return}
+  editing={id:null,lat:cur.lat,lon:cur.lon,cat:CATS[cur.cat]?cur.cat:'other',name:cur.name,notes:cur.note||'',elev:cur.elev};showEditor('Save to my pins')};
+/* ---- offline guidance: compass arrow + live distance from GPS ---- */
+var G=null,heading=null,orientOn=false,arrived=false;
+function onOrient(e){var h=null;if(e.webkitCompassHeading!=null)h=e.webkitCompassHeading;else if(e.absolute&&e.alpha!=null)h=360-e.alpha;
+  if(h!=null){var so=(screen.orientation&&screen.orientation.angle)||window.orientation||0;heading=(h+so+360)%360;guideTick()}}
+function startOrient(){if(orientOn)return;orientOn=true;
+  try{if(window.DeviceOrientationEvent&&DeviceOrientationEvent.requestPermission)DeviceOrientationEvent.requestPermission().catch(function(){})}catch(e){}
+  if('ondeviceorientationabsolute' in window)window.addEventListener('deviceorientationabsolute',onOrient);else window.addEventListener('deviceorientation',onOrient)}
+function startGuide(o){G=o;arrived=false;document.getElementById('gName').textContent=o.name;document.getElementById('gNav').href=gmapsDir(o);
+  document.getElementById('guide').classList.add('on');sheetOff('sDetail');startOrient();lucideRefresh();
+  if(!gps)startGps();try{if(navigator.wakeLock)navigator.wakeLock.request('screen').then(function(l){G&&(G.lock=l)}).catch(function(){})}catch(e){}
+  guideTick();render()}
+function endGuide(){if(G&&G.lock)try{G.lock.release()}catch(e){}G=null;document.getElementById('guide').classList.remove('on');render()}
+function guideTick(){if(!G)return;var A=document.getElementById('gArrow'),D=document.getElementById('gDist'),Sb=document.getElementById('gSub'),H=document.getElementById('gHint');
+  if(!gps){D.textContent='—';Sb.textContent='Waiting for GPS…';H.textContent='Step outside or near a window for a faster fix.';return}
+  var mi=dist(gps.lat,gps.lon,G.lat,G.lon),b=brg(gps.lat,gps.lon,G.lat,G.lon);
+  var hd=heading!=null?heading:(gps.hd!=null&&gps.spd>0.8?gps.hd:null);
+  A.style.transform='rotate('+((b-(hd||0))%360)+'deg)';D.textContent=fmtD(mi);
+  var walk=mi/3*60;Sb.textContent=Math.round(b)+'° '+card(b)+' · ~'+(walk<90?Math.max(1,Math.round(walk))+' min':(walk/60).toFixed(1)+' hr')+' walk (straight line)';
+  H.textContent=hd==null?'No compass reading yet. Hold the phone flat. Until then the arrow points relative to north (top of the circle).':'Hold the phone flat and walk where the arrow points. Accuracy ±'+Math.round(gps.acc*3.281)+' ft.';
+  if(mi<0.02&&!arrived){arrived=true;D.textContent='Arrived';try{navigator.vibrate&&navigator.vibrate([120,60,120])}catch(e){}}}
+document.getElementById('aGuide').onclick=function(){if(cur)startGuide(cur)};
+document.getElementById('gEnd').onclick=endGuide;
+document.getElementById('gMap').onclick=function(){if(!G)return;document.getElementById('guide').classList.remove('on');
+  if(gps){S.lat=(gps.lat+G.lat)/2;S.lon=(gps.lon+G.lon)/2;var z=16,sz=size();for(;z>4;z--){var a=ll2w(gps.lat,gps.lon,z),b=ll2w(G.lat,G.lon,z);if(Math.abs(a[0]-b[0])<sz[0]-80&&Math.abs(a[1]-b[1])<sz[1]-240)break}S.z=Math.min(z,maxZ())}
+  save();render();toast('Tap the target again, then "Guide me", to reopen the compass')};
+function drawRoute(o){var sv=document.getElementById('route');if(!G||!gps){sv.innerHTML='';return}
+  var a=ll2w(gps.lat,gps.lon,S.z),b=ll2w(G.lat,G.lon,S.z);
+  sv.innerHTML='<line x1="'+(a[0]-o[0])+'" y1="'+(a[1]-o[1])+'" x2="'+(b[0]-o[0])+'" y2="'+(b[1]-o[1])+'" stroke="#10b981" stroke-width="4" stroke-dasharray="10 8" stroke-linecap="round"/><circle cx="'+(b[0]-o[0])+'" cy="'+(b[1]-o[1])+'" r="10" fill="none" stroke="#10b981" stroke-width="3"/>'}
 function newPin(lat,lon){editing={id:null,lat:lat,lon:lon,cat:'other',name:'',notes:''};showEditor('New pin');elev(editing)}
 function openPin(p){selId=p.id;editing=JSON.parse(JSON.stringify(p));render();showEditor('Edit pin');if(p.elev==null)elev(editing)}
 function showEditor(t){document.getElementById('pSaveBtn').textContent='Save pin';document.getElementById('pinTitle').textContent=t;document.getElementById('pName').value=editing.name||'';document.getElementById('pNotes').value=editing.notes||'';
@@ -967,25 +1110,46 @@ document.getElementById('pDel').onclick=function(){var id=editing.id;pins=pins.f
 document.getElementById('pGoto').onclick=function(){S.lat=editing.lat;S.lon=editing.lon;save();render()};
 document.getElementById('bAdd').onclick=function(){newPin(S.lat,S.lon)};
 /* GPS */
-var watch=null;document.getElementById('bGps').onclick=function(){
-  if(gps){S.lat=gps.lat;S.lon=gps.lon;if(S.z<15)S.z=Math.min(16,maxZ());save();render();return}
-  if(!navigator.geolocation){toast('No GPS available in this viewer');return}
+var watch=null,gpsCenter=false;
+function startGps(){if(watch!=null)return;if(!navigator.geolocation){toast('No GPS on this device');return}
   toast('Finding you…',4000);
-  try{watch=navigator.geolocation.watchPosition(function(p){var first=!gps;gps={lat:p.coords.latitude,lon:p.coords.longitude,acc:p.coords.accuracy};
-    document.getElementById('bGps').classList.add('on');if(first){S.lat=gps.lat;S.lon=gps.lon;if(S.z<15)S.z=Math.min(16,maxZ());save();toast('Located ±'+Math.round(gps.acc*3.281)+' ft')}render()},
-    function(err){toast(err.code===1?'Location blocked here: open the downloaded file in Chrome':'GPS unavailable right now',4000)},{enableHighAccuracy:true,maximumAge:5000,timeout:20000})}catch(e){toast('GPS unavailable in this viewer')}};
+  try{watch=navigator.geolocation.watchPosition(function(p){var first=!gps;gps={lat:p.coords.latitude,lon:p.coords.longitude,acc:p.coords.accuracy,hd:p.coords.heading,spd:p.coords.speed};
+    document.getElementById('bGps').classList.add('on');if(first){if(gpsCenter){S.lat=gps.lat;S.lon=gps.lon;if(S.z<15)S.z=Math.min(16,maxZ());save()}toast('Located ±'+Math.round(gps.acc*3.281)+' ft')}
+    render();detailStats();guideTick()},
+    function(err){watch=null;toast(err.code===1?'Location permission is off. Turn it on for Survival App in phone settings.':'GPS unavailable right now',4500)},{enableHighAccuracy:true,maximumAge:3000,timeout:25000})}catch(e){toast('GPS unavailable here')}}
+document.getElementById('bGps').onclick=function(){if(gps){S.lat=gps.lat;S.lon=gps.lon;if(S.z<15)S.z=Math.min(16,maxZ());save();render();return}gpsCenter=true;startGps()};
 /* search (online) */
 function doSearch(){var q=document.getElementById('mSearch').value.trim();if(!q)return;
   var m=q.match(/^\s*(-?\d+(\.\d+)?)\s*[, ]\s*(-?\d+(\.\d+)?)\s*$/);if(m){S.lat=+m[1];S.lon=+m[3];S.z=Math.max(S.z,15);save();render();return}
-  toast('Searching…');
+  var L=document.getElementById('pinList');L.innerHTML='';document.getElementById('listFrom').textContent='· results';
+  var ql=q.toLowerCase(),ref=gps||{lat:S.lat,lon:S.lon},hits=[];
+  function add(name,cat,lat,lon,note,kind){if(String(name).toLowerCase().indexOf(ql)>=0)hits.push({name:name,cat:cat,lat:lat,lon:lon,note:note,kind:kind,d:dist(ref.lat,ref.lon,lat,lon)})}
+  PLACES.forEach(function(p){add(p[0],'place',p[1],p[2],p[3]===1?'City':'Town','place')});
+  pins.forEach(function(p){add(p.name||'',p.cat,p.lat,p.lon,p.notes,'pin')});
+  GN.forEach(function(g){add(g[0],g[1],g[2],g[3],g[4],'pt')});
+  Object.keys(BT).forEach(function(k){BT[k].forEach(function(g){add(g[0],g[1],g[2],g[3],g[4],'pt')})});
+  Object.keys(POI).forEach(function(k){POI[k].forEach(function(g){add(g[0],g[1],g[2],g[3],g[4],'pt')})});
+  /* category words: "water", "hospital", "fuel"... */
+  var CW={water:'water',spring:'water',hospital:'medical',medical:'medical',clinic:'medical',pharmacy:'medical',fire:'fire',police:'fire',shelter:'shelter',fuel:'fuel',gas:'fuel',food:'supply',grocery:'supply',store:'supply',camp:'camp',peak:'rally'};
+  var cw=CW[ql.replace(/s$/,'')];if(cw){Object.keys(BT).forEach(function(k){BT[k].forEach(function(g){if(g[1]===cw)hits.push({name:g[0],cat:g[1],lat:g[2],lon:g[3],note:g[4],kind:'pt',d:dist(ref.lat,ref.lon,g[2],g[3])})})});
+    GN.forEach(function(g){if(g[1]===cw)hits.push({name:g[0],cat:g[1],lat:g[2],lon:g[3],note:g[4],kind:'pt',d:dist(ref.lat,ref.lon,g[2],g[3])})})}
+  var seenH={};hits=hits.filter(function(h){var k=h.name+h.lat;if(seenH[k])return false;seenH[k]=1;return true}).sort(function(a,b){return(a.kind==='place'?0:1)-(b.kind==='place'?0:1)||a.d-b.d}).slice(0,25);
+  var hd=document.createElement('div');hd.className='sres';hd.textContent=hits.length?'On this phone':'Nothing saved on this phone matches. Checking online…';L.appendChild(hd);
+  hits.forEach(function(h){var c=CATS[h.cat]||CATS.other,row=document.createElement('div');row.className='prow';
+    row.innerHTML='<div class="ic"></div><div class="t"><b></b><small></small></div><div class="d"></div>';row.children[0].style.background=c.c;row.children[0].innerHTML=iconHTML(h.cat);
+    row.querySelector('b').textContent=h.name;row.querySelector('small').textContent=(h.note||c.n);row.children[2].textContent=fmtD(h.d);
+    row.onclick=function(){S.lat=h.lat;S.lon=h.lon;S.z=h.kind==='place'?Math.max(12,Math.min(13,maxZ())):Math.min(16,maxZ());save();render();sheetOff('sList');if(h.kind!=='place')openDetail({name:h.name,cat:h.cat,lat:h.lat,lon:h.lon,note:h.note||''})};L.appendChild(row)});
+  sheet('sList');document.getElementById('sList').classList.add('on');
+  if(navigator.onLine===false){if(!hits.length)hd.textContent='No matches on this phone, and you\'re offline.';return}
   try{fetch('https://nominatim.openstreetmap.org/search?format=json&limit=6&q='+encodeURIComponent(q)+'&countrycodes=us').then(function(r){return r.json()}).then(function(js){
-    if(!js.length){toast('No results');return}var L=document.getElementById('pinList');renderList();
-    var box=document.createElement('div');box.innerHTML='<h4>Search results</h4>';
+    if(!js.length){if(!hits.length)hd.textContent='No results';return}
+    var box=document.createElement('div');box.innerHTML='<div class="sres">Online results</div>';
     js.forEach(function(r){var d=document.createElement('div');d.className='prow';d.innerHTML='<div class="t"><b></b><small></small></div><div class="d">Go ›</div>';
       d.querySelector('b').textContent=r.display_name.split(',')[0];d.querySelector('small').textContent=r.display_name;
       d.onclick=function(){S.lat=+r.lat;S.lon=+r.lon;S.z=Math.min(16,maxZ());save();render();document.getElementById('sList').classList.remove('on');
-        editing={id:null,lat:+r.lat,lon:+r.lon,cat:'other',name:r.display_name.split(',')[0],notes:'',addr:r.display_name.split(',').slice(0,3).join(',')};};box.appendChild(d)});
-    L.insertBefore(box,L.firstChild);sheet('sList');document.getElementById('sList').classList.add('on')}).catch(function(){toast('Search needs a signal (and won\'t work inside the Claude viewer)',3500)})}catch(e){toast('Search unavailable here')}}
+        openDetail({name:r.display_name.split(',')[0],cat:'other',lat:+r.lat,lon:+r.lon,note:'',addr:r.display_name.split(',').slice(1,4).join(',')})};box.appendChild(d)});
+    L.appendChild(box)}).catch(function(){if(!hits.length)hd.textContent='No matches on this phone, and online search isn\'t reachable.'})}catch(e){}}
+var sT=null;document.getElementById('mSearch').addEventListener('input',function(){clearTimeout(sT);sT=setTimeout(function(){if(document.getElementById('mSearch').value.trim().length>=3&&navigator.onLine===false)doSearch()},500)});
 document.getElementById('mGo').onclick=doSearch;document.getElementById('mSearch').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();doSearch();e.target.blur()}});
 /* starter pins */
 var SEED=[
@@ -1230,6 +1394,7 @@ window.renderChecklist=function(){var c=document.getElementById('checklistItems'
     r.innerHTML='<input type="checkbox" '+(it.done?'checked':'')+' class="w-4 h-4" style="pointer-events:none"><span class="text-xs '+(it.done?'line-through text-slate-400':'text-slate-200')+'"></span>';r.lastChild.textContent=it.label;c.appendChild(r)});
   var pct=Math.round(n/savedChecklist.length*100);document.getElementById('checklistBar').style.width=pct+'%';document.getElementById('checklistText').textContent=n+'/'+savedChecklist.length+' ('+pct+'%)'};
 window.resetChecklist=function(){savedChecklist=checkDefault.map(function(i){return{id:i.id,label:i.label,done:false}});try{localStorage.setItem('aegis_prep_check2',JSON.stringify(savedChecklist))}catch(e){}renderChecklist()};
+window.findNearest=function(cat){openApp('map');setTimeout(function(){if(window.findNearestOnMap)findNearestOnMap(cat)},350)};
 window.__back=function(){if(openId){closeApp();return true}return false};
 /* init */
 net();bat();pills();search();renderAppGrid();
