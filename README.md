@@ -9,6 +9,7 @@ An offline emergency app for Android. It has a home screen of tools: a U.S. surv
 | Part | Where it lives |
 |---|---|
 | App screens and tools | `web/index.src.html`: one HTML page. Edit this file to change content. |
+| Library guides, gear tiers, app list | `tools/library_content.py`. Edit it, then run `python3 tools/library_content.py`. |
 | Map points (whole U.S.) | Built by `tools/build_poi.py` from OpenStreetMap at release time, stored in the APK, and loaded only for the area you're zoomed into |
 | Styling and icons | Tailwind CSS and Lucide are inlined at build time (`tools/build_web.py`), so nothing loads from the internet |
 | Android wrapper | `app/`: a WebView that shows the page |
@@ -22,6 +23,7 @@ Map data © OpenStreetMap contributors (ODbL). Local points for The Dalles come 
 
 ## Updates
 
+- **Nov 15, 2026 (redesign)**: Black-and-yellow look with a floating oval dock, a center quick-action button (nearest hospital, water, shelter, fuel, first aid) and a slide-up menu. Every section opens with a short overview. New offline **Survival Library**: 43 guides, gear from budget to premium, and recommended apps, with dropdown filters. Map: one Filters button, a cleaner point menu, and **Take me there** with drive, bike or walk routes, ETA, turn-by-turn and live position (needs signal), Compass mode offline, and a Google Maps/Waze handoff for live closures. Swiping left now opens the map. New app icon.
 - **Nov 15, 2026 (fixer-upper)**: Tap any map icon for details and actions: **Guide me** (an offline compass arrow with live distance), Directions, open in your map app, Street View, Save, and Copy GPS. Added one-tap **Find nearest** hospital, water, shelter and fuel on the home screen. Search now finds towns and points saved on the phone with no signal. New icon set and cleaner panels.
 - **Nov 15, 2026 (fix)**: Every build now uses the same signing key, so updates install over the old app. If you installed an earlier version, uninstall it once first.
 - **Nov 15, 2026**: New home-screen layout (AEGIS). Emergency points for the whole U.S. now come built in: hospitals, fire and police, water, shelters, fuel, food, campgrounds, peaks and towns. The map opens in satellite view and has a one-button map-type switch. Added a triage tree, calculators and an offline-downloads checklist. About 790,000 points and 7,700 city and town labels.
