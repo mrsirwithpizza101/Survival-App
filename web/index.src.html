@@ -217,6 +217,21 @@ section.on{display:block}
 .rlive{margin-top:14px;background:#1a1405;border:1px solid #facc1533;border-radius:16px;padding:12px}
 .rlh{display:flex;align-items:center;gap:8px;color:#facc15;font-weight:700;font-size:.85rem}.rlh svg{width:17px;height:17px}
 .rlive p{font-size:.8rem;color:#cfcfcf;margin:6px 0 0}
+.rfrom{display:flex;align-items:center;gap:10px;padding:8px 2px;border-bottom:1px solid #1f1f1f}
+.rdot{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:800;flex:0 0 auto}.rdot.a{background:#3d8bfd;color:#fff}.rdot.b{background:#facc15;color:#111}
+.rft{flex:1;min-width:0}.rft small{display:block;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:#888}.rft b{display:block;color:#eee;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rfrom button{background:#1c1c1c;border:1px solid #2c2c2c;color:#facc15;border-radius:999px;padding:6px 12px;font:inherit;font-size:.78rem;font-weight:700}
+.rfopts{display:none;flex-direction:column;background:#161616;border:1px solid #2a2a2a;border-radius:14px;margin:8px 0;overflow:hidden}.rfopts.on{display:flex}
+.rfopts button{display:flex;align-items:center;gap:10px;padding:12px 14px;background:none;border:0;border-bottom:1px solid #222;color:#e5e5e5;font:inherit;font-size:.88rem;text-align:left}.rfopts svg{width:17px;height:17px;color:#facc15}
+.nmore{display:block;font-style:normal;font-size:.7rem;font-weight:700;opacity:.6;margin-top:2px}
+.navtop{cursor:pointer}
+.nsteps{position:absolute;left:10px;right:10px;top:104px;z-index:7;max-height:58%;overflow:auto;background:#111;border:1px solid #2a2a2a;border-radius:20px;display:none;box-shadow:0 10px 28px #000c}
+.nsteps.on{display:block}
+.nst{display:flex;align-items:center;gap:12px;padding:12px 14px;border-bottom:1px solid #1f1f1f}
+.nst .si{width:34px;height:34px;border-radius:10px;background:#1f1f1f;color:#facc15;display:flex;align-items:center;justify-content:center;flex:0 0 auto}.nst .si svg{width:20px;height:20px}
+.nst .st{flex:1;min-width:0;color:#e5e5e5;font-size:.88rem;line-height:1.3}.nst .sd{color:#aaa;font-size:.8rem;text-align:right;white-space:nowrap}
+.nst.done{opacity:.35}.nst.now{background:#facc1514}.nst.now .si{background:#facc15;color:#111}
+.nsh{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;color:#facc15;font-weight:800;font-size:.85rem;border-bottom:1px solid #2a2a2a;position:sticky;top:0;background:#111}
 .navtop{position:absolute;left:10px;right:10px;top:10px;z-index:7;display:none;align-items:center;gap:12px;background:#facc15;color:#111;border-radius:22px;padding:12px 14px;box-shadow:0 8px 24px #000a}
 .navtop.on,.navbot.on{display:flex}
 .nman{width:46px;height:46px;flex:0 0 auto;display:flex;align-items:center;justify-content:center}.nman svg{width:38px;height:38px}
@@ -249,7 +264,7 @@ body.navigating .mtop,body.navigating .mside,body.navigating .mbl,body.navigatin
 .gstats span{display:block;color:#94a3b8;font-size:.9rem;margin-top:2px}
 .ghint{font-size:.78rem;color:#94a3b8;text-align:center;max-width:320px;margin:0}
 .gbtns{display:flex;gap:8px;width:100%}.gbtns .act{flex:1}
-#route{position:absolute;inset:0;pointer-events:none;z-index:1}
+#route{position:absolute;left:0;top:0;width:100%;height:100%;overflow:visible;pointer-events:none;z-index:1}
 .sres{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--mute);margin:12px 0 2px}
 .sheet{position:absolute;left:0;right:0;bottom:0;max-height:72%;overflow:auto;background:#0f172aee;border-top:1px solid var(--line);border-radius:16px 16px 0 0;padding:14px 16px 24px;z-index:5;display:none;box-shadow:0 -8px 24px #0008}
 .sheet.on{display:block}
@@ -438,23 +453,28 @@ footer{color:var(--mute);font-size:.8rem;max-width:860px;margin:0 auto;padding:0
         <a id="aGeo" href="#"><i data-lucide="map"></i> Open in offline map app</a>
         <button id="aCenter"><i data-lucide="crosshair"></i> Center map here</button>
         <button id="aCopy"><i data-lucide="copy"></i> Copy GPS coordinates</button>
+        <button id="aFrom"><i data-lucide="flag"></i> Route from here (set as start)</button>
       </div>
       <p class="dcoord" id="dCoord"></p>
     </div>
     <div class="sheet" id="sRoute"><button class="x" data-close>×</button>
       <h4 id="rTitle">Route</h4>
+      <div class="rfrom"><span class="rdot a">A</span><div class="rft"><small>From</small><b id="rFrom">My location</b></div><button id="rFromBtn">Change</button></div>
+      <div class="rfrom"><span class="rdot b">B</span><div class="rft"><small>To</small><b id="rTo"></b></div></div>
+      <div class="rfopts" id="rFromOpts"><button data-f="me"><i data-lucide="locate-fixed"></i> My location</button><button data-f="cross"><i data-lucide="crosshair"></i> Map center (crosshair)</button><button data-f="search"><i data-lucide="search"></i> Search a start place</button></div>
       <div class="seg2" id="rModes">
         <button data-m="car"><i data-lucide="car"></i>Drive</button><button data-m="bike"><i data-lucide="bike"></i>Bike</button><button data-m="foot"><i data-lucide="footprints"></i>Walk</button><button data-m="compass"><i data-lucide="compass"></i>Compass</button>
       </div>
       <div class="rsum" id="rSum"></div>
-      <button class="act primary" id="rStart"><i data-lucide="navigation"></i> Start</button>
+      <div class="frow2" style="margin-top:0"><button class="act" id="rPreview"><i data-lucide="list"></i> Steps &amp; overview</button><button class="act primary" id="rStart" style="grid-column:auto;padding:12px"><i data-lucide="navigation"></i> Start</button></div>
       <div class="rlive">
         <div class="rlh"><i data-lucide="triangle-alert"></i> Live closures &amp; traffic</div>
         <p id="rLiveTxt">Live road closures and delays come from traffic services. Check before you go, and follow official detours.</p>
         <div class="frow2"><a class="act" id="rG" href="#" target="_blank" rel="noopener">Google Maps</a><a class="act" id="rW" href="#" target="_blank" rel="noopener">Waze</a></div>
       </div>
     </div>
-    <div class="navtop" id="navTop"><div class="nman" id="nIcon"></div><div class="ntx"><b id="nDist"></b><span id="nText"></span></div><button id="nVoice" class="nvb"><i data-lucide="volume-2"></i></button></div>
+    <div class="nsteps" id="nSteps"></div>
+    <div class="navtop" id="navTop"><div class="nman" id="nIcon"></div><div class="ntx"><b id="nDist"></b><span id="nText"></span><em class="nmore">Tap for all turns ▾</em></div><button id="nVoice" class="nvb"><i data-lucide="volume-2"></i></button></div>
     <div class="navbot" id="navBot"><div><b id="nEta"></b><span id="nRem"></span></div><button class="nrc" id="nRecenter"><i data-lucide="locate-fixed"></i></button><button class="nend" id="nEnd">End</button></div>
     <div class="guide" id="guide">
       <div class="gtop"><span id="gName"></span><button id="gEnd">End</button></div>
@@ -1222,7 +1242,8 @@ function guideTick(){if(!G)return;var A=document.getElementById('gArrow'),D=docu
 document.getElementById('aGuide').onclick=function(){if(cur)startGuide(cur)};
 document.getElementById('aMore').onclick=function(){document.getElementById('dMore').classList.toggle('on')};
 /* ===== routes: drive / bike / walk (needs signal), compass (offline) ===== */
-var RT={mode:store.get('rmode','car'),dest:null,route:null},NAV=null,voiceOn=store.get('voice',true);
+var RT={mode:store.get('rmode','car'),dest:null,route:null,from:null},NAV=null,voiceOn=store.get('voice',true);
+function origin0(){return RT.from||gps}
 var OSRM={car:'routed-car',bike:'routed-bike',foot:'routed-foot'};
 function fmtMin(sec){var m=Math.round(sec/60);return m<60?Math.max(1,m)+' min':Math.floor(m/60)+' hr '+(m%60?m%60+' min':'')}
 function fmtMi(m){var mi=m/1609.34;return mi<0.2?Math.round(m*3.281)+' ft':mi.toFixed(mi<10?1:0)+' mi'}
@@ -1230,15 +1251,15 @@ function arrival(sec){var d=new Date(Date.now()+sec*1000);return d.toLocaleTimeS
 function liveLinks(o){var tm={car:'driving',bike:'bicycling',foot:'walking',compass:'walking'}[RT.mode];
   document.getElementById('rG').href='https://www.google.com/maps/dir/?api=1&destination='+o.lat.toFixed(6)+','+o.lon.toFixed(6)+'&travelmode='+tm;
   document.getElementById('rW').href='https://waze.com/ul?ll='+o.lat.toFixed(6)+','+o.lon.toFixed(6)+'&navigate=yes'}
-function openRoute(o){RT.dest=o;RT.route=null;document.getElementById('rTitle').textContent='Route to '+o.name;
+function openRoute(o){RT.dest=o;RT.route=null;document.getElementById('rTitle').textContent='Route';document.getElementById('rTo').textContent=o.name;document.getElementById('rFrom').textContent=RT.from?RT.from.name:'My location';document.getElementById('rFromOpts').classList.remove('on');
   sheetOff('sDetail');sheet('sRoute');document.getElementById('sRoute').classList.add('on');setMode(RT.mode);lucideRefresh()}
 function setMode(m){RT.mode=m;store.set('rmode',m);[].forEach.call(document.querySelectorAll('#rModes button'),function(b){b.classList.toggle('on',b.getAttribute('data-m')===m)});
   liveLinks(RT.dest);var S2=document.getElementById('rSum');
-  if(m==='compass'){var t=gps?fmtD(dist(gps.lat,gps.lon,RT.dest.lat,RT.dest.lon))+' straight line':'Needs a GPS fix';S2.innerHTML='<b></b><span>Arrow + distance. Works with no signal.</span>';S2.firstChild.textContent=t;return}
-  if(!gps){S2.innerHTML='<span>Finding your location…</span>';startGps();var w=setInterval(function(){if(gps){clearInterval(w);if(RT.mode===m&&document.getElementById('sRoute').classList.contains('on'))setMode(m)}},700);setTimeout(function(){clearInterval(w)},30000);return}
-  S2.innerHTML='<span>Planning route…</span>';fetchRoute(gps,RT.dest,m,function(rt,err){if(RT.mode!==m)return;
+  if(m==='compass'){if(RT.from){RT.from=null;document.getElementById('rFrom').textContent='My location'}var t=gps?fmtD(dist(gps.lat,gps.lon,RT.dest.lat,RT.dest.lon))+' straight line':'Needs a GPS fix';S2.innerHTML='<b></b><span>Arrow + distance. Works with no signal.</span>';S2.firstChild.textContent=t;return}
+  var O=origin0();if(!O){S2.innerHTML='<span>Finding your location…</span>';startGps();var w=setInterval(function(){if(gps){clearInterval(w);if(RT.mode===m&&document.getElementById('sRoute').classList.contains('on'))setMode(m)}},700);setTimeout(function(){clearInterval(w)},30000);return}
+  S2.innerHTML='<span>Planning route…</span>';fetchRoute(O,RT.dest,m,function(rt,err){if(RT.mode!==m)return;
     if(!rt){S2.innerHTML='<span></span>';S2.firstChild.textContent=err||'Road routing needs signal. Compass works offline, or open an offline map app (Organic Maps or OsmAnd can route with no signal).';return}
-    RT.route=rt;S2.innerHTML='<b></b><span></span>';S2.firstChild.textContent=fmtMin(rt.duration);S2.lastChild.textContent=fmtMi(rt.distance)+' · arrive '+arrival(rt.duration);render()})}
+    RT.route=rt;S2.innerHTML='<b></b><span></span>';S2.firstChild.textContent=fmtMin(rt.duration);S2.lastChild.textContent=fmtMi(rt.distance)+(RT.from?'':' · arrive '+arrival(rt.duration));fitRoute(rt,true);render()})}
 [].forEach.call(document.querySelectorAll('#rModes button'),function(b){b.onclick=function(){setMode(b.getAttribute('data-m'))}});
 function fetchRoute(a,b,m,cb){if(navigator.onLine===false){cb(null,'You\'re offline. Use Compass, or an offline map app for road routing.');return}
   var u='https://routing.openstreetmap.de/'+OSRM[m]+'/route/v1/driving/'+a.lon.toFixed(6)+','+a.lat.toFixed(6)+';'+b.lon.toFixed(6)+','+b.lat.toFixed(6)+'?overview=full&geometries=geojson&steps=true';
@@ -1263,26 +1284,48 @@ function manIcon(st){var m=st.mod,t=st.type,n='arrow-up';if(t==='arrive')n='flag
   else if(/sharp left|^left/.test(m))n='corner-up-left';else if(/sharp right|^right/.test(m))n='corner-up-right';else if(m==='slight left')n='arrow-up-left';else if(m==='slight right')n='arrow-up-right';
   return '<i data-lucide="'+n+'"></i>'}
 document.getElementById('aGo').onclick=function(){if(cur)openRoute(cur)};
+/* fit the whole A→B route on screen (leaves room for the panel below) */
+function fitRoute(rt,sheetUp){var c=rt.coords,la0=90,la1=-90,lo0=180,lo1=-180;c.forEach(function(p){la0=Math.min(la0,p[0]);la1=Math.max(la1,p[0]);lo0=Math.min(lo0,p[1]);lo1=Math.max(lo1,p[1])});
+  var sz=size(),padY=sheetUp?Math.round(sz[1]*0.55):230,z=17;for(;z>3;z--){var a=ll2w(la1,lo0,z),b=ll2w(la0,lo1,z);if(b[0]-a[0]<sz[0]-70&&b[1]-a[1]<sz[1]-padY-90)break}
+  S.z=Math.min(z,maxZ());var m=ll2w((la0+la1)/2,(lo0+lo1)/2,S.z),ll=w2ll(m[0],m[1]+(sheetUp?padY/2-40:30),S.z);S.lat=ll[0];S.lon=ll[1];save()}
+/* choose start point A */
+document.getElementById('rFromBtn').onclick=function(){document.getElementById('rFromOpts').classList.toggle('on')};
+[].forEach.call(document.querySelectorAll('#rFromOpts button'),function(b){b.onclick=function(){var f=b.getAttribute('data-f');document.getElementById('rFromOpts').classList.remove('on');
+  if(f==='me'){RT.from=null}else if(f==='cross'){RT.from={name:'Map center '+S.lat.toFixed(4)+', '+S.lon.toFixed(4),lat:S.lat,lon:S.lon}}
+  else{sheetOff('sRoute');RT.pickStart=true;toast('Search for the start place, tap it, then tap More → Route from here',4500);document.getElementById('mSearch').focus();return}
+  document.getElementById('rFrom').textContent=RT.from?RT.from.name:'My location';if(RT.mode==='compass')RT.mode='car';setMode(RT.mode)}});
+document.getElementById('aFrom').onclick=function(){if(!cur)return;RT.from={name:cur.name,lat:cur.lat,lon:cur.lon};RT.pickStart=false;document.getElementById('dMore').classList.remove('on');
+  if(RT.dest&&RT.dest.name!==cur.name){openRoute(RT.dest)}else{sheetOff('sDetail');toast('Start set: '+cur.name+'. Now tap your destination → Take me there',4500)}};
+document.getElementById('rPreview').onclick=function(){if(RT.mode==='compass'){sheetOff('sRoute');startGuide(RT.dest);return}if(!RT.route){toast('No route yet',2500);return}startNav(true)};
 document.getElementById('rStart').onclick=function(){if(RT.mode==='compass'){sheetOff('sRoute');startGuide(RT.dest);return}
-  if(!RT.route){toast(gps?'No route yet. Check your signal, or use Compass.':'Waiting for GPS…',3000);return}startNav()};
+  if(!RT.route){toast(gps?'No route yet. Check your signal, or use Compass.':'Waiting for GPS…',3000);return}
+  if(RT.from&&(!gps||dist(gps.lat,gps.lon,RT.from.lat,RT.from.lon)>0.1)){startNav(true);toast('Showing the route from your chosen start. Live guidance needs you to start where you are.',4500);return}startNav(false)};
 function speak(t){if(!voiceOn)return;try{var u=new SpeechSynthesisUtterance(t);speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
-function startNav(){NAV={r:RT.route,dest:RT.dest,mode:RT.mode,follow:true,step:-1,off:0,busy:false};sheetOff('sRoute');document.body.classList.add('navigating');
+function startNav(preview){NAV={r:RT.route,dest:RT.dest,mode:RT.mode,follow:!preview,preview:!!preview,step:-1,off:0,busy:false};if(preview){fitRoute(RT.route,false);document.getElementById('nSteps').classList.add('on')}sheetOff('sRoute');document.body.classList.add('navigating');
   document.getElementById('navTop').classList.add('on');document.getElementById('navBot').classList.add('on');document.getElementById('nVoice').classList.toggle('off',!voiceOn);
   try{if(navigator.wakeLock)navigator.wakeLock.request('screen').then(function(l){NAV&&(NAV.lock=l)}).catch(function(){})}catch(e){}
-  S.z=Math.min(16,maxZ());navTick();lucideRefresh()}
-function endNav(){if(NAV&&NAV.lock)try{NAV.lock.release()}catch(e){}NAV=null;document.body.classList.remove('navigating');document.getElementById('navTop').classList.remove('on');document.getElementById('navBot').classList.remove('on');try{speechSynthesis.cancel()}catch(e){}render()}
+  if(!preview)S.z=Math.min(16,maxZ());navTick();lucideRefresh()}
+function endNav(){if(NAV&&NAV.lock)try{NAV.lock.release()}catch(e){}NAV=null;document.body.classList.remove('navigating');document.getElementById('navTop').classList.remove('on');document.getElementById('navBot').classList.remove('on');document.getElementById('nSteps').classList.remove('on');try{speechSynthesis.cancel()}catch(e){}render()}
 document.getElementById('nEnd').onclick=endNav;
-document.getElementById('nRecenter').onclick=function(){if(NAV){NAV.follow=true;navTick()}};
+document.getElementById('nRecenter').onclick=function(){if(!NAV)return;if(NAV.preview){fitRoute(NAV.r,false);render()}else{NAV.follow=true;navTick()}};
+document.getElementById('navTop').onclick=function(e){if(e.target.closest('#nVoice'))return;document.getElementById('nSteps').classList.toggle('on');drawSteps()};
 document.getElementById('nVoice').onclick=function(){voiceOn=!voiceOn;store.set('voice',voiceOn);this.classList.toggle('off',!voiceOn);if(!voiceOn)try{speechSynthesis.cancel()}catch(e){}};
-function navTick(){if(!NAV||!gps)return;var r=NAV.r,c=r.coords,bi=0,bd=1e9;
-  for(var i=0;i<c.length;i++){var d=dist(gps.lat,gps.lon,c[i][0],c[i][1]);if(d<bd){bd=d;bi=i}}
+function drawSteps(){var L=document.getElementById('nSteps');if(!NAV||!L.classList.contains('on'))return;var r=NAV.r,done=NAV.done||0;
+  var h='<div class="nsh"><span>All turns · '+fmtMi(r.total)+'</span><span>'+fmtMin(r.duration)+'</span></div>';
+  r.steps.forEach(function(st,k){var nx=r.steps[k+1],len=nx?nx.at-st.at:0,cls=k<NAV.si?' done':k===NAV.si?' now':'';var away=Math.max(0,st.at-done);
+    h+='<div class="nst'+cls+'"><div class="si">'+manIcon(st)+'</div><div class="st">'+st.text.replace(/</g,'&lt;')+(len>0?'<br><small style="color:#888">then go '+fmtMi(len)+'</small>':'')+'</div><div class="sd">'+(k<NAV.si?'':fmtMi(away))+'</div></div>'});
+  L.innerHTML=h;lucideRefresh();var now=L.querySelector('.now');if(now&&!L._scrolled){L._scrolled=1;now.scrollIntoView({block:'nearest'})}}
+function navTick(){if(!NAV)return;var r=NAV.r,c=r.coords,bi=0,bd=1e9,P=NAV.preview?{lat:c[0][0],lon:c[0][1],acc:0}:gps;if(!P)return;
+  for(var i=0;i<c.length;i++){var d=dist(P.lat,P.lon,c[i][0],c[i][1]);if(d<bd){bd=d;bi=i}}
   var offM=bd*1609.34,lim=NAV.mode==='car'?60:35;
-  if(offM>lim&&gps.acc<60){NAV.off++;if(NAV.off>=3&&!NAV.busy){NAV.busy=true;toast('Rerouting…');fetchRoute(gps,NAV.dest,NAV.mode,function(rt){if(NAV){NAV.busy=false;NAV.off=0;if(rt){NAV.r=rt;NAV.step=-1;navTick()}}})}}else NAV.off=0;
+  if(!NAV.preview&&offM>lim&&gps.acc<60){NAV.off++;if(NAV.off>=3&&!NAV.busy){NAV.busy=true;toast('Rerouting…');fetchRoute(gps,NAV.dest,NAV.mode,function(rt){if(NAV){NAV.busy=false;NAV.off=0;if(rt){NAV.r=rt;NAV.step=-1;navTick()}}})}}else NAV.off=0;
   var done=r.cum[bi]+0,rem=Math.max(0,r.total-done),remSec=r.duration*(rem/(r.total||1));
   var si=0;for(var k=0;k<r.steps.length;k++){if(r.steps[k].at>done+5){si=k;break}si=r.steps.length-1}
   var st=r.steps[si],toNext=Math.max(0,st.at-done);
   document.getElementById('nIcon').innerHTML=manIcon(st);document.getElementById('nText').textContent=st.text;document.getElementById('nDist').textContent=st.type==='arrive'&&rem<40?'Arrived':fmtMi(toNext);
   document.getElementById('nEta').textContent=fmtMin(remSec);document.getElementById('nRem').textContent=fmtMi(rem)+' · arrive '+arrival(remSec);
+  NAV.done=done;NAV.si=si;drawSteps();
+  if(NAV.preview){document.getElementById('nRem').textContent=fmtMi(rem)+' total · preview';lucideRefresh();render();return}
   if(si!==NAV.step){NAV.step=si;speak((toNext>60?'In '+fmtMi(toNext).replace('mi','miles').replace('ft','feet')+', ':'')+st.text)}
   if(rem<30&&!NAV.arr){NAV.arr=true;speak('You have arrived');try{navigator.vibrate&&navigator.vibrate([150,80,150])}catch(e){}}
   if(NAV.follow){S.lat=gps.lat;S.lon=gps.lon}lucideRefresh();render()}
@@ -1292,7 +1335,7 @@ document.getElementById('gMap').onclick=function(){if(!G)return;document.getElem
   save();render();toast('Tap the target again, then "Guide me", to reopen the compass')};
 function drawRoute(o){var sv=document.getElementById('route');var rr=NAV?NAV.r:(document.getElementById('sRoute').classList.contains('on')&&RT.mode!=='compass'?RT.route:null);
   if(rr){var pts=rr.coords.map(function(c){var w=ll2w(c[0],c[1],S.z);return(w[0]-o[0]).toFixed(1)+','+(w[1]-o[1]).toFixed(1)}).join(' ');var e=ll2w(rr.coords[rr.coords.length-1][0],rr.coords[rr.coords.length-1][1],S.z);
-    sv.innerHTML='<polyline points="'+pts+'" fill="none" stroke="#000" stroke-opacity=".55" stroke-width="10" stroke-linejoin="round" stroke-linecap="round"/><polyline points="'+pts+'" fill="none" stroke="#facc15" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/><circle cx="'+(e[0]-o[0])+'" cy="'+(e[1]-o[1])+'" r="9" fill="#111" stroke="#facc15" stroke-width="4"/>';return}
+    sv.innerHTML='<polyline points="'+pts+'" fill="none" stroke="#000" stroke-opacity=".55" stroke-width="10" stroke-linejoin="round" stroke-linecap="round"/><polyline points="'+pts+'" fill="none" stroke="#facc15" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/><circle cx="'+(e[0]-o[0])+'" cy="'+(e[1]-o[1])+'" r="9" fill="#111" stroke="#facc15" stroke-width="4"/>'+(function(){var a0=ll2w(rr.coords[0][0],rr.coords[0][1],S.z);return '<circle cx="'+(a0[0]-o[0])+'" cy="'+(a0[1]-o[1])+'" r="8" fill="#3d8bfd" stroke="#fff" stroke-width="3"/>'})();return}
   if(!G||!gps){sv.innerHTML='';return}
   var a=ll2w(gps.lat,gps.lon,S.z),b=ll2w(G.lat,G.lon,S.z);
   sv.innerHTML='<line x1="'+(a[0]-o[0])+'" y1="'+(a[1]-o[1])+'" x2="'+(b[0]-o[0])+'" y2="'+(b[1]-o[1])+'" stroke="#facc15" stroke-width="4" stroke-dasharray="10 8" stroke-linecap="round"/><circle cx="'+(b[0]-o[0])+'" cy="'+(b[1]-o[1])+'" r="10" fill="none" stroke="#facc15" stroke-width="3"/>'}
