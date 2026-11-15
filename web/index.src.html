@@ -63,6 +63,19 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Helvet
 .msheet{transition:transform .3s cubic-bezier(.32,.72,0,1)}.msheet.drag{transition:none}
 .mgrab{width:52px!important;height:6px!important;margin:6px auto 14px!important;cursor:grab}
 .mupd{display:flex;align-items:center;gap:12px;width:100%;margin-top:14px;background:#111;color:#facc15;border:0;border-radius:18px;padding:14px 16px;font:inherit;font-weight:800;font-size:.95rem}.mupd svg{width:20px;height:20px}.mupd small{margin-left:auto;color:#999;font-weight:600}
+.mecard{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:linear-gradient(120deg,#1a1505,#121212);border:1px solid #facc1533;border-radius:20px;padding:12px 14px;margin:0 0 16px;color:#eee}
+.mecard .mi{width:40px;height:40px;border-radius:12px;background:#facc15;color:#111;display:flex;align-items:center;justify-content:center;flex:0 0 auto}.mecard .mi svg{width:21px;height:21px}
+.mecard b{display:block;font-size:.95rem}.mecard small{display:block;color:#a3a3a3;font-size:.76rem;margin-top:1px}.mecard .chev{margin-left:auto;color:#facc15}
+.pf{background:#121212;border:1px solid #232323;border-radius:18px;margin:0 0 12px;overflow:hidden}
+.pf summary{list-style:none;display:flex;align-items:center;gap:10px;padding:14px;font-weight:800;color:#fff;cursor:pointer}.pf summary::-webkit-details-marker{display:none}
+.pf summary svg{width:18px;height:18px;color:#facc15}.pf summary em{margin-left:auto;font-style:normal;font-weight:600;color:#9a9a9a;font-size:.8rem}
+.pfb{padding:0 14px 12px}.pfr{display:grid;grid-template-columns:1fr 1fr;gap:10px}.pfl{display:block;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:#9a9a9a;margin:10px 0 5px}
+.pfb select,.pfb input{width:100%;appearance:none;-webkit-appearance:none;background:#1a1a1a;border:1px solid #2c2c2c;border-radius:12px;padding:11px 12px;color:#eee;font:inherit;font-size:.92rem}
+.pfb select{background:#1a1a1a url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23facc15' stroke-width='3'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 12px center;padding-right:30px}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}.kv div{background:#0b0b0b;border:1px solid #232323;border-radius:14px;padding:10px 12px}
+.kv b{display:block;color:#facc15;font-size:1.15rem;font-weight:800}.kv span{font-size:.72rem;color:#9a9a9a}
+.ct{width:100%;border-collapse:collapse;font-size:.86rem;margin-top:6px}.ct td,.ct th{padding:8px 6px;border-top:1px solid #222;text-align:left}.ct th{color:#888;font-weight:600;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em}.ct td b{color:#facc15}
+.fnote{font-size:.76rem;color:#8a8a8a;margin:8px 0 0}
 .tile{position:relative;overflow:hidden;background:linear-gradient(160deg,#171717,#0d0d0d);border:1px solid #232323;border-radius:22px;padding:14px;min-height:118px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer}
 .tile .ti{width:40px;height:40px;border-radius:13px;background:#facc15;color:#111;display:flex;align-items:center;justify-content:center}
 .tile .ti svg{width:21px;height:21px}
@@ -132,6 +145,7 @@ section.on{display:block}
 .card.ok{border-color:#4b6b3d;background:#18221a}
 .legacy ol,.legacy ul{padding-left:22px;margin:6px 0}
 .legacy li{margin:4px 0}
+.item.later{opacity:.55}.tag.later{background:#3b1a1a;color:#fca5a5}.qty{color:#facc15;font-weight:800}
 .lgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
 .stat{background:var(--panel2);border-radius:10px;padding:10px 12px}
 .stat b{display:block;font-size:1.35rem}
@@ -229,6 +243,13 @@ section.on{display:block}
 .sw2:after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .15s}
 .frow.on .sw2{background:#facc15}.frow.on .sw2:after{left:21px}
 .frow2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.svcbtn{display:flex;align-items:center;gap:10px;width:100%;background:#151515;border:1px solid #2a2a2a;border-radius:14px;padding:12px 14px;color:#eee;font:inherit;font-weight:700;font-size:.9rem;margin:0 0 10px}
+.svcbtn svg{width:18px;height:18px;color:#facc15}.svcbtn .svcchev{margin-left:auto;transition:transform .25s;transform:rotate(180deg)}.svcbtn.on .svcchev{transform:none}
+.svc{max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.32,.72,0,1),opacity .25s;opacity:0}.svc.on{max-height:900px;opacity:1}
+.svc h5{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:#facc15;margin:4px 2px 4px;font-weight:800}
+.svc ul{list-style:none;margin:0 0 10px;padding:0}.svc li{display:flex;gap:9px;font-size:.86rem;color:#d4d4d4;padding:5px 2px;line-height:1.4}
+.svc li:before{content:"";width:6px;height:6px;border-radius:50%;background:#facc15;margin-top:7px;flex:0 0 auto}
+.dev{display:none;background:#052e16;border:1px solid #16a34a55;border-radius:12px;padding:9px 12px;margin:0 0 10px;color:#bbf7d0;font-size:.84rem}.dev.on{display:block}
 .dicons{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:12px 0 4px}
 .dicons>*{display:flex;flex-direction:column;align-items:center;gap:6px;background:none;border:0;color:#cfcfcf!important;font:inherit;font-size:.74rem;font-weight:600;text-decoration:none!important;cursor:pointer}
 .dicons span{width:48px;height:48px;border-radius:50%;background:#1c1c1c;border:1px solid #2c2c2c;display:flex;align-items:center;justify-content:center;color:#facc15}
@@ -341,6 +362,7 @@ footer{color:var(--mute);font-size:.8rem;max-width:860px;margin:0 auto;padding:0
 
 <!-- HOME SCREEN -->
 <main id="home" class="flex-1 max-w-md md:max-w-3xl lg:max-w-5xl w-full mx-auto px-4 pt-5 pb-36" style="touch-action:pan-y">
+  <button id="meCard" class="mecard" onclick="openApp('profile')"></button>
   <div class="flex items-center justify-between mb-3">
     <span class="text-[11px] uppercase tracking-[.16em] text-zinc-500 font-semibold">Apps</span>
     <span class="text-[11px] font-mono text-zinc-600"><span id="appCount"></span> · __APP_VERSION__</span>
@@ -462,6 +484,9 @@ footer{color:var(--mute);font-size:.8rem;max-width:860px;margin:0 auto;padding:0
       <div class="dhead"><div class="dic" id="dIcon"></div><div style="min-width:0"><h4 id="dName"></h4><div class="dcat" id="dCat"></div></div></div>
       <div class="dstats"><div><b id="dDist">—</b><span>Distance</span></div><div><b id="dBrg">—</b><span>Direction</span></div><div><b id="dElev">—</b><span>Elevation</span></div></div>
       <p class="dnote" id="dNote"></p>
+      <div class="dev" id="dEv"></div>
+      <button class="svcbtn" id="svcBtn"><i data-lucide="list-checks"></i><span>Services &amp; what to expect</span><i data-lucide="chevron-up" class="svcchev"></i></button>
+      <div class="svc" id="svcPanel"><div id="svcBody"></div></div>
       <button class="act primary" id="aGo"><i data-lucide="navigation"></i> Take me there</button>
       <div class="dicons">
         <button id="aGuide"><span><i data-lucide="compass"></i></span>Compass</button>
@@ -547,13 +572,15 @@ footer{color:var(--mute);font-size:.8rem;max-width:860px;margin:0 auto;padding:0
 
 <!-- BUY LIST -->
 <section id="buy" data-title="Buy list">
-  <h2>$1,000 shopping list</h2>
-  <p class="mute">Prices are typical estimates and will vary by store. Tax isn't included. The core list comes to about $925, which leaves roughly $75 for tax. Items marked <span class="tag">optional</span> are only worth buying if there's room left. Check items off as you buy them.</p>
+  <h2 id="buyTitle">Your shopping list</h2>
+  <p class="mute" id="buyFor"></p>
+  <button class="act" style="width:100%;margin:8px 0" onclick="openApp('profile')"><i data-lucide="sliders-horizontal"></i> Change budget, household &amp; diet</button>
+  <p class="mute" style="font-size:.84rem">Quantities scale to your household. Items fill your budget in priority order: water, first aid, light and power, food, then tools. Anything that doesn't fit is marked <span class="tag later">over budget · later</span>. Prices are estimates, and tax isn't included.</p>
   <div class="card">
     <div class="lgrid">
-      <div class="stat"><b id="planTot">$0</b><span>planned (core + checked optional)</span></div>
+      <div class="stat"><b id="planTot">$0</b><span>fits your budget</span></div>
       <div class="stat"><b id="spentTot">$0</b><span>bought so far</span></div>
-      <div class="stat"><b id="leftTot">$1000</b><span>left of $1,000</span></div>
+      <div class="stat"><b id="leftTot">$0</b><span id="leftLbl">left</span></div>
     </div>
     <div class="bar"><i id="spentBar"></i></div>
     <small class="mute" id="barLbl"></small>
@@ -608,6 +635,7 @@ footer{color:var(--mute);font-size:.8rem;max-width:860px;margin:0 auto;padding:0
 
 <!-- FOOD -->
 <section id="food" data-title="Food">
+  <div class="card" id="foodPlan"></div>
   <h2>Food</h2>
   <div class="card">
     <div class="row">
@@ -758,6 +786,12 @@ footer{color:var(--mute);font-size:.8rem;max-width:860px;margin:0 auto;padding:0
 
 <script>/*LUCIDE_JS*/</script>
 <script>
+/* ===== My Situation: one shared profile every tool reads ===== */
+var PROF=(function(){var K='aegis_profile',L=[],D={adults:2,kids:0,pets:0,days:14,budget:1000,diet:'omni',style:'cook',cook:'butane',
+  veh:'gas',tank:15,mpg:25,fuelPrice:4.5,level:50,evKwh:75,evEff:3.3,evAcKw:11,evDcKw:150,kwhHome:0.17,kwhDc:0.48,gen:'none',station:0,storeType:'gas',storeAmt:5};
+  var p;try{p=Object.assign({},D,JSON.parse(localStorage.getItem(K)||'{}'))}catch(e){p=Object.assign({},D)}
+  return{get:function(){return p},set:function(k,v){p[k]=v;try{localStorage.setItem(K,JSON.stringify(p))}catch(e){}L.forEach(function(f){try{f(p)}catch(e){}})},
+    on:function(f){L.push(f)},ppl:function(){return p.adults+p.kids},eat:function(){return p.adults+p.kids*0.7}}})();
 (function(){
 var store={get:function(k,d){try{var v=localStorage.getItem('prep_'+k);return v?JSON.parse(v):d}catch(e){return d}},
            set:function(k,v){try{localStorage.setItem('prep_'+k,JSON.stringify(v))}catch(e){}}};
@@ -817,10 +851,10 @@ checklist('hr72','hr72',[
 ]);
 
 /* ---------- buy list ---------- */
-/* item: [name, note, price, optional(0/1), storeKey] */
+/* item: [name, note, unit price, optional(0/1), storeKey, scaling rule] */
 var BUY=[
  {c:'Water',i:[
-  ['2× 7-gallon water containers','Stackable jugs, ~14 gal total',40,0,'bm'],
+  ['7-gallon water containers','Enough for 1 gal/person/day for your household and days',20,0,'bm','water'],
   ['Squeeze-style water filter (Sawyer or similar) ☎','Filters ~100,000 gal; keep it from freezing',40,0,'cf'],
   ['Bathtub water bladder (WaterBOB)','Holds ~100 gal; fill at first warning',35,0,'on'],
   ['Plain unscented bleach + eyedropper','For purifying water. Replace yearly; it weakens.',8,0,'fm']]},
@@ -828,34 +862,34 @@ var BUY=[
   ['Large first-aid kit (base)','Bandages, gauze, tape, shears',45,0,'bm'],
   ['Tourniquet: genuine CAT','Order from North American Rescue or another authorized seller; fakes break',33,0,'on'],
   ['Pressure bandage + hemostatic gauze ☎','Ask the Fred Meyer pharmacy for QuikClot first, or order online',35,0,'on'],
-  ['OTC meds + electrolyte packets','Pain/fever, allergy, antidiarrheal',30,0,'bm'],
-  ['N95 masks (20) + nitrile gloves','Smoke, dust, illness',27,0,'hd']]},
+  ['OTC meds + electrolyte packets','Pain/fever, allergy, antidiarrheal',15,0,'bm','pp'],
+  ['N95 masks (10) + nitrile gloves per person','Smoke, dust, illness',14,0,'hd','pp']]},
  {c:'Power, light & comms',i:[
   ['Hand-crank/solar NOAA weather radio ☎','Official alerts with no cell service; can charge a phone',55,0,'bm'],
   ['20,000 mAh power bank','About 4 phone charges',35,0,'bm'],
-  ['Headlamps (2-pack)','Hands-free light. Safer than candles.',20,0,'hd'],
+  ['Headlamps (2-pack)','Hands-free light. Safer than candles.',20,0,'hd','pp2'],
   ['LED lantern','Lights a whole room',15,0,'hd'],
   ['Lithium AA/AAA batteries','Long shelf life, works in the cold',20,0,'hd'],
   ['Folding solar panel (20–30W)','Recharges the power bank in long outages',45,1,'on']]},
  {c:'Food & cooking',i:[
-  ['3 weeks of pantry staples (2 people)','Rice, beans, lentils, oats, PB, canned meat/veg, oil, powdered milk',160,0,'fm'],
+  ['Food for your household','Matches your diet and food style in My Situation',3.8,0,'fm','food'],
   ['Manual can openers (2)','One breaks, you have a spare',12,0,'fm'],
   ['Butane camp stove + 8 fuel canisters','Outdoor use only. About 10–15 hrs of cooking',60,0,'bm'],
   ['Food-grade bucket + gamma lid','Pest-proof rice and bean storage',15,1,'hd'],
-  ['Multivitamins','Fills nutrition gaps',12,1,'fm']]},
+  ['Multivitamins','Fills nutrition gaps',6,1,'fm','pp']]},
  {c:'Tools & shelter',i:[
   ['Multitool','Pliers, knife, drivers',40,0,'hd'],
   ['Fixed-blade knife (Mora-type) + ferro rod','Cheap, tough, reliable',20,0,'cf'],
   ['Tarp, paracord, duct tape, zip ties','Repairs, broken windows, shelter',30,0,'hd'],
-  ['Emergency mylar blankets/bivvies','Warmth if there\'s no heat',10,0,'bm'],
+  ['Emergency mylar blankets/bivvies','Warmth if there\'s no heat',5,0,'bm','pp'],
   ['Lighters + stormproof matches','Several ways to make fire',10,0,'bm'],
   ['Gas/water shutoff wrench','Keep it by the meter',15,0,'hd'],
-  ['Work gloves (2 pairs)','Cleanup, glass, debris',10,0,'hd']]},
+  ['Work gloves','Cleanup, glass, debris',5,0,'hd','adult']]},
  {c:'Safety & sanitation',i:[
   ['ABC fire extinguisher','Fire departments may not come',45,0,'hd'],
   ['Battery carbon monoxide alarm','Essential once stoves and generators are in use',25,0,'hd'],
   ['Bucket toilet kit: bucket, toilet lid, contractor bags','Get the kitty litter at Fred Meyer',30,0,'hd'],
-  ['Hygiene + kitty litter: wipes, soap, sanitizer, trash bags','Prevents disease spreading',20,0,'fm']]}
+  ['Hygiene + kitty litter: wipes, soap, sanitizer, trash bags','Prevents disease spreading',0.5,0,'fm','pd']]}
 ];
 var STORES=[
  {k:'hd',n:'1 · The Home Depot',a:'3600 W 6th St · (541) 296-7006',d:'Safety, tools, buckets, lights, batteries',q:'3600 W 6th St, The Dalles, OR 97058'},
@@ -865,29 +899,40 @@ var STORES=[
  {k:'on',n:'Order online',a:'Local stores rarely carry these',d:'Buy the tourniquet only from an authorized seller'}];
 var bst=store.get('buy',{}),buyView=store.get('buyview','store');
 function money(n){return '$'+Math.round(n).toLocaleString()}
+var DIET={omni:1,veg:0.95,vegan:0.9,gf:1.25,diab:1.2,kids:1.1},STYLE={cook:1,nocook:1.8,freeze:2.8,mix:1.6};
+function qty(x){var P=PROF.get(),n=PROF.ppl();switch(x[5]){case 'water':return Math.max(1,Math.ceil((n*P.days+P.pets*0.5*P.days)/7));
+  case 'food':case 'pd':return Math.max(1,Math.round(PROF.eat()*P.days));case 'pp':return Math.max(1,n);case 'pp2':return Math.max(1,Math.ceil(n/2));case 'adult':return Math.max(1,P.adults);default:return 1}}
+function unit(x){var P=PROF.get();return x[5]==='food'?x[2]*(DIET[P.diet]||1)*(STYLE[P.style]||1):x[2]}
+function cost(x){return unit(x)*qty(x)}
+function qtyLabel(x){var q=qty(x);if(x[5]==='food')return q+' person-days';if(x[5]==='pd')return '';return q>1?'×'+q:''}
+var inPlan={};
+function fitBudget(){var B=+PROF.get().budget||0,run=0;inPlan={};
+  [0,1].forEach(function(opt){BUY.forEach(function(g,gi){g.i.forEach(function(x,ii){if((x[3]?1:0)!==opt)return;var c=cost(x);if(run+c<=B){run+=c;inPlan[gi+'_'+ii]=1}})})});return run}
 function itemRow(x,k){
   var row=document.createElement('label');row.className='item'+(bst[k]?' done':'');
   var cb=document.createElement('input');cb.type='checkbox';cb.checked=!!bst[k];
   cb.onchange=function(){bst[k]=cb.checked;store.set('buy',bst);row.classList.toggle('done',cb.checked);totals()};
-  var t=document.createElement('div');t.className='t';t.innerHTML=x[0]+(x[3]?'<span class="tag">optional</span>':'')+'<small>'+x[1]+'</small>';
-  var p=document.createElement('div');p.className='p';p.textContent='~'+money(x[2]);
+  var ql=qtyLabel(x);var t=document.createElement('div');t.className='t';t.innerHTML=x[0]+(ql?' <b class="qty">'+ql+'</b>':'')+(x[3]?'<span class="tag">optional</span>':'')+(inPlan[k]?'':'<span class="tag later">over budget · later</span>')+'<small>'+x[1]+'</small>';
+  if(!inPlan[k])row.classList.add('later');var p=document.createElement('div');p.className='p';p.textContent='~'+money(cost(x));
   row.appendChild(cb);row.appendChild(t);row.appendChild(p);return row}
 function renderBuy(){
-  var el=document.getElementById('buyList');el.innerHTML='';
+  var el=document.getElementById('buyList');el.innerHTML='';var P=PROF.get();fitBudget();
+  document.getElementById('buyTitle').textContent='Your '+money(P.budget)+' shopping list';
+  document.getElementById('buyFor').textContent='For '+P.adults+' adult'+(P.adults!==1?'s':'')+(P.kids?', '+P.kids+' kid'+(P.kids!==1?'s':''):'')+(P.pets?', '+P.pets+' pet'+(P.pets!==1?'s':''):'')+' · '+P.days+' days. Change these in My Situation.';
   [].forEach.call(document.querySelectorAll('#buySeg button'),function(b){b.classList.toggle('on',b.dataset.v===buyView)});
   document.getElementById('routeNote').style.display=buyView==='store'?'block':'none';
   if(buyView==='store'){
     STORES.forEach(function(s){
       var rows=[],sub=0;
-      BUY.forEach(function(g,gi){g.i.forEach(function(x,ii){if(x[4]===s.k){rows.push([x,gi+'_'+ii]);if(!x[3])sub+=x[2]}})});
+      BUY.forEach(function(g,gi){g.i.forEach(function(x,ii){if(x[4]===s.k){rows.push([x,gi+'_'+ii]);if(inPlan[gi+'_'+ii])sub+=cost(x)}})});
       var h=document.createElement('div');h.className='storehead';
       h.innerHTML='<b></b><small></small><small></small>';
       h.children[0].textContent=s.n+' · ~'+money(sub);h.children[1].textContent=s.a;h.children[2].textContent=s.d;el.appendChild(h);
       var card=document.createElement('div');card.className='card';rows.forEach(function(r){card.appendChild(itemRow(r[0],r[1]))});el.appendChild(card)});
   }else{
     BUY.forEach(function(g,gi){
-      var sub=g.i.reduce(function(a,x){return a+(x[3]?0:x[2])},0);
-      var h=document.createElement('h3');h.textContent=g.c+' · '+money(sub)+' core';el.appendChild(h);
+      var sub=g.i.reduce(function(a,x,ii){return a+(inPlan[gi+'_'+ii]?cost(x):0)},0);
+      var h=document.createElement('h3');h.textContent=g.c+' · '+money(sub);el.appendChild(h);
       var card=document.createElement('div');card.className='card';
       g.i.forEach(function(x,ii){card.appendChild(itemRow(x,gi+'_'+ii))});el.appendChild(card)});
   }
@@ -895,16 +940,16 @@ function renderBuy(){
 }
 [].forEach.call(document.querySelectorAll('#buySeg button'),function(b){b.onclick=function(){buyView=b.dataset.v;store.set('buyview',buyView);renderBuy()}});
 function totals(){
-  var plan=0,spent=0;
-  BUY.forEach(function(g,gi){g.i.forEach(function(x,ii){var k=gi+'_'+ii;
-    if(!x[3]||bst[k])plan+=x[2]; if(bst[k])spent+=x[2]})});
+  var plan=fitBudget(),spent=0,B=+PROF.get().budget||1,all=0;
+  BUY.forEach(function(g,gi){g.i.forEach(function(x,ii){var k=gi+'_'+ii;all+=cost(x);if(bst[k])spent+=cost(x)})});
   document.getElementById('planTot').textContent=money(plan);
   document.getElementById('spentTot').textContent=money(spent);
-  document.getElementById('leftTot').textContent=money(1000-spent);
-  var b=document.getElementById('spentBar');b.style.width=Math.min(100,spent/10)+'%';b.classList.toggle('over',spent>1000);
-  document.getElementById('barLbl').textContent=spent>1000?'Over budget':Math.round(spent/10)+'% of budget spent';
+  document.getElementById('leftTot').textContent=money(B-spent);document.getElementById('leftLbl').textContent='left of '+money(B);
+  var b=document.getElementById('spentBar');b.style.width=Math.min(100,spent/B*100)+'%';b.classList.toggle('over',spent>B);
+  document.getElementById('barLbl').textContent=(spent>B?'Over budget':Math.round(spent/B*100)+'% of budget spent')+(all>plan?' · '+money(all-plan)+' of items wait for a bigger budget':' · everything fits');
 }
 document.getElementById('resetBuy').onclick=function(){bst={};store.set('buy',bst);renderBuy()};
+PROF.on(function(){renderBuy();wcSync();fcSync()});
 renderBuy();
 
 /* ---------- water calc ---------- */
@@ -912,7 +957,8 @@ function wc(){var p=+wPeople.value||0,d=+wDays.value||0,pets=+wPets.value||0;
   var g=p*d+pets*0.5*d;document.getElementById('wGal').textContent=Math.ceil(g);
   document.getElementById('wCont').textContent=Math.ceil(g/7)}
 var wPeople=document.getElementById('wPeople'),wDays=document.getElementById('wDays'),wPets=document.getElementById('wPets');
-[wPeople,wDays,wPets].forEach(function(e){e.oninput=wc});wc();
+function wcSync(){var P=PROF.get();wPeople.value=PROF.ppl();wDays.value=P.days;wPets.value=P.pets;wc()}
+[wPeople,wDays,wPets].forEach(function(e){e.oninput=wc});wcSync();
 function bc(){var g=+bGal.value||0,per=(bPct.value==='6'?8:6)*(+bCloudy.value);var drops=g*per;
   var out=drops>=48?(Math.round(drops/48*100)/100)+' tsp':Math.round(drops)+' drops';
   if(drops>=48*3)out=(Math.round(drops/48/3*100)/100)+' tbsp';
@@ -927,7 +973,8 @@ function fc(){var p=+fPeople.value||0,d=+fDays.value||0,k=p*d*2000;
   document.getElementById('fBeans').textContent=Math.ceil(k*0.2/1550)+' lb';
   document.getElementById('fRest').textContent='~'+Math.round(k*0.4/1000)+'k'}
 var fPeople=document.getElementById('fPeople'),fDays=document.getElementById('fDays');
-[fPeople,fDays].forEach(function(e){e.oninput=fc});fc();
+function fcSync(){var P=PROF.get();fPeople.value=PROF.ppl();fDays.value=P.days;fc();if(window.renderFoodPlan)renderFoodPlan()}
+[fPeople,fDays].forEach(function(e){e.oninput=fc});fcSync();
 
 /* ---------- plan form ---------- */
 var FIELDS=[
@@ -977,9 +1024,9 @@ var CATS={
   water:{n:'Water source',e:'💧',c:'#2f7fc1'},medical:{n:'Medical',e:'✚',c:'#c0392b'},fire:{n:'Fire / police',e:'🚒',c:'#d35400'},
   shelter:{n:'Shelter',e:'⛺',c:'#7d5ba6'},supply:{n:'Supplies / store',e:'🛒',c:'#b8860b'},fuel:{n:'Fuel',e:'⛽',c:'#6d6d6d'},
   rally:{n:'Rally point',e:'★',c:'#2e8b57'},camp:{n:'Campground / public land',e:'🌲',c:'#3f6b2a'},
-  route:{n:'Route / crossing',e:'➤',c:'#008b8b'},hazard:{n:'Hazard / avoid',e:'⚠',c:'#8b0000'},civic:{n:'Government / info',e:'🏛',c:'#4a6fa5'},place:{n:'Town names',e:'◦',c:'#444'},home:{n:'Home / family',e:'⌂',c:'#a0522d'},other:{n:'Other',e:'•',c:'#555'}};
+  route:{n:'Route / crossing',e:'➤',c:'#008b8b'},hazard:{n:'Hazard / avoid',e:'⚠',c:'#8b0000'},ev:{n:'EV charging',e:'⚡',c:'#16a34a'},civic:{n:'Government / info',e:'🏛',c:'#4a6fa5'},place:{n:'Town names',e:'◦',c:'#444'},home:{n:'Home / family',e:'⌂',c:'#a0522d'},other:{n:'Other',e:'•',c:'#555'}};
 var GN=[["Mid-Columbia Medical Center (ER, now Adventist Health Columbia Gorge)", "medical", 45.587316, -121.164462, "1700 E 19th St · (541) 296-1111 · 24/7 emergency dept · helipad"], ["North Central Public Health District", "medical", 45.59858, -121.182536, "County public health office"], ["Skyline Ambulance (Dallesport, WA)", "medical", 45.618832, -121.179463, "Klickitat County Public Hospital District 2"], ["Mid-Columbia Fire & Rescue", "fire", 45.607039, -121.205023, "Office (541) 296-9445 · after hours (541) 298-4178"], ["Mid-Columbia Fire & Rescue Station 2", "fire", 45.598929, -121.13542, "East side station"], ["Dallesport / Murdock Fire Dept", "fire", 45.619032, -121.179465, "Klickitat County Fire District 6 (WA side)"], ["The Dalles Police Department", "fire", 45.601182, -121.184189, "Downtown, next to City Hall"], ["Wasco County Sheriff's Office", "fire", 45.599811, -121.184088, "At the county courthouse"], ["Oregon State Police, The Dalles", "fire", 45.6063, -121.131829, ""], ["The Dalles Middle School", "shelter", 45.592342, -121.175886, "1100 E 12th St · Used as a Red Cross shelter (pets allowed) during past wildfires"], ["The Dalles Civic Auditorium", "shelter", 45.599835, -121.18216, "Large public building. Watch for official shelter announcements."], ["The Dalles–Wahtonka High School", "shelter", 45.5964, -121.188, "Public school (possible shelter site; confirm with officials)"], ["Columbia Gorge Community College", "shelter", 45.590724, -121.190197, "Public campus (possible shelter site; confirm with officials)"], ["Colonel Wright Elementary", "shelter", 45.597481, -121.198128, "Public school"], ["Dry Hollow Elementary", "shelter", 45.586619, -121.17317, "Public school"], ["Chenowith Elementary", "shelter", 45.625318, -121.221892, "Public school"], ["American Red Cross office (The Dalles)", "shelter", 45.600591, -121.193494, "Red Cross Columbia River District office"], ["The Dalles City Hall", "civic", 45.601582, -121.18391, "City government"], ["Wasco County Courthouse", "civic", 45.599799, -121.18406, "County government, emergency management"], ["The Dalles–Wasco County Library", "civic", 45.598746, -121.185485, "Public building, information"], ["The Dalles Post Office", "civic", 45.602798, -121.184503, ""], ["The Dalles Public Works", "civic", 45.607909, -121.191412, "City water and roads"], ["Wasco County Public Works", "civic", 45.598211, -121.147383, ""], ["Columbia River", "water", 45.605954, -121.165071, "Large river. Must be filtered AND treated. Avoid water near industry and outfalls."], ["Port of The Dalles Marina boat ramp", "water", 45.601426, -121.169847, "River access point"], ["Mill Creek", "water", 45.606509, -121.187293, "Stream through town. Treat before drinking."], ["Chenoweth Creek", "water", 45.634009, -121.200349, "Stream. Treat before drinking."], ["Threemile Creek", "water", 45.60401, -121.147848, "Stream. Treat before drinking."], ["Fifteenmile Creek", "water", 45.61401, -121.122848, "Stream. Treat before drinking."], ["Eightmile Creek", "water", 45.606233, -121.08618, "Stream. Treat before drinking."], ["Fivemile Creek", "water", 45.593177, -121.080903, "Stream. Treat before drinking."], ["Badger Creek", "water", 45.629009, -121.236183, "Stream. Treat before drinking."], ["Brown Creek", "water", 45.612064, -121.260628, "Stream. Treat before drinking."], ["Anderson Spring", "water", 45.566508, -121.223405, "Spring. Flow not verified; treat before drinking. May be on private land."], ["Cold Spring", "water", 45.679878, -121.220187, "Spring. Flow not verified; treat before drinking. May be on private land."], ["Frantz Spring", "water", 45.655186, -121.212602, "Spring. Flow not verified; treat before drinking. May be on private land."], ["Gooseberry Spring", "water", 45.643844, -121.210243, "Spring. Flow not verified; treat before drinking. May be on private land."], ["Marsh Spring", "water", 45.643902, -121.230721, "Spring. Flow not verified; treat before drinking. May be on private land."], ["Rowland Spring", "water", 45.682319, -121.215114, "Spring. Flow not verified; treat before drinking. May be on private land."], ["Taylor Spring", "water", 45.647434, -121.208409, "Spring. Flow not verified; treat before drinking. May be on private land."], ["Thornton Spring", "water", 45.632319, -121.236077, "Spring. Flow not verified; treat before drinking. May be on private land."], ["Spearfish Lake (WA)", "water", 45.628044, -121.130719, "Lake. Treat before drinking."], ["Horsethief Lake (WA)", "water", 45.645354, -121.103103, "Lake in state park. Treat before drinking."], ["Taylor Lake", "water", 45.642214, -121.206169, "Lake. Treat before drinking."], ["Sorosis Reservoir", "water", 45.589287, -121.19396, "City reservoir. Not for public access."], ["Horsethief Lake State Park (WA)", "camp", 45.645399, -121.10507, "Public park, part of Columbia Hills"], ["Seufert County Park", "camp", 45.610399, -121.127848, "Public park by the river"], ["Sorosis Park", "camp", 45.590675, -121.194516, "City park on the bluff with views over town"], ["Thompson Park", "camp", 45.604287, -121.192294, "City park"], ["Hess Park (Dallesport)", "camp", 45.617343, -121.140626, "Park"], ["Howe Park", "camp", 45.591509, -121.173404, "City park"], ["Fort Dalles Rodeo Grounds", "camp", 45.615597, -121.203999, "Large open ground"], ["The Dalles Bridge (US-197)", "route", 45.611232, -121.140626, "Columbia River crossing to Washington"], ["The Dalles Dam", "route", 45.612343, -121.134515, "Dam"], ["Columbia Gorge Regional Airport", "route", 45.618446, -121.17264, "Airport (Dallesport, WA)"], ["Rowena Gap", "route", 45.677065, -121.245628, "Gap west of town (Historic Columbia River Hwy area)"], ["Signal Hill", "rally", 45.623455, -121.092847, "Summit. High ground for line of sight and radio."], ["Horsethief Butte (WA)", "rally", 45.649566, -121.095625, "Summit. High ground."], ["Pulpit Rock", "rally", 45.595548, -121.18928, "Well-known landmark. An easy-to-find meeting point."], ["Big Eddy Substation", "hazard", 45.60651, -121.115625, "High-voltage. Keep clear of downed lines."], ["Celilo Converter Station", "hazard", 45.595121, -121.114514, "High-voltage DC station. Keep clear."], ["The Dalles Substation", "hazard", 45.612342, -121.215072, "High-voltage"], ["Chenoweth Substation", "hazard", 45.635676, -121.20396, "High-voltage"], ["Wastewater Treatment Plant", "hazard", 45.601598, -121.179446, "Don't collect water downstream of here."], ["The Dalles", "place", 45.594564, -121.178682, ""], ["Dallesport (WA)", "place", 45.617343, -121.179515, ""], ["Chenoweth", "place", 45.62762, -121.243406, ""], ["Murdock (WA)", "place", 45.654287, -121.188405, ""], ["Cherry Heights", "place", 45.602897, -121.240906, ""], ["Petersburg", "place", 45.610955, -121.078125, ""], ["Boyd", "place", 45.489288, -121.082291, ""], ["Endersby", "place", 45.492342, -121.152015, ""]];
-var ICONS={water:'Droplet',medical:'Cross',fire:'Siren',shelter:'Tent',supply:'ShoppingCart',fuel:'Fuel',rally:'Mountain',camp:'Trees',route:'Route',hazard:'TriangleAlert',civic:'Landmark',home:'House',other:'MapPin',place:'Building2',mine:'Bookmark'};
+var ICONS={ev:'PlugZap',water:'Droplet',medical:'Cross',fire:'Siren',shelter:'Tent',supply:'ShoppingCart',fuel:'Fuel',rally:'Mountain',camp:'Trees',route:'Route',hazard:'TriangleAlert',civic:'Landmark',home:'House',other:'MapPin',place:'Building2',mine:'Bookmark'};
 var ICACHE={};
 function iconHTML(k){if(ICACHE[k])return ICACHE[k];var c=CATS[k]||CATS.other,h=c.e;
   try{if(window.lucide&&lucide.icons&&lucide.createElement){var nm=ICONS[k]||'MapPin',node=lucide.icons[nm];if(node){var el=lucide.createElement(node);el.setAttribute('stroke-width','2.4');h=el.outerHTML}}}catch(e){}
@@ -1189,7 +1236,7 @@ function applyMode(){var m=MODES[S.mode%MODES.length];S.base=m.b;S.ov=JSON.parse
 document.getElementById('bMode').onclick=function(){S.mode=(S.mode+1)%MODES.length;applyMode();save();clearLive();render();toast(MODES[S.mode].n)};
 /* filters: one button opens a grouped show/hide list */
 var FGROUPS=[['Help & safety',[['medical','Hospitals & clinics'],['fire','Fire, police & rangers'],['shelter','Shelters'],['water','Water sources']]],
-  ['Supplies',[['supply','Food & hardware stores'],['fuel','Fuel']]],
+  ['Supplies',[['supply','Food & hardware stores'],['fuel','Fuel'],['ev','EV chargers']]],
   ['Outdoors',[['camp','Campgrounds & parks'],['rally','Peaks & high ground'],['route','Bridges & routes']]],
   ['Other',[['civic','Government'],['hazard','Hazards to avoid'],['mine','My pins'],['place','Town names']]]];
 var FILTERS=[].concat.apply([],FGROUPS.map(function(g){return g[1]}));
@@ -1231,7 +1278,60 @@ var cur=null;
 function openBuiltin(g){openDetail({name:g[0],cat:g[1]==='place'?'other':g[1],lat:g[2],lon:g[3],note:g[4]||''})}
 function openPin(p){selId=p.id;render();openDetail({name:p.name||(CATS[p.cat]||CATS.other).n,cat:p.cat,lat:p.lat,lon:p.lon,note:p.notes||'',elev:p.elev,addr:p.addr,pinId:p.id})}
 function gmapsDir(o){return 'https://www.google.com/maps/dir/?api=1&destination='+o.lat.toFixed(6)+','+o.lon.toFixed(6)+(gps?'&origin='+gps.lat.toFixed(6)+','+gps.lon.toFixed(6):'')}
-function openDetail(o){cur=o;var c=CATS[o.cat]||CATS.other;
+/* ---- "Services & what to expect" for each kind of place ---- */
+var SVC={
+ hospital:[['What you may find',['Emergency room open 24/7','Lab, X-ray and CT, surgery, and admission','Ambulance and helicopter access at many']],['Costs',['ER visits often cost $1,000–3,000+ without insurance','By law, ERs must screen and stabilize anyone, whether or not they can pay','Ask about financial assistance (charity care)']],['In an emergency',['Bring ID, insurance card, medication list and a charger','In disasters, hospitals may run on generators and treat the most urgent first','For life threats, call 911 if phones work']]],
+ clinic:[['What you may find',['Minor injuries, stitches, infections','X-rays and tests at many urgent cares','Limited hours: check before going']],['Costs',['Urgent care: about $150–300 without insurance','Clinics may offer sliding-scale fees']],['In an emergency',['Chest pain, stroke signs or severe bleeding need the ER, not urgent care','Bring your medication list and allergies']]],
+ pharmacy:[['What you may find',['Prescriptions and refills','OTC meds, first-aid supplies, electrolytes','Vaccines at many']],['Costs',['Ask about generic and discount-card prices','Bring cash in case card readers are down']],['In an emergency',['In declared emergencies, many states let pharmacists give an emergency supply of your medication','Bring the bottle or a photo of the label and your ID']]],
+ aed:[['What you may find',['An AED (automated external defibrillator) for cardiac arrest']],['Costs',['Free to use']],['In an emergency',['Call 911, start CPR, turn the AED on and follow its voice prompts','Good Samaritan laws protect people who help']]],
+ fire:[['What you may find',['Fire, rescue and EMS crews (often out on calls)','Sometimes an AED and smoke-alarm programs','Information and staging during disasters']],['Costs',['Free for emergencies']],['In an emergency',['Call 911. Don\'t count on a station being staffed','Stations may serve as info points or cooling/warming centers during events']]],
+ police:[['What you may find',['Emergency response, reports, evacuation orders (often from the sheriff)','Help with missing people and welfare checks']],['Costs',['Free']],['In an emergency',['Call 911 for emergencies and the non-emergency line for reports','Follow official evacuation orders right away']]],
+ ranger:[['What you may find',['Trail, road and fire-restriction info','Permits and backcountry help']],['Costs',['Permits and passes may have fees']],['In an emergency',['Rangers coordinate search and rescue. Call 911 first']]],
+ shelter:[['What you may find',['Cots, meals and water','Phone charging and basic first aid','Help with recovery services. Pets are often housed separately']],['Costs',['Free']],['In an emergency',['Check official announcements first. Not every site is open','Bring medications, ID, bedding, chargers, and kids\' and pets\' needs']]],
+ school:[['What you may find',['Large rooms, restrooms, kitchen and parking','Used as an emergency shelter only when officials open it']],['Costs',['Free when opened as a shelter']],['In an emergency',['Not open to the public unless officials announce it','Watch county alerts and local radio']]],
+ assembly:[['What you may find',['A planned meeting spot for evacuations']],['Costs',['Free']],['In an emergency',['It\'s a gathering point, not a shelter. Move on as officials direct']]],
+ tap:[['What you may find',['A public drinking-water tap or fountain']],['Costs',['Free']],['In an emergency',['It can stop working if water pressure fails','Watch for boil-water notices','Bring containers: 1 gallon per person per day']]],
+ spring:[['What you may find',['Natural spring water. Flow isn\'t guaranteed and can dry up in summer']],['Costs',['Free, but may be on private land, so ask first']],['In an emergency',['Treat before drinking: boil, or filter plus bleach','Avoid springs below farms or roads']]],
+ well:[['What you may find',['A water well, which may have no pump or be private']],['Costs',['Ask the owner']],['In an emergency',['Treat before drinking. A hand pump or bucket may be needed']]],
+ surface:[['What you may find',['A river, creek or lake: plenty of water, not safe raw']],['Costs',['Free']],['In an emergency',['Filter and treat, or boil. Chemicals can\'t be filtered out','Collect upstream of towns, farms and outfalls','Watch for fast current and cold water']]],
+ grocery:[['What you may find',['Food, bottled water, baby formula and supplies','Pharmacy and fuel at some']],['Costs',['Normal prices, though some items get purchase limits during emergencies','SNAP/EBT and WIC accepted at most']],['In an emergency',['Shelves can empty within 1–3 days before storms','Bring cash in case card readers are down']]],
+ convenience:[['What you may find',['Water, snacks, ice, batteries, phone chargers']],['Costs',['Higher prices than grocery stores']],['In an emergency',['Often open late or 24/7, and often attached to fuel stations']]],
+ hardware:[['What you may find',['Generators, tarps, plywood, chainsaws','Fuel cans, batteries, flashlights, buckets']],['Costs',['Generators run about $400–1,500, and tarps $10–50']],['In an emergency',['Storm supplies sell out fast. Shop early','Ask staff about restock trucks']]],
+ outdoor:[['What you may find',['Water filters, stoves, fuel canisters, maps, warm layers']],['Costs',['Water filters run about $20–120']],['In an emergency',['A good place for water treatment and cold-weather gear']]],
+ fuel:[['What you may find',['Gas and diesel; propane exchange at many','Air, restrooms, snacks and ice']],['Costs',['Prices can spike in emergencies, and some states have price-gouging laws','A propane tank swap usually costs about $20–30']],['In an emergency',['Pumps need power, so many stations can\'t pump in an outage','Bring cash. Expect lines and limits','Fill only approved fuel containers']]],
+ ev:[['What you may find',['Charging plugs (see connector types above)','Level 2 adds about 20–30 miles per hour; DC fast adds hundreds of miles per hour']],['Costs',['Level 2: often free to about $0.30/kWh','DC fast: about $0.35–0.65/kWh, plus idle fees','You may need the network\'s app or a card']],['In an emergency',['Chargers stop working in grid outages','Check status in PlugShare or the network app before driving there']]],
+ camp:[['What you may find',['Tent and RV sites, restrooms, fire rings','Water at many, though it may be off in winter']],['Costs',['About $15–45/night; reserve on recreation.gov or the state parks site','Dispersed camping on National Forest or BLM land is often free (usually a 14-day limit)']],['In an emergency',['Check for fire restrictions and burn bans','Pack out trash, and treat creek water']]],
+ park:[['What you may find',['Open space, sometimes restrooms and water','Often used as a meeting point']],['Costs',['Usually free']],['In an emergency',['Good for meeting up away from buildings after an earthquake']]],
+ peak:[['What you may find',['High ground with a long view']],['Costs',['Free; check land access']],['In an emergency',['Better cell signal and radio range. Try texting from here','Exposed to wind, cold and lightning, so don\'t linger in storms']]],
+ bridge:[['What you may find',['A key crossing for routes in and out']],['Costs',['Some bridges charge tolls']],['In an emergency',['Bridges may close after earthquakes or floods for inspection, so plan a second route']]],
+ dam:[['What you may find',['A dam and reservoir']],['Costs',['—']],['In an emergency',['If officials warn of dam failure, move to high ground right away']]],
+ airport:[['What you may find',['Flights, emergency airlift and supply staging']],['Costs',['—']],['In an emergency',['Used for relief operations. Not a public shelter']]],
+ civic:[['What you may find',['City or county offices and emergency management','Disaster recovery centers and FEMA help after declared disasters']],['Costs',['Free help applying for assistance']],['In an emergency',['Official info boards and recovery services often start here']]],
+ library:[['What you may find',['Free Wi-Fi, computers, charging and restrooms','Often a cooling or warming center']],['Costs',['Free']],['In an emergency',['A good place to file FEMA or insurance claims and print documents']]],
+ post:[['What you may find',['Mail and package services, PO boxes']],['Costs',['Standard postal rates']],['In an emergency',['Mail can be held or forwarded if you evacuate']]],
+ hazard:[['What this is',['A site to avoid in emergencies']],['In an emergency',['Stay at least 35 ft from downed power lines and anything they touch','Don\'t collect water downstream of treatment plants or industry']]],
+ town:[['What you may find',['Groceries, fuel, a clinic or hospital, shelters and government offices nearby']],['In an emergency',['Zoom in to see the points around this town']]],
+ other:[['Tips',['Tap "Take me there" for a route, or Compass to walk there with no signal','Save it to your pins so you can find it offline']]]};
+function svcKey(o){var t=(o.name+' '+(o.note||'')).toLowerCase(),c=o.cat;
+  if(c==='medical')return /aed|defibrillator/.test(t)?'aed':/pharmacy|drug|walgreens|cvs|rite aid/.test(t)?'pharmacy':/hospital|medical center|emergency/.test(t)?'hospital':'clinic';
+  if(c==='fire')return /police|sheriff|state police/.test(t)?'police':/ranger/.test(t)?'ranger':'fire';
+  if(c==='shelter')return /school|college|elementary/.test(t)?'school':/assembly/.test(t)?'assembly':'shelter';
+  if(c==='water')return /tap|drinking water|fountain/.test(t)?'tap':/spring/.test(t)?'spring':/well/.test(t)?'well':'surface';
+  if(c==='supply')return /hardware|home depot|lowe|ace|coastal/.test(t)?'hardware':/convenience|mart|7-eleven|circle k/.test(t)?'convenience':/outdoor|sporting|big 5|rei/.test(t)?'outdoor':'grocery';
+  if(c==='fuel')return 'fuel';if(c==='ev')return 'ev';if(c==='camp')return /camp/.test(t)?'camp':'park';if(c==='rally')return 'peak';
+  if(c==='route')return /dam/.test(t)?'dam':/airport/.test(t)?'airport':'bridge';
+  if(c==='civic')return /library/.test(t)?'library':/post office/.test(t)?'post':'civic';
+  if(c==='hazard')return 'hazard';if(c==='place')return 'town';return 'other'}
+function renderSvc(o){var B=document.getElementById('svcBody'),k=svcKey(o);B.innerHTML='';(SVC[k]||SVC.other).forEach(function(sec){var h=document.createElement('h5');h.textContent=sec[0];B.appendChild(h);
+  var ul=document.createElement('ul');sec[1].forEach(function(x){var li=document.createElement('li');li.textContent=x;ul.appendChild(li)});B.appendChild(ul)});
+  var ft=document.createElement('p');ft.className='fnote';ft.textContent='General guidance. Hours and services vary, so call ahead when you can.';B.appendChild(ft);
+  document.getElementById('svcPanel').classList.remove('on');document.getElementById('svcBtn').classList.remove('on');
+  var ev=document.getElementById('dEv'),P=window.PROF?PROF.get():null;ev.classList.remove('on');
+  if(o.cat==='ev'&&P){if(P.veh==='ev'){var need=Math.max(0,P.evKwh*(0.8-(+P.level||0)/100))/0.9,fast=/dc fast/i.test(o.note||''),kw=fast?Math.min(P.evDcKw,150)*0.6:Math.min(P.evAcKw,7.2),hr=need/kw;
+      ev.textContent='Your EV: about '+(hr<1?Math.round(hr*60)+' min':hr.toFixed(1)+' hr')+' to reach 80% here ('+(fast?'DC fast':'Level 2')+'), costing about $'+(need*(fast?P.kwhDc:0.3)).toFixed(0)+'.'}
+    else ev.textContent='Set your EV in My Situation to see charge time and cost here.';ev.classList.add('on')}}
+document.getElementById('svcBtn').onclick=function(){this.classList.toggle('on');document.getElementById('svcPanel').classList.toggle('on')};
+function openDetail(o){cur=o;var c=CATS[o.cat]||CATS.other;renderSvc(o);
   var di=document.getElementById('dIcon');di.style.background=c.c;di.innerHTML=iconHTML(o.cat);
   document.getElementById('dName').textContent=o.name;document.getElementById('dCat').textContent=c.n+(o.pinId?' · your pin':'');
   document.getElementById('dNote').textContent=[o.note,o.addr].filter(Boolean).join(' · ');document.getElementById('dNote').style.display=(o.note||o.addr)?'':'none';
@@ -1500,13 +1600,15 @@ window.addEventListener('resize',function(){if(W.offsetParent!==null)render()});
 /* ================= AEGIS home-screen shell ================= */
 (function(){
 var apps=[
+ {id:'profile',type:'html',category:'prep',categoryName:'Settings',title:'My Situation',subtitle:'Household, budget, diet, vehicle',icon:'user-cog',badge:'You',summary:'profile household people kids pets days budget money diet vegan vegetarian gluten vehicle ev electric gas diesel'},
+ {id:'fuel',type:'html',category:'tools',categoryName:'Tools',title:'Fuel & Power',subtitle:'Range, generator, EV charging',icon:'fuel',badge:'Tool',summary:'gas diesel fuel range mpg tank generator runtime propane butane ev electric charging kwh charge time cost'},
  {id:'map',type:'section',category:'maps',categoryName:'Maps',title:'Survival Map',subtitle:'Water, medical, shelter · whole U.S.',icon:'map',gradient:'from-blue-600 to-indigo-700',iconColor:'text-blue-400',badge:'Map',summary:'satellite topo streets street view water springs hospital fire police shelter fuel food stores campground peaks pins gps offline'},
  {id:'med',type:'section',category:'medical',categoryName:'Medical',title:'First Aid',subtitle:'Bleeding, CPR, burns, heat',icon:'heart-pulse',gradient:'from-rose-600 to-red-700',iconColor:'text-rose-400',badge:'Trauma',summary:'tourniquet bleeding cpr choking burns dehydration hypothermia heat stroke med kit'},
  {id:'triage',type:'html',category:'medical',categoryName:'Medical',title:'Triage Tree',subtitle:'S.T.A.R.T. decision assistant',icon:'activity',gradient:'from-red-600 to-rose-900',iconColor:'text-red-400',badge:'Tool',summary:'triage start immediate delayed minor expectant mass casualty'},
  {id:'water',type:'section',category:'survival',categoryName:'Food & Water',title:'Water',subtitle:'Storage & purification',icon:'droplet',gradient:'from-sky-600 to-blue-800',iconColor:'text-sky-400',badge:'Water',summary:'gallons bleach boil filter water heater hidden water purify'},
  {id:'food',type:'section',category:'survival',categoryName:'Food & Water',title:'Food',subtitle:'Stockpile & outages',icon:'utensils',gradient:'from-orange-600 to-amber-700',iconColor:'text-orange-400',badge:'Food',summary:'calories rice beans pantry shelf life fridge freezer power outage'},
  {id:'calc',type:'html',category:'tools',categoryName:'Tools',title:'Calculators',subtitle:'Bleach dose & rations',icon:'calculator',gradient:'from-yellow-600 to-teal-800',iconColor:'text-yellow-400',badge:'Tool',summary:'bleach drops liters gallons calories ration grains beans'},
- {id:'buy',type:'section',category:'prep',categoryName:'Prep & Plan',title:'Supplies',subtitle:'$1,000 list & store route',icon:'shopping-cart',gradient:'from-amber-500 to-orange-600',iconColor:'text-amber-400',badge:'$1,000',summary:'shopping list budget home depot bi-mart coastal fred meyer the dalles buy'},
+ {id:'buy',type:'section',category:'prep',categoryName:'Prep & Plan',title:'Supplies',subtitle:'Your budget list & store route',icon:'shopping-cart',gradient:'from-amber-500 to-orange-600',iconColor:'text-amber-400',badge:'$1,000',summary:'shopping list budget home depot bi-mart coastal fred meyer the dalles buy'},
  {id:'checklist',type:'html',category:'prep',categoryName:'Prep & Plan',title:'Get Ready Checklist',subtitle:'Download & do these now',icon:'square-check',gradient:'from-amber-600 to-yellow-700',iconColor:'text-amber-400',badge:'Checklist',summary:'kiwix wikipedia osmand organic maps pdf manuals downloads'},
  {id:'grid',type:'section',category:'survival',categoryName:'Food & Water',title:'Grid Down',subtitle:'First hour to 72 hours',icon:'zap-off',gradient:'from-zinc-600 to-zinc-800',iconColor:'text-zinc-300',badge:'Playbook',summary:'power outage carbon monoxide phone battery sanitation toilet evacuate stay or go'},
  {id:'plan',type:'section',category:'prep',categoryName:'Prep & Plan',title:'Family Plan',subtitle:'Contacts & meeting places',icon:'users',gradient:'from-violet-600 to-purple-800',iconColor:'text-violet-400',badge:'Plan',summary:'household plan meeting place contacts evacuation route documents'},
@@ -1517,8 +1619,12 @@ var apps=[
  {id:'library',type:'html',category:'library',categoryName:'Library',title:'Survival Library',subtitle:'Guides, gear tiers, apps',icon:'library',badge:'New',summary:'guides fire shelter navigation radio power sanitation foraging canning gear budget premium apps maps files'},
  {id:'repair',type:'html',category:'library',categoryName:'Library',title:'Repair Guides',subtitle:'iFixit & gear manuals',icon:'wrench',gradient:'from-amber-500 to-orange-700',iconColor:'text-amber-400',badge:'iFixit',summary:'ifixit repair generator solar radio car manuals'}
 ];
-var OVERVIEW={"map": ["Find help and resources anywhere in the U.S. Tap any icon for details and a route there.", ["Hospitals & clinics", "Water sources", "Shelters", "Fuel & food", "Routes & ETA", "Save areas offline"]], "med": ["Step-by-step first aid for the emergencies that kill fastest, plus a checklist for your kit.", ["Severe bleeding", "CPR", "Choking", "Burns", "Heat & cold", "Kit checklist"]], "triage": ["Sort several injured people fast using the S.T.A.R.T. method responders use.", ["4 quick questions", "Color tag result"]], "water": ["How much water to store, how to make any water safe, and where hidden water is in your home.", ["Storage calculator", "Bleach dosing", "Boil & filter", "Hidden water"]], "food": ["Calories and staples to stockpile, and how to keep food safe when the power is out.", ["Calorie calculator", "Shelf-life table", "Outage food safety"]], "calc": ["Quick math for water treatment and long-term rations.", ["Bleach dose", "Calories", "Water to store"]], "buy": ["The $1,000 starter kit, sorted by store so you can shop in one drive.", ["Shopping route", "Category view", "Budget tracker"]], "checklist": ["Things to download now, while you still have signal.", ["Offline maps", "Kiwix library", "Medical PDFs"]], "grid": ["What to do in the first hour and first 72 hours of a power or water outage.", ["First hour", "72-hour plan", "CO safety", "Sanitation"]], "plan": ["Your household's contacts, meeting places and routes, in one copyable plan.", ["Meeting places", "Contacts", "Routes", "Documents"]], "start": ["Why this app exists, the survival priority order, and free steps that matter as much as gear.", ["Rule of 3s", "Free steps", "Progress"]], "gun": ["Facts to weigh if you're considering a firearm, plus cheaper security that works.", ["Costs", "Risks & benefits", "California rules", "Alternatives"]], "apps": ["Pair this app with a free offline map app for full street maps with no signal.", ["Organic Maps", "OsmAnd", "Import points"]], "wiki": ["Store Wikipedia and medical references on your phone with the free Kiwix app.", ["Kiwix", "WikiMed", "Hesperian manuals"]], "repair": ["Free repair guides so you can keep radios, engines and electronics running.", ["iFixit", "Your gear's manuals"]], "library": ["Offline guides for long emergencies, gear from budget to premium, and the best apps to install.", ["Survival guides", "Gear tiers", "Recommended apps"]]};
+var OVERVIEW_EXTRA={profile:['Tell the app about your household once. Every list, calculator and estimate adjusts to it.',['Household','Budget','Food','Vehicle & EV','Backup power']],fuel:['How far your vehicle can go, what your stored fuel can power, and how long an EV takes to charge.',['Vehicle range','Stored fuel','Generator','EV charging']]};
+var OVERVIEW={"map": ["Find help and resources anywhere in the U.S. Tap any icon for details and a route there.", ["Hospitals & clinics", "Water sources", "Shelters", "Fuel & food", "Routes & ETA", "Save areas offline"]], "med": ["Step-by-step first aid for the emergencies that kill fastest, plus a checklist for your kit.", ["Severe bleeding", "CPR", "Choking", "Burns", "Heat & cold", "Kit checklist"]], "triage": ["Sort several injured people fast using the S.T.A.R.T. method responders use.", ["4 quick questions", "Color tag result"]], "water": ["How much water to store, how to make any water safe, and where hidden water is in your home.", ["Storage calculator", "Bleach dosing", "Boil & filter", "Hidden water"]], "food": ["Calories and staples to stockpile, and how to keep food safe when the power is out.", ["Calorie calculator", "Shelf-life table", "Outage food safety"]], "calc": ["Quick math for water treatment and long-term rations.", ["Bleach dose", "Calories", "Water to store"]], "buy": ["A starter kit sized to your budget and household, sorted by store so you can shop in one drive.", ["Shopping route", "Category view", "Budget tracker"]], "checklist": ["Things to download now, while you still have signal.", ["Offline maps", "Kiwix library", "Medical PDFs"]], "grid": ["What to do in the first hour and first 72 hours of a power or water outage.", ["First hour", "72-hour plan", "CO safety", "Sanitation"]], "plan": ["Your household's contacts, meeting places and routes, in one copyable plan.", ["Meeting places", "Contacts", "Routes", "Documents"]], "start": ["Why this app exists, the survival priority order, and free steps that matter as much as gear.", ["Rule of 3s", "Free steps", "Progress"]], "gun": ["Facts to weigh if you're considering a firearm, plus cheaper security that works.", ["Costs", "Risks & benefits", "California rules", "Alternatives"]], "apps": ["Pair this app with a free offline map app for full street maps with no signal.", ["Organic Maps", "OsmAnd", "Import points"]], "wiki": ["Store Wikipedia and medical references on your phone with the free Kiwix app.", ["Kiwix", "WikiMed", "Hesperian manuals"]], "repair": ["Free repair guides so you can keep radios, engines and electronics running.", ["iFixit", "Your gear's manuals"]], "library": ["Offline guides for long emergencies, gear from budget to premium, and the best apps to install.", ["Survival guides", "Gear tiers", "Recommended apps"]]};
+(function(){for(var k in OVERVIEW_EXTRA)OVERVIEW[k]=OVERVIEW_EXTRA[k]})();
 var HTML={
+ profile:'<div id="profForm"></div>',
+ fuel:'<div id="fuelBody"></div>',
  library:`<div class="lib">
    <div class="lsearch"><i data-lucide="search"></i><input id="libQ" type="search" placeholder="Search the library…"></div>
    <div class="lsel"><select id="libSec"><option value="guides">📖 Survival guides</option><option value="gear">🎒 Gear: budget → premium</option><option value="apps">📱 Recommended apps</option><option value="offline">📦 Offline setup</option></select>
@@ -1599,7 +1705,7 @@ var checkDefault=[
  {id:7,label:'Store 1 gallon of water per person per day (2 weeks minimum)',done:false},
  {id:8,label:'Keep plain unscented bleach for water purification (replace yearly)',done:false}];
 var savedChecklist;try{savedChecklist=JSON.parse(localStorage.getItem('aegis_prep_check2'))||checkDefault}catch(e){savedChecklist=checkDefault}
-var currentFilter='all',openId=null,HOME_HIDE=['map','library','apps','wiki','repair'];
+var currentFilter='all',openId=null,HOME_HIDE=['map','library','apps','wiki','repair','profile'];
 function ic(){if(window.lucide)try{lucide.createIcons()}catch(e){}}
 /* status bar: real connectivity and battery */
 function net(){var on=navigator.onLine!==false,el=document.getElementById('netStatus');
@@ -1638,7 +1744,7 @@ rb.onclick=function(){var o=!rm.classList.contains('open');closeMenus();if(o){rm
 sh.onclick=closeMenus;
 window.rudderGo=function(k){closeMenus();if(k==='aid')openApp('med');else findNearest(k)};
 window.openMenu=function(){closeMenus();var L=document.getElementById('menuList');L.innerHTML='';
-  [['Essentials',['med','triage','water','food','grid']],['Prepare',['buy','plan','checklist','start','gun']],['Tools',['calc']]].forEach(function(g){
+  [['You',['profile']],['Essentials',['med','triage','water','food','grid']],['Prepare',['buy','plan','checklist','start','gun']],['Tools',['calc','fuel']]].forEach(function(g){
     var h=document.createElement('div');h.className='mgroup';h.textContent=g[0];L.appendChild(h);
     g[1].forEach(function(id){var a=apps.filter(function(x){return x.id===id})[0];if(!a)return;var b=document.createElement('button');b.className='mrow';
       b.innerHTML='<i data-lucide="'+a.icon+'"></i><span></span><i data-lucide="chevron-right" class="chev"></i>';b.querySelector('span').textContent=a.title;b.onclick=function(){openApp(id)};L.appendChild(b)})});
@@ -1663,7 +1769,7 @@ window.openApp=function(id){var a=apps.filter(function(x){return x.id===id})[0];
   if(a.type==='section'){var s=document.getElementById(id);c.appendChild(s);s.classList.add('on')}else{var w=document.createElement('div');w.innerHTML=HTML[id];c.appendChild(w)}
   dockState(id==='map'?'map':id==='library'?'library':'');closeMenus();
   d.classList.remove('closed');d.classList.add('open');openId=id;
-  if(id==='calc')calc();if(id==='triage')restartTriage();if(id==='checklist')renderChecklist();if(id==='library'&&window.renderLibrary)renderLibrary();
+  if(id==='calc')calc();if(id==='triage')restartTriage();if(id==='checklist')renderChecklist();if(id==='library'&&window.renderLibrary)renderLibrary();if(id==='profile')renderProfile();if(id==='fuel')renderFuel();
   try{history.replaceState(null,'','#'+id)}catch(e){}
   if(window.__appOpened)window.__appOpened(id);ic()};
 document.getElementById('closeAppBtn').onclick=closeApp;
@@ -1708,6 +1814,90 @@ window.renderChecklist=function(){var c=document.getElementById('checklistItems'
 window.resetChecklist=function(){savedChecklist=checkDefault.map(function(i){return{id:i.id,label:i.label,done:false}});try{localStorage.setItem('aegis_prep_check2',JSON.stringify(savedChecklist))}catch(e){}renderChecklist()};
 window.findNearest=function(cat){openApp('map');setTimeout(function(){if(window.findNearestOnMap)findNearestOnMap(cat)},350)};
 window.__back=function(){if(openId){closeApp();return true}return false};
+/* ===== My Situation form ===== */
+var PFORM=[
+ ['Household','users',[['adults','Adults','num',1,20],['kids','Kids','num',0,20],['pets','Pets','num',0,20],['days','Prepare for','sel',[[3,'3 days'],[7,'1 week'],[14,'2 weeks'],[30,'1 month'],[90,'3 months'],[180,'6 months'],[365,'1 year']]]]],
+ ['Budget','wallet',[['budget','Total budget','sel',[[250,'$250'],[500,'$500'],[1000,'$1,000'],[2500,'$2,500'],[5000,'$5,000'],[10000,'$10,000'],[25000,'$25,000']]],['budget','Or type an amount ($)','num',0,1000000]]],
+ ['Food','utensils',[['diet','Diet','sel',[['omni','Eats everything'],['veg','Vegetarian'],['vegan','Vegan'],['gf','Gluten-free'],['diab','Diabetic-friendly'],['kids','Kid-friendly / picky']]],
+   ['style','Food style','sel',[['cook','Cook from staples (cheapest)'],['mix','Mix of staples + ready-to-eat'],['nocook','No-cook / ready-to-eat'],['freeze','Freeze-dried meals (premium)']]],
+   ['cook','Cooking fuel','sel',[['butane','Butane camp stove'],['propane','Propane stove / grill'],['wood','Wood / rocket stove'],['none','No stove (no-cook)']]]]],
+ ['Vehicle & fuel','car',[['veh','Vehicle','sel',[['none','No vehicle'],['gas','Gasoline'],['diesel','Diesel'],['hybrid','Hybrid'],['ev','Electric (EV)']]],
+   ['tank','Tank size (gal)','num',1,60],['mpg','Miles per gallon','num',5,80],['level','Current fuel / charge (%)','sel',[[10,'10%'],[25,'25%'],[50,'50%'],[75,'75%'],[100,'Full']]],['fuelPrice','Fuel price ($/gal)','num',1,15],
+   ['evKwh','EV battery size','sel',[[40,'40 kWh (small)'],[60,'60 kWh'],[75,'75 kWh'],[100,'100 kWh'],[130,'130 kWh (truck)']]],['evEff','EV efficiency','sel',[[2.5,'2.5 mi/kWh (truck/SUV)'],[3.3,'3.3 mi/kWh (average)'],[4,'4 mi/kWh (efficient)']]],
+   ['evAcKw','EV max home/AC charging','sel',[[7.2,'7.2 kW'],[11,'11 kW'],[19.2,'19.2 kW']]],['evDcKw','EV max fast charging','sel',[[50,'50 kW'],[100,'100 kW'],[150,'150 kW'],[250,'250 kW']]],
+   ['kwhHome','Home electricity ($/kWh)','num',0.05,1],['kwhDc','Fast charger price ($/kWh)','num',0.1,1.5]]],
+ ['Backup power','zap',[['gen','Generator','sel',[['none','None'],['g2','2,000 W inverter'],['g3','3,500 W portable'],['g7','7,500 W portable']]],['station','Power station','sel',[[0,'None'],[300,'300 Wh'],[1000,'1,000 Wh'],[2000,'2,000 Wh'],[5000,'5,000 Wh']]]]]];
+function renderProfile(){var F=document.getElementById('profForm');if(!F)return;F.innerHTML='';var P=PROF.get();
+  PFORM.forEach(function(g,gi){var d=document.createElement('details');d.className='pf';d.open=gi<2;d.innerHTML='<summary><i data-lucide="'+g[1]+'"></i><span></span><em></em></summary><div class="pfb"></div>';d.querySelector('span').textContent=g[0];
+    var B=d.querySelector('.pfb');g[2].forEach(function(f){var k=f[0];if(['tank','mpg','fuelPrice'].indexOf(k)>=0&&(P.veh==='ev'||P.veh==='none'))return;if(k.indexOf('ev')===0||k.indexOf('kwh')===0){if(P.veh!=='ev')return}if(k==='level'&&P.veh==='none')return;
+      var wrap=document.createElement('div');var l=document.createElement('label');l.className='pfl';l.textContent=f[1];wrap.appendChild(l);var el;
+      if(f[2]==='sel'){el=document.createElement('select');var has=false;f[3].forEach(function(o){var op=document.createElement('option');op.value=o[0];op.textContent=o[1];if(String(o[0])===String(P[k]))has=true;el.appendChild(op)});
+        if(!has&&k==='budget'){var op=document.createElement('option');op.value=P[k];op.textContent='$'+(+P[k]).toLocaleString()+' (custom)';el.appendChild(op)}el.value=String(P[k])}
+      else{el=document.createElement('input');el.type='number';el.inputMode='decimal';el.min=f[3];el.max=f[4];el.step=k.indexOf('kwh')===0?'0.01':(k==='fuelPrice'?'0.05':'1');el.value=P[k]}
+      el.onchange=function(){var v=el.value;var num=isNaN(+v)?v:+v;PROF.set(k,num);meCard();if(k==='veh'||k==='budget')renderProfile()};wrap.appendChild(el);B.appendChild(wrap)});
+    d.querySelector('em').textContent=summary(g[0]);F.appendChild(d)});ic()}
+function summary(g){var P=PROF.get();if(g==='Household')return P.adults+'A'+(P.kids?' '+P.kids+'K':'')+(P.pets?' '+P.pets+'P':'')+' · '+P.days+'d';if(g==='Budget')return '$'+(+P.budget).toLocaleString();
+  if(g==='Food')return({omni:'Everything',veg:'Vegetarian',vegan:'Vegan',gf:'Gluten-free',diab:'Diabetic',kids:'Kid-friendly'})[P.diet];if(g==='Vehicle & fuel')return({none:'None',gas:'Gas',diesel:'Diesel',hybrid:'Hybrid',ev:'EV'})[P.veh];return ''}
+function meCard(){var P=PROF.get(),c=document.getElementById('meCard');if(!c)return;
+  c.innerHTML='<span class="mi"><i data-lucide="user-cog"></i></span><span><b>My Situation</b><small></small></span><i data-lucide="chevron-right" class="chev"></i>';
+  c.querySelector('small').textContent=PROF.ppl()+' people'+(P.pets?' + '+P.pets+' pet'+(P.pets>1?'s':''):'')+' · '+P.days+' days · $'+(+P.budget).toLocaleString()+' budget · tap to change';ic()}
+/* ===== food plan (in the Food section) ===== */
+var FOODS={omni:['White rice','Dried beans & lentils','Rolled oats','Pasta','Canned chicken, tuna, salmon','Peanut butter','Canned vegetables & fruit','Powdered milk','Cooking oil','Honey, salt, spices'],
+ veg:['White rice','Dried beans & lentils','Rolled oats','Pasta','Peanut butter & nuts','Powdered eggs','Powdered milk & shelf-stable cheese','Canned vegetables & fruit','Cooking oil','Honey, salt, spices'],
+ vegan:['White rice','Dried beans, lentils, split peas','Rolled oats','Pasta','TVP (textured soy protein)','Peanut butter, nuts & seeds','Shelf-stable soy or oat milk','Canned vegetables & fruit','Cooking oil','B12 vitamin + multivitamin'],
+ gf:['White rice','Potato flakes','Certified gluten-free oats','Corn tortillas / masa harina','Dried beans & lentils','Canned chicken & tuna','Peanut butter','Canned vegetables & fruit','Cooking oil','Read labels: many canned soups contain wheat'],
+ diab:['Dried beans & lentils','Canned fish & chicken','Nuts & peanut butter','Non-starchy canned vegetables','Brown rice & steel-cut oats (small portions)','Powdered milk','Olive oil','Sugar-free drink mixes','Glucose tablets for lows','Extra diabetes supplies (talk to your doctor)'],
+ kids:['Oatmeal packets','Peanut butter & crackers','Mac & cheese','Canned pasta & soups','Applesauce & fruit cups','Shelf-stable milk boxes','Granola bars','Rice','Canned chicken','Favorite treats for morale']};
+var RATE={cook:3.8,mix:6,nocook:7,freeze:10.5};
+window.renderFoodPlan=function(){var C=document.getElementById('foodPlan');if(!C)return;var P=PROF.get(),eat=PROF.eat(),k=Math.round(eat*P.days*2000);
+  var per=RATE[P.style]*(DIETM[P.diet]||1),tot=per*eat*P.days;
+  C.innerHTML='<h3 style="margin-top:0">Your food plan</h3><div class="pfb" style="padding:0"><div class="pfr"><div><label class="pfl">Diet</label><select id="fpD"></select></div><div><label class="pfl">Food style</label><select id="fpS"></select></div></div></div>'+
+    '<div class="kv"><div><b>$'+Math.round(tot).toLocaleString()+'</b><span>estimated for '+P.days+' days (~$'+per.toFixed(2)+'/person/day)</span></div><div><b>'+Math.round(k/1000).toLocaleString()+'k</b><span>calories for '+PROF.ppl()+' people</span></div></div>'+
+    '<ul id="fpL"></ul><p class="fnote">'+({cook:'Cheapest option. You need a stove and fuel, and some meals take time.',mix:'A balance: staples for most meals plus easy no-cook food for busy or stressful days.',nocook:'No stove needed, but it costs more and takes more storage space.',freeze:'Lightest and longest-lasting (25 years), and the most expensive. Needs hot water.'})[P.style]+'</p>';
+  [['fpD','diet',[['omni','Eats everything'],['veg','Vegetarian'],['vegan','Vegan'],['gf','Gluten-free'],['diab','Diabetic-friendly'],['kids','Kid-friendly / picky']]],['fpS','style',[['cook','Cook from staples'],['mix','Mix'],['nocook','No-cook'],['freeze','Freeze-dried']]]].forEach(function(d){
+    var el=document.getElementById(d[0]);d[2].forEach(function(o){var op=document.createElement('option');op.value=o[0];op.textContent=o[1];el.appendChild(op)});el.value=P[d[1]];el.onchange=function(){PROF.set(d[1],el.value)}});
+  var L=document.getElementById('fpL');(P.style==='freeze'?['Freeze-dried entrées & breakfasts','Freeze-dried fruit & vegetables','Drink mixes & coffee','Plus a few staples from below']:FOODS[P.diet]).forEach(function(x){var li=document.createElement('li');li.textContent=x;L.appendChild(li)})};
+var DIETM={omni:1,veg:0.95,vegan:0.9,gf:1.25,diab:1.2,kids:1.1};
+/* ===== Fuel & Power ===== */
+var GEN={g2:[2000,0.13,1.0,'2,000 W inverter'],g3:[3500,0.3,3.4,'3,500 W portable'],g7:[7500,0.6,6.6,'7,500 W portable']};
+function renderFuel(){var B=document.getElementById('fuelBody');if(!B)return;var P=PROF.get(),h='';
+  function card(t,ic2,inner){return '<details class="pf" open><summary><i data-lucide="'+ic2+'"></i><span>'+t+'</span></summary><div class="pfb">'+inner+'</div></details>'}
+  var lv=(+P.level||0)/100;
+  if(P.veh==='none')h+=card('Vehicle','car','<p class="fnote">No vehicle set. Change it in My Situation.</p>');
+  else if(P.veh==='ev'){var now=P.evKwh*lv*P.evEff,full=P.evKwh*P.evEff,need=Math.max(0,P.evKwh*(0.8-lv))/0.9,needF=Math.max(0,P.evKwh*(1-lv))/0.9;
+    function t(hr){return hr<1?Math.round(hr*60)+' min':hr.toFixed(1)+' hr'}
+    var dc=Math.min(P.evDcKw,150)*0.6,dc350=Math.min(P.evDcKw,350)*0.6;
+    h+=card('Electric vehicle','battery-charging','<div class="kv"><div><b>'+Math.round(now)+' mi</b><span>range now ('+P.level+'%)</span></div><div><b>'+Math.round(full)+' mi</b><span>range when full</span></div></div>'+
+      '<table class="ct"><tr><th>Where</th><th>To 80%</th><th>Cost</th></tr>'+
+      '<tr><td>Wall outlet (Level 1, 1.4 kW)</td><td><b>'+t(need/1.4)+'</b></td><td>$'+(need*P.kwhHome).toFixed(2)+'</td></tr>'+
+      '<tr><td>Home / public Level 2 ('+Math.min(P.evAcKw,7.2)+'–'+P.evAcKw+' kW)</td><td><b>'+t(need/Math.min(P.evAcKw,7.2))+'</b></td><td>$'+(need*P.kwhHome).toFixed(2)+' home</td></tr>'+
+      '<tr><td>DC fast charger (150 kW station)</td><td><b>'+t(need/dc)+'</b></td><td>$'+(need*P.kwhDc).toFixed(2)+'</td></tr>'+
+      (P.evDcKw>150?'<tr><td>DC fast charger (350 kW station)</td><td><b>'+t(need/dc350)+'</b></td><td>$'+(need*P.kwhDc).toFixed(2)+'</td></tr>':'')+'</table>'+
+      '<p class="fnote">Full charge at Level 2: about '+t(needF/Math.min(P.evAcKw,7.2))+'. Fast charging slows a lot above 80%. In a grid outage, chargers stop working, so keep the car topped up when a storm is forecast. Map → Filters → EV charging shows chargers.</p>')}
+  else{var mpg=+P.mpg||25,now2=P.tank*lv*mpg,fill=P.tank*(1-lv)*P.fuelPrice;
+    h+=card(P.veh==='diesel'?'Diesel vehicle':P.veh==='hybrid'?'Hybrid vehicle':'Gas vehicle','car','<div class="kv"><div><b>'+Math.round(now2)+' mi</b><span>range now ('+P.level+'%)</span></div><div><b>'+Math.round(P.tank*mpg)+' mi</b><span>range when full</span></div>'+
+      '<div><b>$'+fill.toFixed(0)+'</b><span>to fill up now</span></div><div><b>'+(100/mpg).toFixed(1)+' gal</b><span>per 100 miles</span></div></div>'+
+      '<p class="fnote">Pumps need power, so in an outage many stations can\'t pump. Keep the tank above half. Ways out of town are usually 50–150 miles, so a full tank is the goal.</p>')}
+  /* stored fuel */
+  var ST={gas:['Gasoline','gal'],diesel:['Diesel','gal'],propane:['Propane','lb'],butane:['Butane canisters (8 oz)','cans'],kero:['Kerosene','gal']};
+  var sel='<div class="pfr"><div><label class="pfl">Fuel you have stored</label><select id="stT">'+Object.keys(ST).map(function(k){return '<option value="'+k+'"'+(P.storeType===k?' selected':'')+'>'+ST[k][0]+'</option>'}).join('')+'</select></div>'+
+    '<div><label class="pfl">Amount ('+ST[P.storeType][1]+')</label><input id="stA" type="number" inputmode="decimal" value="'+P.storeAmt+'"></div></div>';
+  var a=+P.storeAmt||0,out='';
+  if(P.storeType==='gas'||P.storeType==='diesel'){var g=GEN[P.gen];out='<div class="kv"><div><b>'+(P.veh==='ev'||P.veh==='none'?'—':Math.round(a*(+P.mpg||25))+' mi')+'</b><span>in your vehicle</span></div><div><b>'+(g?Math.round(a/g[1])+' hr':'—')+'</b><span>'+(g?'generator at about half load':'no generator set')+'</span></div></div>'+
+    '<p class="fnote">Shelf life: '+(P.storeType==='gas'?'gasoline lasts about 3–6 months, or 1–2 years with fuel stabilizer.':'diesel lasts about 6–12 months, longer with stabilizer and biocide.')+' Store it in approved cans away from the house, and rotate it into your car.</p>'}
+  else if(P.storeType==='propane'){out='<div class="kv"><div><b>~'+Math.round(a*1)+' hr</b><span>one stove burner, medium</span></div><div><b>'+(a/20).toFixed(1)+'</b><span>20-lb tanks</span></div></div><p class="fnote">Propane doesn\'t go bad. Use it outdoors only, unless an appliance is rated for indoor use.</p>'}
+  else if(P.storeType==='butane'){out='<div class="kv"><div><b>~'+(a*1.5).toFixed(0)+' hr</b><span>cooking on high</span></div><div><b>~'+Math.round(a*1.5*2)+'</b><span>meals (about 30 min each)</span></div></div><p class="fnote">Butane struggles below about 40°F. Keep canisters warm, or use propane in the cold.</p>'}
+  else{out='<div class="kv"><div><b>~'+Math.round(a/0.1)+' hr</b><span>kerosene heater</span></div><div><b>'+a+' gal</b><span>stored</span></div></div><p class="fnote">Use only heaters rated for indoor use, with ventilation and a CO alarm.</p>'}
+  h+=card('Stored fuel','fuel',sel+out);
+  /* generator / power station */
+  var g=GEN[P.gen],ps=+P.station||0,inner='';
+  if(g)inner+='<div class="kv"><div><b>'+Math.round(1/g[1])+' hr</b><span>per gallon, about half load</span></div><div><b>'+Math.round(g[2]/g[1])+' hr</b><span>on a full tank ('+g[2]+' gal)</span></div></div>';
+  if(ps){inner+='<table class="ct"><tr><th>Device</th><th>Runs for about</th></tr>'+
+    [['Phone charges (15 Wh)',ps*0.85/15,'charges'],['LED light (10 W)',ps*0.85/10,'hr'],['CPAP, no humidifier (40 W)',ps*0.85/40,'hr'],['Fridge (about 1.2 kWh/day)',ps*0.85/1200*24,'hr'],['Laptop (50 W)',ps*0.85/50,'hr']].map(function(r){return '<tr><td>'+r[0]+'</td><td><b>'+Math.round(r[1])+' '+r[2]+'</b></td></tr>'}).join('')+'</table>'}
+  if(!inner)inner='<p class="fnote">No generator or power station set. Add one in My Situation to see runtimes.</p>';
+  h+=card('Backup power','zap',inner+'<p class="fnote">Run generators outside, 20+ ft from windows. Never backfeed a house through an outlet.</p>');
+  h+='<p class="fnote">All numbers are estimates from your settings. Real results depend on load, temperature, terrain and driving.</p>';
+  B.innerHTML=h;document.getElementById('stT').onchange=function(){PROF.set('storeType',this.value);renderFuel()};document.getElementById('stA').onchange=function(){PROF.set('storeAmt',+this.value||0);renderFuel()};ic()}
 /* ===== version, updates, what's new ===== */
 var APP_VERSION='__APP_VERSION__',WHATS_NEW="__WHATS_NEW__";
 var REPO='mrsirwithpizza101/Survival-App';
@@ -1793,7 +1983,7 @@ function addNearby(d,topic){var m=TOPIC_CAT[topic];if(!m)return;var box=document
 /* home search also finds library guides */
 function libHits(q){q=q.toLowerCase();return LIB.guides.filter(function(g){return(g.h+' '+g.t+' '+g.b.replace(/<[^>]+>/g,' ')).toLowerCase().indexOf(q)>=0}).slice(0,6)}
 /* init */
-net();bat();pills();search();renderAppGrid();dockState('home');
+net();bat();pills();search();renderAppGrid();dockState('home');meCard();renderFoodPlan();PROF.on(function(){meCard()});
 setTimeout(function(){if(!whatsNew())setTimeout(function(){checkUpdate(false)},2500)},600);
 var h=location.hash.slice(1);if(h&&apps.some(function(a){return a.id===h}))openApp(h);
 })();

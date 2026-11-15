@@ -50,6 +50,23 @@ def classify(t):
         return 'medical', 'Pharmacy', '', 12
     if t.get('emergency') == 'defibrillator':
         return 'medical', 'AED (defibrillator)', '', 15
+    if a == 'charging_station':
+        plugs = []
+        for key, label in (('socket:type1_combo', 'CCS'), ('socket:chademo', 'CHAdeMO'), ('socket:nacs', 'Tesla/NACS'),
+                           ('socket:tesla_supercharger', 'Tesla/NACS'), ('socket:type1', 'J1772'), ('socket:type2', 'Type 2')):
+            if t.get(key) and label not in plugs:
+                plugs.append(label)
+        fast = any(p in plugs for p in ('CCS', 'CHAdeMO')) or t.get('socket:tesla_supercharger')
+        bits = ['DC fast' if fast else 'Level 2']
+        if plugs:
+            bits.append('/'.join(plugs))
+        if t.get('capacity'):
+            bits.append(t['capacity'] + ' stalls')
+        if t.get('operator') or t.get('network'):
+            bits.append(t.get('network') or t.get('operator'))
+        if t.get('fee') == 'no':
+            bits.append('free')
+        return 'ev', 'EV charger', ' · '.join(bits), 12
     if a == 'fire_station':
         return 'fire', 'Fire station', '', 10
     if a == 'police':
@@ -137,7 +154,7 @@ def main():
                 tiles['%d_%d' % (x, y)].append([name, cat, lat, lon, ' · '.join(info), minz])
                 counts[cat] += 1
     os.makedirs(os.path.join(out, str(Z)), exist_ok=True)
-    order = {'medical': 0, 'fire': 1, 'water': 2, 'shelter': 3, 'civic': 4, 'camp': 5, 'fuel': 6, 'supply': 7, 'rally': 8, 'place': 9}
+    order = {'medical': 0, 'fire': 1, 'water': 2, 'shelter': 3, 'civic': 4, 'camp': 5, 'fuel': 6, 'ev': 7, 'supply': 8, 'rally': 9, 'place': 10}
     for key, arr in tiles.items():
         arr.sort(key=lambda g: (order.get(g[1], 10), g[5]))
         with open(os.path.join(out, str(Z), key + '.json'), 'w', encoding='utf-8') as f:

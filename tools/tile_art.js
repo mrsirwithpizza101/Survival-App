@@ -56,4 +56,7 @@ A.library=svg(bg('lib','#a16207','#facc15')+
  '<rect x="30" y="20" width="16" height="62" rx="2" fill="#7c2d12"/><rect x="48" y="26" width="14" height="56" rx="2" fill="#1e3a8a"/><rect x="64" y="16" width="18" height="66" rx="2" fill="#14532d"/>'+
  '<g transform="rotate(14 98 50)"><rect x="88" y="20" width="16" height="62" rx="2" fill="#7f1d1d"/></g><rect x="112" y="30" width="16" height="52" rx="2" fill="#1f2937"/>'+
  '<path d="M24 84 H136" stroke="#422006" stroke-width="5" stroke-linecap="round"/><path d="M34 30 h8 M68 26 h10 M116 40 h8" stroke="#fde68a" stroke-width="2"/>');
+A.fuel=svg(bg('fuel','#14532d','#22c55e')+
+ '<rect x="34" y="26" width="40" height="58" rx="6" fill="#f0fdf4"/><rect x="40" y="34" width="28" height="16" rx="3" fill="#166534"/><path d="M74 40 h8 a6 6 0 0 1 6 6 v24 a5 5 0 0 0 10 0 V44 l-8-10" stroke="#f0fdf4" stroke-width="4" fill="none" stroke-linecap="round"/>'+
+ '<rect x="106" y="34" width="28" height="44" rx="6" fill="#052e16"/><rect x="113" y="28" width="14" height="7" rx="2" fill="#052e16"/><path d="M122 42 L114 58 H121 L117 72 L128 54 H121 Z" fill="#facc15"/>');
 return A})();

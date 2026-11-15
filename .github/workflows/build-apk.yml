@@ -44,7 +44,7 @@ jobs:
         run: |
           cd /mnt/osm
           osmium tags-filter region.osm.pbf \
-            nwr/amenity=hospital,clinic,doctors,pharmacy,fire_station,police,ranger_station,drinking_water,water_point,fuel,townhall,social_facility \
+            nwr/amenity=hospital,clinic,doctors,pharmacy,fire_station,police,ranger_station,drinking_water,water_point,fuel,townhall,social_facility,charging_station \
             n/natural=spring,peak n/man_made=water_well n/emergency=assembly_point,defibrillator \
             nwr/tourism=camp_site nwr/shop=supermarket,convenience,hardware,doityourself,outdoor,general \
             n/place=city,town,village,hamlet \
