@@ -6,37 +6,88 @@ on:
 permissions:
   contents: write
 jobs:
-  build:
+  # Is this week's nationwide point data already built?
+  check:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    outputs:
+      hit: ${{ steps.c.outputs.cache-hit }}
     steps:
       - uses: actions/checkout@v4
-
-      # ---- Nationwide map points (rebuilt from OpenStreetMap at most once a week, then cached) ----
-      - name: Week key
-        id: wk
-        run: echo "key=poi-v1-$(date +%G-%V)-${{ hashFiles('tools/build_poi.py') }}" >> "$GITHUB_OUTPUT"
-      - uses: actions/cache@v4
-        id: poicache
+      - id: wk
+        run: echo "key=poi-v2-$(date +%G-%V)-${{ hashFiles('tools/build_poi.py') }}" >> "$GITHUB_OUTPUT"
+      - id: c
+        uses: actions/cache/restore@v4
         with:
           path: build/poi
           key: ${{ steps.wk.outputs.key }}
-      - name: Build U.S. points from OpenStreetMap
-        if: steps.poicache.outputs.cache-hit != 'true'
+          lookup-only: true
+
+  # Download and filter OpenStreetMap by U.S. region, in parallel
+  region:
+    needs: check
+    if: needs.check.outputs.hit != 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        region: [us-west, us-midwest, us-northeast, us-south, us/alaska, us/hawaii]
+    steps:
+      - name: Tools
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq osmium-tool aria2
+      - name: Download ${{ matrix.region }}
         run: |
-          sudo apt-get update -qq && sudo apt-get install -y -qq osmium-tool
           sudo mkdir -p /mnt/osm && sudo chown "$USER" /mnt/osm && cd /mnt/osm
-          wget -q https://download.geofabrik.de/north-america/us-latest.osm.pbf
-          osmium tags-filter us-latest.osm.pbf \
+          aria2c -q -x 4 -s 4 -o region.osm.pbf "https://download.geofabrik.de/north-america/${{ matrix.region }}-latest.osm.pbf"
+          ls -la
+      - name: Filter emergency points
+        run: |
+          cd /mnt/osm
+          osmium tags-filter region.osm.pbf \
             nwr/amenity=hospital,clinic,doctors,pharmacy,fire_station,police,ranger_station,drinking_water,water_point,fuel,townhall,social_facility \
             n/natural=spring,peak n/man_made=water_well n/emergency=assembly_point,defibrillator \
             nwr/tourism=camp_site nwr/shop=supermarket,convenience,hardware,doityourself,outdoor,general \
             n/place=city,town,village,hamlet \
             -o filtered.osm.pbf --overwrite
-          rm us-latest.osm.pbf
-          osmium export filtered.osm.pbf -f geojsonseq -o us.geojsonseq --overwrite
-          cd "$GITHUB_WORKSPACE"
-          python3 tools/build_poi.py build/poi /mnt/osm/us.geojsonseq
+          N=$(echo "${{ matrix.region }}" | tr '/' '-')
+          osmium export filtered.osm.pbf -f geojsonseq -o "$N.geojsonseq" --overwrite
+          gzip "$N.geojsonseq" && ls -la
+          echo "N=$N" >> "$GITHUB_ENV"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: osm-${{ env.N }}
+          path: /mnt/osm/${{ env.N }}.geojsonseq.gz
+          retention-days: 2
+
+  build:
+    needs: [check, region]
+    if: always() && needs.check.result == 'success' && (needs.region.result == 'success' || needs.region.result == 'skipped')
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Week key
+        id: wk
+        run: echo "key=poi-v2-$(date +%G-%V)-${{ hashFiles('tools/build_poi.py') }}" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@v4
+        id: poicache
+        with:
+          path: build/poi
+          key: ${{ steps.wk.outputs.key }}
+      - name: Get region extracts
+        if: steps.poicache.outputs.cache-hit != 'true'
+        uses: actions/download-artifact@v4
+        with:
+          pattern: osm-*
+          path: /tmp/osm
+          merge-multiple: true
+      - name: Tile U.S. points
+        if: steps.poicache.outputs.cache-hit != 'true'
+        run: |
+          ls -la /tmp/osm
+          gunzip -f /tmp/osm/*.gz
+          python3 tools/build_poi.py build/poi /tmp/osm/*.geojsonseq
       - name: Add points to the app
         run: |
           mkdir -p app/src/main/assets

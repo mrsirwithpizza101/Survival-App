@@ -91,6 +91,7 @@ def main():
     tiles = defaultdict(list)
     places = []
     counts = defaultdict(int)
+    seen = set()  # regions can overlap at borders
     for path in sys.argv[2:]:
         with open(path, encoding='utf-8') as f:
             for line in f:
@@ -106,6 +107,10 @@ def main():
                 if not c:
                     continue
                 lat, lon = round(c[0], 5), round(c[1], 5)
+                sig = (t.get('name'), t.get('amenity'), t.get('shop'), t.get('natural'), t.get('place'), round(lat, 4), round(lon, 4))
+                if sig in seen:
+                    continue
+                seen.add(sig)
                 pl = t.get('place')
                 if pl in ('city', 'town') and t.get('name'):
                     places.append([t['name'], lat, lon, 1 if pl == 'city' else 2])
