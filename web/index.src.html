@@ -778,7 +778,7 @@ function render(){
   OV.className=S.ov.hill?'hill':'';
   Object.keys(OVS).forEach(function(k){if(S.ov[k])layerTiles(OV,OVS[k].u,'ov'+k,Math.min(S.z,18),o,sz,keep)});
   for(var id in live)if(!keep[id]){live[id].remove();delete live[id]}
-  renderPlaces(o);renderPins(o);if(BUNDLED)renderBundled(o);else renderPoi(o);renderMe(o);readout();if(BUNDLED)bundledTick();else poiTick();
+  renderPins(o);renderPlaces(o);if(BUNDLED)renderBundled(o);else renderPoi(o);renderMe(o);readout();if(BUNDLED)bundledTick();else poiTick();
   document.getElementById('bStreet').href='https://www.google.com/maps/@?api=1&map_action=pano&viewpoint='+S.lat.toFixed(6)+','+S.lon.toFixed(6);
   var a=[BASES[S.base].a];Object.keys(OVS).forEach(function(k){if(S.ov[k])a.push(OVS[k].a)});document.getElementById('mAttr').textContent=a.join(' · ');
 }
