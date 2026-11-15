@@ -103,7 +103,7 @@ jobs:
           npm install --no-audit --no-fund
           npx tailwindcss -c tailwind.config.js -i tools/tw.in.css -o build/tw.css --minify
           mkdir -p dist
-          python3 tools/build_web.py web/index.src.html build/tw.css node_modules/lucide/dist/umd/lucide.min.js \
+          APP_VERSION=v1.${{ github.run_number }} python3 tools/build_web.py web/index.src.html build/tw.css node_modules/lucide/dist/umd/lucide.min.js \
             app/src/main/assets/index.html dist/Survival-App.html
 
       # ---- Android APK ----

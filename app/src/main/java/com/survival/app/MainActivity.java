@@ -43,7 +43,6 @@ public class MainActivity extends Activity {
         s.setGeolocationEnabled(true);
         s.setAllowFileAccess(false);
         s.setMediaPlaybackRequiresUserGesture(false);
-        s.setCacheMode(WebSettings.LOAD_DEFAULT);
         s.setSupportMultipleWindows(false);
 
         web.setWebViewClient(new WebViewClient() {
@@ -69,6 +68,13 @@ public class MainActivity extends Activity {
                         Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 7);
             }
         });
+        // After an update, drop any cached copy of the old page so new features show up.
+        try {
+            int ver = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
+            android.content.SharedPreferences prefs = getSharedPreferences("app", MODE_PRIVATE);
+            if (prefs.getInt("ver", -1) != ver) { web.clearCache(true); prefs.edit().putInt("ver", ver).apply(); }
+        } catch (Exception ignored) {}
+        s.setCacheMode(WebSettings.LOAD_DEFAULT);
         setContentView(web);
         if (savedInstanceState != null) web.restoreState(savedInstanceState);
         else web.loadUrl("https://" + HOST + "/assets/index.html");
