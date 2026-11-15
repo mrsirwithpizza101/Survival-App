@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home Preparedness Station — Offline Manual</title>
+<style>
+:root{
+  --bg:#14130f;--panel:#1d1c17;--panel2:#262520;--line:#38362e;
+  --ink:#ece8dc;--mute:#a7a291;--accent:#e0a33a;--ok:#7fb069;--warn:#e26d4f;--info:#6fa8c9;
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+header{padding:20px 16px 8px;max-width:860px;margin:0 auto}
+header h1{margin:0;font-size:1.45rem;letter-spacing:.01em}
+header p{margin:4px 0 0;color:var(--mute);font-size:.92rem}
+nav{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+nav .tabs{display:flex;gap:6px;overflow-x:auto;padding:10px 16px;max-width:860px;margin:0 auto;scrollbar-width:none}
+nav .tabs::-webkit-scrollbar{display:none}
+nav button{flex:0 0 auto;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font:inherit;font-size:.9rem;cursor:pointer}
+nav button.on{background:var(--accent);color:#1a1408;border-color:var(--accent);font-weight:600}
+main{max-width:860px;margin:0 auto;padding:16px 16px 80px}
+section{display:none}
+section.on{display:block}
+h2{font-size:1.2rem;margin:8px 0 10px}
+h3{font-size:1rem;margin:22px 0 8px;color:var(--accent);text-transform:uppercase;letter-spacing:.06em}
+p,li{color:var(--ink)}
+.mute{color:var(--mute)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:12px 0}
+.card.warn{border-color:var(--warn);background:#2a1a15}
+.card.info{border-color:#3b5566;background:#16212a}
+.card.ok{border-color:#4b6b3d;background:#18221a}
+ol,ul{padding-left:22px;margin:6px 0}
+li{margin:4px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.stat{background:var(--panel2);border-radius:10px;padding:10px 12px}
+.stat b{display:block;font-size:1.35rem}
+.stat span{color:var(--mute);font-size:.82rem}
+.bar{height:12px;background:var(--panel2);border-radius:99px;overflow:hidden;margin:8px 0 2px}
+.bar i{display:block;height:100%;background:var(--ok);width:0;transition:width .3s}
+.bar i.over{background:var(--warn)}
+.item{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+.item:first-of-type{border-top:0}
+.item input{width:22px;height:22px;margin-top:2px;accent-color:var(--ok);flex:0 0 auto}
+.item .t{flex:1}
+.item .t small{display:block;color:var(--mute);font-size:.84rem}
+.item .p{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--mute)}
+.item.done .t{text-decoration:line-through;opacity:.6}
+.tag{display:inline-block;font-size:.7rem;padding:1px 7px;border-radius:99px;background:#3a3222;color:var(--accent);margin-left:6px;vertical-align:middle}
+label.f{display:block;margin:10px 0 4px;color:var(--mute);font-size:.88rem}
+input[type=number],input[type=text],textarea,select{width:100%;background:var(--panel2);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:10px;font:inherit}
+textarea{min-height:70px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn{background:var(--accent);color:#1a1408;border:0;border-radius:8px;padding:10px 14px;font:inherit;font-weight:600;cursor:pointer;margin-top:10px}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+td,th{text-align:left;padding:7px 6px;border-top:1px solid var(--line);vertical-align:top}
+th{color:var(--mute);font-weight:500}
+details{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:0 16px}
+details summary{cursor:pointer;padding:13px 0;font-weight:600;list-style:none}
+details summary::after{content:"+";float:right;color:var(--accent)}
+details[open] summary::after{content:"–"}
+details>div{padding-bottom:14px}
+.big{font-size:1.6rem;font-weight:700}
+/* view toggle */
+.seg{display:inline-flex;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:3px;margin:6px 0 4px}
+.seg button{background:transparent;border:0;color:var(--mute);font:inherit;font-size:.88rem;padding:7px 14px;border-radius:999px;cursor:pointer}
+.seg button.on{background:var(--accent);color:#1a1408;font-weight:600}
+.storehead{margin:22px 0 4px}
+.storehead b{color:var(--accent);text-transform:uppercase;letter-spacing:.06em;font-size:.95rem}
+.storehead small{display:block;color:var(--mute)}
+/* map */
+body.mapmode main{max-width:none;padding:0}
+body.mapmode footer,body.mapmode header{display:none}
+#mapWrap{position:relative;height:calc(100vh - 58px);height:calc(100dvh - 58px);overflow:hidden;background:#1b1f1c;
+  background-image:linear-gradient(#2a2f2b 1px,transparent 1px),linear-gradient(90deg,#2a2f2b 1px,transparent 1px);background-size:64px 64px;touch-action:none;user-select:none;-webkit-user-select:none}
+#tiles,#overlay,#pins{position:absolute;left:0;top:0;width:100%;height:100%;transform-origin:0 0}
+#tiles img,#overlay img{position:absolute;opacity:0;color:transparent;width:256px;height:256px;max-width:none;pointer-events:none;-webkit-user-drag:none}
+#overlay.hill img{filter:opacity(.35);mix-blend-mode:multiply}
+.pin{position:absolute;transform:translate(-50%,-100%);display:flex;flex-direction:column;align-items:center;cursor:pointer;pointer-events:auto}
+.pin .dot{width:30px;height:30px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 2px 6px #0008}
+.pin .dot span{transform:rotate(45deg);font-size:15px}
+.pin .lbl{margin-top:3px;font-size:11px;background:#000b;color:#fff;padding:1px 6px;border-radius:6px;white-space:nowrap;max-width:140px;overflow:hidden;text-overflow:ellipsis}
+.pin.sel .dot{outline:3px solid var(--accent)}
+.bpin{position:absolute;transform:translate(-11px,-11px);display:flex;align-items:center;gap:4px;cursor:pointer;pointer-events:auto}
+.bpin i{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:12px;border:1.5px solid #fff;box-shadow:0 1px 4px #0009;flex:0 0 auto}
+.bpin b{font-weight:500;font-size:11px;color:#fff;text-shadow:0 0 3px #000,0 0 3px #000;white-space:nowrap;max-width:150px;overflow:hidden;text-overflow:ellipsis}
+.plabel{position:absolute;transform:translate(-50%,-50%);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#f3e6c4;text-shadow:0 0 4px #000,0 0 4px #000;white-space:nowrap;pointer-events:none}
+#me{position:absolute;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;background:#3d8bfd;border:3px solid #fff;box-shadow:0 0 0 6px #3d8bfd44;display:none;pointer-events:none}
+.mtop{position:absolute;left:0;right:0;top:0;z-index:3;padding:10px 10px 0;background:linear-gradient(#000a,#0000)}
+.mbar{display:flex;gap:6px}
+.fbar{display:flex;gap:6px;overflow-x:auto;padding:8px 0 10px;scrollbar-width:none}.fbar::-webkit-scrollbar{display:none}
+.fchip{flex:0 0 auto;display:flex;align-items:center;gap:5px;background:#202124d9;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:#e8eaed;border:1px solid #ffffff22;border-radius:999px;padding:6px 11px;font:inherit;font-size:.82rem;cursor:pointer;box-shadow:0 1px 4px #0006}
+.fchip i{width:16px;height:16px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-style:normal;font-size:9px}
+.fchip.off{opacity:.45;text-decoration:line-through}
+.mbl{position:absolute;left:10px;bottom:34px;z-index:3;display:flex;gap:8px;align-items:flex-end}
+.mode{width:64px;height:64px;border-radius:14px;border:2px solid #fff;padding:0;position:relative;overflow:hidden;cursor:pointer;box-shadow:0 2px 8px #000a;background:#333}
+.mode .sw{position:absolute;inset:0;background:linear-gradient(135deg,#7aa36a,#c9b98a)}
+.mode b{position:absolute;left:0;right:0;bottom:0;background:#000b;color:#fff;font-size:11px;padding:2px 0;font-weight:600}
+.pill{position:absolute;left:50%;top:112px;transform:translateX(-50%);z-index:3;background:#202124e6;color:#e8eaed;font-size:.78rem;padding:6px 12px;border-radius:999px;white-space:nowrap;box-shadow:0 1px 4px #0008;max-width:60%;overflow:hidden;text-overflow:ellipsis}
+.mbar input{flex:1;background:#202124e6;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid #ffffff22;color:#e8eaed;border-radius:999px;padding:11px 16px;font:inherit;box-shadow:0 2px 6px #0008}
+.mbtn{background:#202124e6;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid #ffffff22;color:#e8eaed;border-radius:50%;min-width:44px;height:44px;text-decoration:none;box-shadow:0 2px 6px #0008;font:inherit;font-size:1.05rem;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0 10px}
+.mbtn.on{background:var(--accent);color:#1a1408;border-color:var(--accent)}
+.mside{position:absolute;right:10px;top:150px;display:flex;flex-direction:column;gap:6px;z-index:3}
+.mread{position:absolute;left:10px;bottom:8px;z-index:3;background:#000a;color:#ddd;font-size:11px;padding:4px 8px;border-radius:6px;font-variant-numeric:tabular-nums}
+.mattr{position:absolute;right:10px;bottom:8px;z-index:3;background:#000a;color:#bbb;font-size:10px;padding:3px 6px;border-radius:6px;max-width:60%}
+.mcross{position:absolute;left:50%;top:50%;width:22px;height:22px;margin:-11px 0 0 -11px;pointer-events:none;z-index:2;opacity:.75}
+.mcross:before,.mcross:after{content:"";position:absolute;background:#fff;box-shadow:0 0 2px #000}
+.mcross:before{left:10px;top:0;width:2px;height:22px}.mcross:after{top:10px;left:0;height:2px;width:22px}
+.sheet{position:absolute;left:0;right:0;bottom:0;max-height:72%;overflow:auto;background:var(--panel);border-top:1px solid var(--line);border-radius:16px 16px 0 0;padding:14px 16px 24px;z-index:5;display:none;box-shadow:0 -8px 24px #0008}
+.sheet.on{display:block}
+.sheet h4{margin:0 0 8px;font-size:1rem}
+.sheet .x{float:right;background:none;border:0;color:var(--mute);font-size:1.4rem;cursor:pointer;line-height:1}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}
+.chip{border:1px solid var(--line);background:var(--panel2);color:var(--ink);border-radius:999px;padding:6px 11px;font:inherit;font-size:.85rem;cursor:pointer}
+.chip.on{background:#3a3222;border-color:var(--accent);color:var(--accent)}
+.prow{display:flex;gap:10px;align-items:center;padding:9px 0;border-top:1px solid var(--line);cursor:pointer}
+.prow .ic{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.prow .t{flex:1;min-width:0}.prow .t small{display:block;color:var(--mute);font-size:.8rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.prow .d{color:var(--mute);font-size:.82rem;text-align:right;white-space:nowrap}
+.mnote{position:absolute;left:50%;top:150px;transform:translateX(-50%);z-index:4;background:#2a1a15f2;border:1px solid var(--warn);color:var(--ink);font-size:.82rem;padding:8px 12px;border-radius:10px;max-width:86%;display:none}
+.toast{position:absolute;left:50%;bottom:76px;transform:translateX(-50%);z-index:6;background:#000d;color:#fff;padding:8px 14px;border-radius:99px;font-size:.85rem;display:none;white-space:nowrap}
+footer{color:var(--mute);font-size:.8rem;max-width:860px;margin:0 auto;padding:0 16px 40px}
+@media print{nav,.btn{display:none}section{display:block!important;page-break-before:always}body{background:#fff;color:#000}.card,details{border-color:#999;background:#fff}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Home Preparedness Station</h1>
+  <p>Offline manual · $1,000 budget · Built for a 2–4 week disruption: grid, water, supply chain</p>
+</header>
+<nav><div class="tabs" id="tabs"></div></nav>
+<main>
+
+<!-- OVERVIEW -->
+<section id="start" data-title="Start">
+  <h2>Start here</h2>
+  <p class="mute" style="margin-top:-4px">Swipe left for the Map. Keep swiping, or tap the tabs, to move between sections.</p>
+  <div class="card info">
+    <b>What the video actually describes.</b> The Fox News segment covers the Pentagon's <b>FORTRESS</b> plan, which requires major U.S. military bases to run on their own power, water, fuel and communications for at least 90 days if a major war damaged civilian infrastructure. It's a plan for military bases. It is not an order or warning for civilians to evacuate or stockpile. The post's caption saying the Pentagon and FBI are "calling on citizens" goes further than the report itself does.
+  </div>
+  <p>Even so, preparing is smart. The same kit covers far likelier events: earthquakes, wildfires, multi-day power shutoffs, storms, and water main breaks. Build for those first. Then you're ready for worse.</p>
+
+  <h3>Priority order (Rule of 3s)</h3>
+  <div class="grid">
+    <div class="stat"><b>3 min</b><span>without air or with major bleeding → <b>Medical</b></span></div>
+    <div class="stat"><b>3 hrs</b><span>exposed in harsh weather → <b>Shelter/warmth</b></span></div>
+    <div class="stat"><b>3 days</b><span>without water → <b>Water</b></span></div>
+    <div class="stat"><b>3 weeks</b><span>without food → <b>Food</b></span></div>
+  </div>
+  <p class="mute" style="margin-top:10px">Buy in this order: water → medical → light/comms → food → tools. Then do the free stuff below.</p>
+
+  <h3>Free things that matter as much as gear</h3>
+  <div class="card" id="freeList"></div>
+
+  <h3>Your progress</h3>
+  <div class="grid" id="progStats"></div>
+</section>
+
+<!-- MAP -->
+<section id="map" data-title="Map">
+  <div id="mapWrap">
+    <div id="tiles"></div><div id="overlay"></div><div id="pins"></div><div id="me"></div>
+    <div class="mcross"></div>
+    <div class="mtop">
+      <div class="mbar">
+        <input id="mSearch" type="search" placeholder="Search any place in the U.S." enterkeyhint="search">
+        <button class="mbtn" id="mGo">⌕</button>
+      </div>
+      <div class="fbar" id="fbar"></div>
+    </div>
+    <div class="mside">
+      <button class="mbtn" id="bGps" title="My location">◎</button>
+      <button class="mbtn" id="bList" title="Nearby list">☰</button>
+      <button class="mbtn" id="bAdd" title="Drop pin at crosshair">📍</button>
+      <button class="mbtn" id="mZin">＋</button>
+      <button class="mbtn" id="mZout">－</button>
+      <button class="mbtn" id="bSave" title="Save area offline">⤓</button>
+    </div>
+    <div class="mbl">
+      <button class="mode" id="bMode"><span class="sw"></span><b id="modeName">Topo</b></button>
+      <a class="mbtn" id="bStreet" href="#" target="_blank" rel="noopener" title="Street view (needs signal)">🚶</a>
+    </div>
+    <div class="pill" id="mPill"></div>
+    <div class="mnote" id="mNote"></div>
+    <div class="mread" id="mRead"></div>
+    <div class="mattr" id="mAttr"></div>
+    <div class="toast" id="mToast"></div>
+
+    <div class="sheet" id="sList"><button class="x" data-close>×</button><h4>Pins <small class="mute" id="listFrom"></small></h4>
+      <div id="pinList"></div>
+      <h4 style="margin-top:16px">Starter pins: The Dalles</h4>
+      <p class="mute" style="font-size:.84rem">This adds the hospital, fire station, shelters and your 4 shopping stops as pins. It needs signal once to look up the locations, and the pins stay saved after that.</p>
+      <button class="btn" id="seedBtn">Add starter pins</button>
+      <h4 style="margin-top:16px">Send to OsmAnd / Organic Maps</h4>
+      <p class="mute" style="font-size:.84rem">This exports your pins plus the built-in points as a GPX file (for OsmAnd) or a KML file (for Organic Maps). Open the downloaded file and choose the app to import it. Downloads don't work inside the Claude app, so use Copy there, or the ready-made files I sent you in the chat.</p>
+      <button class="btn" id="gpxBtn">Download GPX</button> <button class="btn" id="kmlBtn">Download KML</button> <button class="btn ghost" id="gpxCopy">Copy GPX text</button>
+      <h4 style="margin-top:16px">Backup / move pins</h4>
+      <button class="btn ghost" id="expBtn">Copy all pins</button> <button class="btn ghost" id="impBtn">Paste pins…</button>
+      <textarea id="impTxt" style="display:none;margin-top:8px" placeholder="Paste copied pins here, then tap Import"></textarea>
+      <button class="btn" id="impGo" style="display:none">Import</button>
+    </div>
+    <div class="sheet" id="sPin"><button class="x" data-close>×</button><h4 id="pinTitle">New pin</h4>
+      <label class="f">Name</label><input type="text" id="pName">
+      <label class="f">Type</label><div class="chips" id="pCats"></div>
+      <label class="f">Notes (e.g., "spring runs year-round", "gate locked after 6pm")</label><textarea id="pNotes"></textarea>
+      <p class="mute" id="pInfo" style="font-size:.84rem;margin:8px 0 0"></p>
+      <button class="btn" id="pSaveBtn">Save pin</button> <button class="btn ghost" id="pGoto">Center</button> <button class="btn ghost" id="pDel">Delete</button>
+    </div>
+    <div class="sheet" id="sSave"><button class="x" data-close>×</button><h4>Save this area for offline</h4>
+      <p class="mute" style="font-size:.86rem">This downloads the map for the area currently on screen, from zoomed-out down to the detail level you pick, and stores it on this phone. Once saved, it shows with no signal. Only Streets and Topo can be saved. Satellite only works with a connection.</p>
+      <label class="f">Layer to save</label><select id="svLayer"><option value="topo">Topo (contours, rivers, trails)</option><option value="streets">Streets (roads, buildings, numbers)</option></select>
+      <label class="f">Most detailed zoom</label><select id="svZoom"><option value="14">14 · town / back roads</option><option value="15" selected>15 · neighborhoods, trails</option><option value="16">16 · streets & building outlines</option></select>
+      <p id="svCount" class="mute" style="font-size:.86rem"></p>
+      <button class="btn" id="svGo">Download</button> <button class="btn ghost" id="svClear">Delete saved maps</button>
+      <p id="svProg" style="font-size:.9rem"></p>
+    </div>
+  </div>
+</section>
+
+<!-- MAP APPS -->
+<section id="apps" data-title="Map apps">
+  <h2>Full offline maps on your phone</h2>
+  <p>The Map tab carries the key emergency points with it everywhere. For complete street-level and topo maps with no signal, pair it with a free offline map app, then load our points into it.</p>
+  <table>
+    <tr><th></th><th>Organic Maps</th><th>OsmAnd</th></tr>
+    <tr><td>Best for</td><td>Simple, fast, easy to hand to family</td><td>Power users: lots of layers and tools</td></tr>
+    <tr><td>Map data</td><td>OpenStreetMap: roads, house numbers, buildings, trails, rivers</td><td>Same OpenStreetMap data, plus more layers</td></tr>
+    <tr><td>Our points</td><td>Import the <b>KML</b> file</td><td>Import the <b>GPX</b> file</td></tr>
+    <tr><td>Cost</td><td>Free</td><td>Free version; some features paid</td></tr>
+  </table>
+
+  <h3>Setup (do this now, while you have signal)</h3>
+  <div class="card" id="appSteps"></div>
+
+  <h3>Help others</h3>
+  <ul>
+    <li>Send people the <b>the-dalles-emergency-points.kml</b> or <b>.gpx</b> file by text or email. Anyone can import it into either app.</li>
+    <li>Send this page as a file (<b>prep-station.html</b>). It opens in any phone browser with no signal.</li>
+    <li>To share the online version, use the Share button on its page in Claude.</li>
+  </ul>
+  <div class="card warn">These points come from USGS map data. Locations are listed as accurate, but things change. A shelter is only open when officials announce it. Treat all natural water before drinking, and respect private land.</div>
+</section>
+
+<!-- BUY LIST -->
+<section id="buy" data-title="Buy list">
+  <h2>$1,000 shopping list</h2>
+  <p class="mute">Prices are typical estimates and will vary by store. Tax isn't included. The core list comes to about $925, which leaves roughly $75 for tax. Items marked <span class="tag">optional</span> are only worth buying if there's room left. Check items off as you buy them.</p>
+  <div class="card">
+    <div class="grid">
+      <div class="stat"><b id="planTot">$0</b><span>planned (core + checked optional)</span></div>
+      <div class="stat"><b id="spentTot">$0</b><span>bought so far</span></div>
+      <div class="stat"><b id="leftTot">$1000</b><span>left of $1,000</span></div>
+    </div>
+    <div class="bar"><i id="spentBar"></i></div>
+    <small class="mute" id="barLbl"></small>
+  </div>
+  <div class="seg" id="buySeg"><button data-v="store" class="on">By store (shopping route)</button><button data-v="cat">By category</button></div>
+  <p class="mute" id="routeNote" style="font-size:.86rem;margin:4px 0 0">All 4 stores are on W 6th St in The Dalles, so it's one drive from west to east. Stock isn't verified, so call ahead for anything marked ☎.</p>
+  <div id="buyList"></div>
+  <button class="btn ghost" id="resetBuy">Reset checkboxes</button>
+</section>
+
+<!-- WATER -->
+<section id="water" data-title="Water">
+  <h2>Water</h2>
+  <div class="card">
+    <div class="row">
+      <div><label class="f">People</label><input type="number" id="wPeople" min="1" value="2"></div>
+      <div><label class="f">Days</label><input type="number" id="wDays" min="1" value="14"></div>
+    </div>
+    <label class="f">Pets (dogs/cats)</label><input type="number" id="wPets" min="0" value="0">
+    <div class="grid" style="margin-top:12px">
+      <div class="stat"><b id="wGal">28</b><span>gallons to store</span></div>
+      <div class="stat"><b id="wCont">4</b><span>7-gal containers</span></div>
+    </div>
+    <p class="mute" style="margin:8px 0 0">Plan on 1 gallon per person per day (FEMA guideline), plus roughly 0.5 gal/day per pet. Add more in hot weather or for anyone nursing or sick. The filter is your backup for everything beyond what you stored.</p>
+  </div>
+
+  <h3>Bleach purifier calculator</h3>
+  <div class="card">
+    <div class="row">
+      <div><label class="f">Gallons of water</label><input type="number" id="bGal" min="0.25" step="0.25" value="1"></div>
+      <div><label class="f">Bleach strength (check label)</label>
+        <select id="bPct"><option value="6">6%</option><option value="8.25">8.25%</option></select></div>
+    </div>
+    <label class="f">Water looks</label>
+    <select id="bCloudy"><option value="1">Clear</option><option value="2">Cloudy / colored / very cold</option></select>
+    <p class="big" id="bOut" style="margin:12px 0 4px">8 drops</p>
+    <p class="mute" style="margin:0">Use only <b>plain, unscented</b> bleach with no additives. Stir, then wait <b>30 minutes</b>. It should smell faintly of chlorine. If it doesn't, repeat the dose and wait another 15 minutes. Run cloudy water through a cloth or coffee filter first.</p>
+  </div>
+
+  <h3>Methods, best to worst</h3>
+  <details><summary>Boiling (most reliable)</summary><div>Bring to a rolling boil for <b>1 minute</b> (3 minutes above 6,500 ft). Let it cool covered. To improve the flat taste, pour it back and forth between two clean containers.</div></details>
+  <details><summary>Sawyer-type filter</summary><div>Removes bacteria and protozoa but <b>not viruses or chemicals</b>. For questionable water, filter first and then add bleach. Backflush after use and <b>never let it freeze</b>, because ice cracks the fibers invisibly and the filter stops working.</div></details>
+  <details><summary>Hidden water already in your home</summary><div>
+    <ul>
+      <li>Water heater tank (30–50 gal). Turn off the power or gas first, open the drain valve at the bottom, and discard the first sediment.</li>
+      <li>Toilet tank (not the bowl). Fine to drink after treatment, as long as you don't use tank cleaners.</li>
+      <li>Pipes: open the highest faucet, then drain from the lowest one.</li>
+      <li>Fill the bathtub bladder (WaterBOB) the moment an outage or boil-water alert starts.</li>
+    </ul></div></details>
+  <details><summary>Never drink</summary><div>Water from pools or hot tubs (except for flushing), radiators, waterbeds, or floodwater. Avoid any water that may hold fuel or chemicals, because filters and bleach don't remove those.</div></details>
+</section>
+
+<!-- FOOD -->
+<section id="food" data-title="Food">
+  <h2>Food</h2>
+  <div class="card">
+    <div class="row">
+      <div><label class="f">People</label><input type="number" id="fPeople" min="1" value="2"></div>
+      <div><label class="f">Days</label><input type="number" id="fDays" min="1" value="21"></div>
+    </div>
+    <div class="grid" style="margin-top:12px">
+      <div class="stat"><b id="fKcal">84,000</b><span>calories needed (~2,000/person/day)</span></div>
+      <div class="stat"><b id="fRice">17 lb</b><span>rice (≈40% of calories)</span></div>
+      <div class="stat"><b id="fBeans">11 lb</b><span>dry beans/lentils (≈20%)</span></div>
+      <div class="stat"><b id="fRest">~25k</b><span>calories from PB, oats, cans, oil</span></div>
+    </div>
+  </div>
+  <h3>What to buy (cheap, long shelf life)</h3>
+  <table>
+    <tr><th>Food</th><th>Why</th><th>Shelf life</th></tr>
+    <tr><td>White rice</td><td>Cheapest calories. Keep it sealed in a bucket.</td><td>10+ yrs sealed</td></tr>
+    <tr><td>Dry beans / lentils</td><td>Protein. Lentils cook fastest and save fuel.</td><td>2–10 yrs</td></tr>
+    <tr><td>Rolled oats</td><td>No-cook option: soak overnight.</td><td>1–2 yrs</td></tr>
+    <tr><td>Peanut butter</td><td>About 190 kcal per 2 tbsp and needs no cooking.</td><td>1–2 yrs</td></tr>
+    <tr><td>Canned meat / tuna / chicken</td><td>Protein that's ready to eat.</td><td>2–5 yrs</td></tr>
+    <tr><td>Canned veg, fruit, soup</td><td>Vitamins, and the liquid counts toward water.</td><td>1–5 yrs</td></tr>
+    <tr><td>Oil, salt, sugar, honey</td><td>Calories and flavor. Honey never spoils.</td><td>1 yr – ∞</td></tr>
+    <tr><td>Powdered milk, bouillon</td><td>Nutrition and morale.</td><td>1–2 yrs</td></tr>
+  </table>
+  <div class="card info"><b>Rule:</b> store what you already eat, and rotate it (first in, first out). Rice and beans that sit in a closet for 10 years and that you never learned to cook won't help you.</div>
+
+  <h3>When the power goes out</h3>
+  <ol>
+    <li><b>Keep the fridge and freezer closed.</b> A closed fridge keeps food safe about 4 hours. A full freezer holds about 48 hours, a half-full one about 24 (USDA).</li>
+    <li>Eat from the fridge first, then the freezer, then the pantry.</li>
+    <li>If perishables sit above 40°F for more than 2 hours, throw them out. When in doubt, throw it out.</li>
+    <li>Cook outside only. Camp stoves, grills and generators make carbon monoxide.</li>
+  </ol>
+</section>
+
+<!-- MEDICAL -->
+<section id="med" data-title="Medical">
+  <h2>Medical</h2>
+  <div class="card warn"><b>Gear doesn't save lives. Trained hands do.</b> Take a free <b>Stop the Bleed</b> class (stopthebleed.org) and a Red Cross <b>CPR/First Aid</b> course. Do this before you buy anything fancy.</div>
+
+  <h3>Life threats, in order</h3>
+  <details open><summary>1 · Severe bleeding</summary><div>
+    <ol>
+      <li>Call 911 if phones work. Put on gloves if you have them.</li>
+      <li><b>Arm or leg, spurting or pooling:</b> apply a tourniquet 2–3 inches above the wound, never over a joint. Tighten the windlass until the bleeding <b>stops</b>, then lock it. Write the time on it. It will hurt, and that's normal.</li>
+      <li><b>Torso, neck or groin:</b> pack the wound tightly with hemostatic or plain gauze, then press hard with both hands for at least 3 minutes (10 for plain gauze).</li>
+      <li>Wrap with a pressure bandage. Don't remove a tourniquet. That's for medical professionals to do.</li>
+    </ol></div></details>
+  <details><summary>2 · Not breathing / no pulse (hands-only CPR)</summary><div>
+    <ol><li>Call 911 and have someone find an AED.</li><li>Push hard and fast in the center of the chest, about 2 inches deep at <b>100–120 per minute</b> (the beat of "Stayin' Alive").</li><li>Don't stop until help or an AED arrives, or you can't physically continue.</li></ol></div></details>
+  <details><summary>3 · Choking</summary><div>If the person can't cough or speak, give 5 back blows between the shoulder blades, then 5 abdominal thrusts. Keep alternating. If they become unresponsive, start CPR.</div></details>
+  <details><summary>Burns</summary><div>Cool the burn under clean running water for <b>20 minutes</b>, not ice. Remove rings and watches. Cover loosely with plastic wrap or a clean non-stick dressing. Get help for burns bigger than the person's palm, or on the face, hands or genitals.</div></details>
+  <details><summary>Dehydration / diarrhea</summary><div>
+    Use electrolyte packets. If you have none, use the WHO home recipe: <b>1 liter safe water + 6 level tsp sugar + ½ level tsp salt</b>. Sip often. Get help urgently for confusion, no urine for 8+ hours, or bloody stool.</div></details>
+  <details><summary>Hypothermia (no heat in winter)</summary><div>Signs are shivering, clumsiness, and slurred speech. Get the person out of wet clothes, wrap them in blankets with an emergency blanket outside, and give warm sweet drinks if they're fully alert. Warm the trunk first, not the arms and legs. Sleep in one room, and keep everyone together.</div></details>
+  <details><summary>Heat illness</summary><div>Cramps or heavy sweating: rest in shade and drink fluids. <b>Hot skin plus confusion means heat stroke, which is an emergency.</b> Cool them aggressively with wet cloths and fanning, or ice packs on the neck, armpits and groin.</div></details>
+
+  <h3>Kit contents check</h3>
+  <div class="card" id="medKit"></div>
+  <p class="mute">Prescriptions: ask your doctor or pharmacist about getting a 30–90 day supply on hand. Many insurers allow a 90-day fill.</p>
+</section>
+
+<!-- GRID DOWN -->
+<section id="grid" data-title="Grid down">
+  <h2>Grid-down playbook</h2>
+  <h3>First hour</h3>
+  <div class="card" id="hour1"></div>
+  <h3>First 72 hours</h3>
+  <div class="card" id="hr72"></div>
+  <div class="card warn"><b>Carbon monoxide kills more people after disasters than most hazards.</b> Never run a generator, grill, camp stove or propane heater indoors or in a garage, even with the door open. Keep generators at least 20 ft from windows. Keep the battery CO alarm on.</div>
+
+  <h3>Phone & power</h3>
+  <ul>
+    <li>Turn on Low Power Mode, lower screen brightness, and turn off Bluetooth and background refresh.</li>
+    <li><b>Text instead of calling.</b> Texts often get through when calls fail.</li>
+    <li>Save offline maps of your area in advance, and save this page on your phone.</li>
+    <li>Charge the power bank from the solar panel during the day, then charge phones at night.</li>
+    <li>Use the NOAA weather radio for official information when cell and internet service are down.</li>
+  </ul>
+
+  <h3>Sanitation (people forget this)</h3>
+  <ul>
+    <li>If water pressure is gone, don't flush. Line a bucket with two heavy bags and add a scoop of kitty litter after each use.</li>
+    <li>Tie off the bags and keep them sealed outside, away from water sources.</li>
+    <li>Wash hands or use sanitizer every time. Diarrhea spreads fast in outages.</li>
+  </ul>
+
+  <h3>Stay or go?</h3>
+  <table>
+    <tr><th>Stay put if</th><th>Leave if</th></tr>
+    <tr><td>Your home is intact and safe, you have water, and officials say to shelter in place</td><td>Officials order evacuation, there's fire or flood nearby, the structure is damaged, or you smell gas</td></tr>
+  </table>
+  <p class="mute">Keep the car's tank at least half full at all times. Keep a go-bag by the door with water, meds, copies of documents, cash in small bills, a charger, a flashlight and a change of clothes.</p>
+</section>
+
+<!-- PLAN -->
+<section id="plan" data-title="My plan">
+  <h2>Household plan</h2>
+  <p class="mute">Fill this in, then tap Copy and paste it into your Notes app as well. The page tries to remember it in this browser, but don't rely on that.</p>
+  <div id="planForm"></div>
+  <button class="btn" id="copyPlan">Copy plan as text</button>
+  <span id="copyMsg" class="mute" style="margin-left:8px"></span>
+</section>
+
+<!-- FIREARM -->
+<section id="gun" data-title="Firearm?">
+  <h2>Should you get a firearm?</h2>
+  <p>This decision is yours. Here are the facts that should go into it.</p>
+
+  <h3>1 · It doesn't fit this budget</h3>
+  <table>
+    <tr><td>Reliable handgun or shotgun</td><td>$350–650</td></tr>
+    <tr><td>Lockbox or safe (required for safe storage)</td><td>$50–200</td></tr>
+    <tr><td>Training class</td><td>$100–250</td></tr>
+    <tr><td>Practice and defensive ammo</td><td>$60–150</td></tr>
+    <tr><td><b>Realistic total</b></td><td><b>$560–1,250</b></td></tr>
+  </table>
+  <p>That's most or all of your $1,000, and it would leave you with no water, food or medical supplies. In nearly every real disaster, those are what keep people alive. If you want one, buy it with <b>separate money</b> after this kit is done.</p>
+
+  <h3>2 · The honest tradeoffs</h3>
+  <div class="row">
+    <div class="card ok"><b>Reasons people choose to</b><ul><li>Self-defense when police response could be slow or absent</li><li>Deterring a break-in</li><li>Hunting for food (shotgun or rifle) in rural areas</li></ul></div>
+    <div class="card warn"><b>Risks to weigh</b><ul><li>Large studies link a gun in the home to higher risk of suicide and accidental shootings among household members</li><li>Theft: unsecured guns are commonly stolen</li><li>Without regular training, a gun can be a liability under stress</li></ul></div>
+  </div>
+  <p><b>Questions to ask yourself:</b> Will you train and practice regularly? Can you store it locked every time? Are there kids, visitors, or anyone in the home who is going through a hard time?</p>
+
+  <h3>3 · If you live in California</h3>
+  <ul>
+    <li>You must pass the <b>Firearm Safety Certificate (FSC)</b> written test, which most dealers can give the same day.</li>
+    <li>There is a <b>10-day waiting period</b> for every gun. You can't buy one in a hurry during an emergency, so decide early if you're going to.</li>
+    <li>You must be 21+ for any purchase from a dealer, and you're limited to one gun per 30 days.</li>
+    <li>For handguns, you'll do a safe-handling demonstration at pickup, and you need an approved lock or safe.</li>
+  </ul>
+  <p class="mute">Other states differ a lot. Check your state attorney general's website. This isn't legal advice.</p>
+
+  <h3>4 · Cheaper security that works without a gun</h3>
+  <ul>
+    <li>Door reinforcement: 3" screws in the strike plate and hinges, plus a door security bar (~$30)</li>
+    <li>Solar motion lights outside (~$25)</li>
+    <li>Know your neighbors. A street that looks out for each other is the strongest security there is.</li>
+    <li>Keep your preps quiet so people don't know what you have</li>
+    <li>Pepper spray (legal in most states for adults; check limits)</li>
+  </ul>
+</section>
+
+</main>
+<footer>General preparedness info drawn from FEMA/Ready.gov, CDC, USDA, Red Cross and WHO guidance. This isn't medical or legal advice. In an emergency, follow instructions from local officials. To print a paper copy, use your browser's Print or Share → Print option.</footer>
+
+<script>
+(function(){
+var store={get:function(k,d){try{var v=localStorage.getItem('prep_'+k);return v?JSON.parse(v):d}catch(e){return d}},
+           set:function(k,v){try{localStorage.setItem('prep_'+k,JSON.stringify(v))}catch(e){}}};
+
+/* ---------- tabs ---------- */
+var secs=[].slice.call(document.querySelectorAll('section')),tabs=document.getElementById('tabs');
+secs.forEach(function(s){var b=document.createElement('button');b.textContent=s.dataset.title;b.dataset.id=s.id;
+  b.onclick=function(){show(s.id);try{history.replaceState(null,'','#'+s.id)}catch(e){location.hash=s.id}};tabs.appendChild(b)});
+function show(id){if(!document.getElementById(id))id='start';
+  secs.forEach(function(s){s.classList.toggle('on',s.id===id)});
+  [].forEach.call(tabs.children,function(b){b.classList.toggle('on',b.dataset.id===id);if(b.dataset.id===id&&b.scrollIntoView)try{b.scrollIntoView({inline:'center',block:'nearest'})}catch(e){}});
+  document.body.classList.toggle('mapmode',id==='map');window.scrollTo(0,0);if(id==='start')renderProg();if(id==='map'&&window.__mapShown)window.__mapShown();cur=id;}
+var cur='start';
+window.addEventListener('hashchange',function(){show(location.hash.slice(1))});
+function go(id){show(id);try{history.replaceState(null,'','#'+id)}catch(e){}}
+/* swipe between tabs (not on the map itself) */
+(function(){var sx=0,sy=0,t0=0,ok=false;
+  document.addEventListener('touchstart',function(e){var tg=e.target;ok=!(tg.closest&&(tg.closest('#mapWrap')||tg.closest('input,textarea,select,.tabs')));
+    if(e.touches.length!==1)ok=false;sx=e.touches[0].clientX;sy=e.touches[0].clientY;t0=Date.now()},{passive:true});
+  document.addEventListener('touchend',function(e){if(!ok)return;var t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;
+    if(Math.abs(dx)>70&&Math.abs(dy)<Math.abs(dx)*0.5&&Date.now()-t0<700){
+      var ids=secs.map(function(s){return s.id}),i=ids.indexOf(cur);i+=dx<0?1:-1;if(i>=0&&i<ids.length)go(ids[i])}},{passive:true});
+})();
+
+/* ---------- checklist helper ---------- */
+function checklist(elId,key,items){
+  var el=document.getElementById(elId),st=store.get(key,{});
+  el.innerHTML='';
+  items.forEach(function(t,i){var row=document.createElement('label');row.className='item'+(st[i]?' done':'');
+    var cb=document.createElement('input');cb.type='checkbox';cb.checked=!!st[i];
+    cb.onchange=function(){st[i]=cb.checked;store.set(key,st);row.classList.toggle('done',cb.checked)};
+    var d=document.createElement('div');d.className='t';d.innerHTML=t;row.appendChild(cb);row.appendChild(d);el.appendChild(row)});
+}
+checklist('freeList','free',[
+ 'Fill clean bottles and jugs you already own with tap water<small>Free storage. Swap it out every 6 months.</small>',
+ 'Sign up for local emergency alerts<small>Search your county name + "emergency alerts". Also turn on Wireless Emergency Alerts in phone settings.</small>',
+ 'Learn where your gas, water and electric shutoffs are<small>Only shut off gas if you smell it. Utilities must turn it back on.</small>',
+ 'Pick an out-of-area contact person<small>Long-distance calls often work when local lines are jammed.</small>',
+ 'Photograph IDs, insurance, prescriptions and deeds<small>Keep copies on a USB drive or in an encrypted cloud folder, plus paper copies in a zip bag.</small>',
+ 'Keep the car at least half full of fuel',
+ 'Keep a small amount of cash in small bills<small>Card readers and ATMs go down with the grid.</small>',
+ 'Take a free Stop the Bleed class<small>stopthebleed.org</small>',
+ 'Save this page to your phone and print a copy'
+]);
+checklist('medKit','medkit',[
+ 'Tourniquet (genuine CAT or SOF-T; counterfeits fail)','Pressure / Israeli bandage','Hemostatic or compressed gauze',
+ 'Assorted bandages, tape, gauze pads','Nitrile gloves','Trauma shears','Ibuprofen and acetaminophen',
+ 'Antihistamine (diphenhydramine or cetirizine)','Loperamide (antidiarrheal)','Electrolyte packets','Antibiotic ointment',
+ 'Burn gel / non-stick dressings','N95 masks (smoke, dust, illness)','Thermometer','Tweezers, safety pins',
+ 'Extra prescription meds and glasses','Emergency mylar blankets','Printed first-aid card (this page)'
+]);
+checklist('appSteps','appsteps',[
+ 'Install Organic Maps or OsmAnd<small>From the Play Store or App Store.</small>',
+ 'Download the Oregon and Washington maps in the app<small>The Dalles sits on the state line, and the Washington side has the bridge, airport and Dallesport services.</small>',
+ 'Import our points<small>Open the .kml (Organic Maps) or .gpx (OsmAnd) file from your downloads or messages and choose the app. The points appear as bookmarks/favorites, grouped by type.</small>',
+ 'Turn on the outdoor/topo layer if your app version has one<small>It shows contour lines and trails.</small>',
+ 'Test it: turn on airplane mode, then open the app and search for "hospital"<small>If the map and points show, you\'re set.</small>',
+ 'Save this page on the phone too<small>Medical steps, water and the plan work fully offline.</small>'
+]);
+checklist('hour1','hour1',[
+ 'Check everyone for injuries and treat life threats first','Smell gas? Get out, then shut it off at the meter from outside',
+ 'Turn on the NOAA radio for official information','Fill the WaterBOB, pots and jugs while you still have pressure',
+ 'Unplug electronics to protect them from surges when power returns','Keep the fridge and freezer closed',
+ 'Text your out-of-area contact. Don\'t call.','Put headlamps out; avoid candles (fire risk)'
+]);
+checklist('hr72','hr72',[
+ 'Set up water rationing: 1 gal/person/day, drinking first','Eat perishables first; record when the power went out',
+ 'Set up the bucket toilet if water pressure drops','Pick one warm or cool room for everyone to stay in',
+ 'Charge devices from the solar panel by day','Check on neighbors, especially elderly ones',
+ 'Keep your preps out of sight','Re-check the plan: stay, or go?'
+]);
+
+/* ---------- buy list ---------- */
+/* item: [name, note, price, optional(0/1), storeKey] */
+var BUY=[
+ {c:'Water',i:[
+  ['2× 7-gallon water containers','Stackable jugs, ~14 gal total',40,0,'bm'],
+  ['Squeeze-style water filter (Sawyer or similar) ☎','Filters ~100,000 gal; keep it from freezing',40,0,'cf'],
+  ['Bathtub water bladder (WaterBOB)','Holds ~100 gal; fill at first warning',35,0,'on'],
+  ['Plain unscented bleach + eyedropper','For purifying water. Replace yearly; it weakens.',8,0,'fm']]},
+ {c:'Medical',i:[
+  ['Large first-aid kit (base)','Bandages, gauze, tape, shears',45,0,'bm'],
+  ['Tourniquet: genuine CAT','Order from North American Rescue or another authorized seller; fakes break',33,0,'on'],
+  ['Pressure bandage + hemostatic gauze ☎','Ask the Fred Meyer pharmacy for QuikClot first, or order online',35,0,'on'],
+  ['OTC meds + electrolyte packets','Pain/fever, allergy, antidiarrheal',30,0,'bm'],
+  ['N95 masks (20) + nitrile gloves','Smoke, dust, illness',27,0,'hd']]},
+ {c:'Power, light & comms',i:[
+  ['Hand-crank/solar NOAA weather radio ☎','Official alerts with no cell service; can charge a phone',55,0,'bm'],
+  ['20,000 mAh power bank','About 4 phone charges',35,0,'bm'],
+  ['Headlamps (2-pack)','Hands-free light. Safer than candles.',20,0,'hd'],
+  ['LED lantern','Lights a whole room',15,0,'hd'],
+  ['Lithium AA/AAA batteries','Long shelf life, works in the cold',20,0,'hd'],
+  ['Folding solar panel (20–30W)','Recharges the power bank in long outages',45,1,'on']]},
+ {c:'Food & cooking',i:[
+  ['3 weeks of pantry staples (2 people)','Rice, beans, lentils, oats, PB, canned meat/veg, oil, powdered milk',160,0,'fm'],
+  ['Manual can openers (2)','One breaks, you have a spare',12,0,'fm'],
+  ['Butane camp stove + 8 fuel canisters','Outdoor use only. About 10–15 hrs of cooking',60,0,'bm'],
+  ['Food-grade bucket + gamma lid','Pest-proof rice and bean storage',15,1,'hd'],
+  ['Multivitamins','Fills nutrition gaps',12,1,'fm']]},
+ {c:'Tools & shelter',i:[
+  ['Multitool','Pliers, knife, drivers',40,0,'hd'],
+  ['Fixed-blade knife (Mora-type) + ferro rod','Cheap, tough, reliable',20,0,'cf'],
+  ['Tarp, paracord, duct tape, zip ties','Repairs, broken windows, shelter',30,0,'hd'],
+  ['Emergency mylar blankets/bivvies','Warmth if there\'s no heat',10,0,'bm'],
+  ['Lighters + stormproof matches','Several ways to make fire',10,0,'bm'],
+  ['Gas/water shutoff wrench','Keep it by the meter',15,0,'hd'],
+  ['Work gloves (2 pairs)','Cleanup, glass, debris',10,0,'hd']]},
+ {c:'Safety & sanitation',i:[
+  ['ABC fire extinguisher','Fire departments may not come',45,0,'hd'],
+  ['Battery carbon monoxide alarm','Essential once stoves and generators are in use',25,0,'hd'],
+  ['Bucket toilet kit: bucket, toilet lid, contractor bags','Get the kitty litter at Fred Meyer',30,0,'hd'],
+  ['Hygiene + kitty litter: wipes, soap, sanitizer, trash bags','Prevents disease spreading',20,0,'fm']]}
+];
+var STORES=[
+ {k:'hd',n:'1 · The Home Depot',a:'3600 W 6th St · (541) 296-7006',d:'Safety, tools, buckets, lights, batteries',q:'3600 W 6th St, The Dalles, OR 97058'},
+ {k:'bm',n:'2 · Bi-Mart',a:'3300 W 6th St · (541) 298-1155',d:'Membership store, so expect a small one-time fee',q:'3300 W 6th St, The Dalles, OR 97058'},
+ {k:'cf',n:'3 · Coastal Farm & Ranch',a:'2600 W 6th St · (541) 296-9610',d:'Water filter, knife. Also your backup for anything Bi-Mart is out of.',q:'2600 W 6th St, The Dalles, OR 97058'},
+ {k:'fm',n:'4 · Fred Meyer',a:'1215 W 6th St · (541) 296-1700',d:'Go last: all the food, bleach, hygiene',q:'1215 W 6th St, The Dalles, OR 97058'},
+ {k:'on',n:'Order online',a:'Local stores rarely carry these',d:'Buy the tourniquet only from an authorized seller'}];
+var bst=store.get('buy',{}),buyView=store.get('buyview','store');
+function money(n){return '$'+Math.round(n).toLocaleString()}
+function itemRow(x,k){
+  var row=document.createElement('label');row.className='item'+(bst[k]?' done':'');
+  var cb=document.createElement('input');cb.type='checkbox';cb.checked=!!bst[k];
+  cb.onchange=function(){bst[k]=cb.checked;store.set('buy',bst);row.classList.toggle('done',cb.checked);totals()};
+  var t=document.createElement('div');t.className='t';t.innerHTML=x[0]+(x[3]?'<span class="tag">optional</span>':'')+'<small>'+x[1]+'</small>';
+  var p=document.createElement('div');p.className='p';p.textContent='~'+money(x[2]);
+  row.appendChild(cb);row.appendChild(t);row.appendChild(p);return row}
+function renderBuy(){
+  var el=document.getElementById('buyList');el.innerHTML='';
+  [].forEach.call(document.querySelectorAll('#buySeg button'),function(b){b.classList.toggle('on',b.dataset.v===buyView)});
+  document.getElementById('routeNote').style.display=buyView==='store'?'block':'none';
+  if(buyView==='store'){
+    STORES.forEach(function(s){
+      var rows=[],sub=0;
+      BUY.forEach(function(g,gi){g.i.forEach(function(x,ii){if(x[4]===s.k){rows.push([x,gi+'_'+ii]);if(!x[3])sub+=x[2]}})});
+      var h=document.createElement('div');h.className='storehead';
+      h.innerHTML='<b></b><small></small><small></small>';
+      h.children[0].textContent=s.n+' · ~'+money(sub);h.children[1].textContent=s.a;h.children[2].textContent=s.d;el.appendChild(h);
+      var card=document.createElement('div');card.className='card';rows.forEach(function(r){card.appendChild(itemRow(r[0],r[1]))});el.appendChild(card)});
+  }else{
+    BUY.forEach(function(g,gi){
+      var sub=g.i.reduce(function(a,x){return a+(x[3]?0:x[2])},0);
+      var h=document.createElement('h3');h.textContent=g.c+' · '+money(sub)+' core';el.appendChild(h);
+      var card=document.createElement('div');card.className='card';
+      g.i.forEach(function(x,ii){card.appendChild(itemRow(x,gi+'_'+ii))});el.appendChild(card)});
+  }
+  totals();
+}
+[].forEach.call(document.querySelectorAll('#buySeg button'),function(b){b.onclick=function(){buyView=b.dataset.v;store.set('buyview',buyView);renderBuy()}});
+function totals(){
+  var plan=0,spent=0;
+  BUY.forEach(function(g,gi){g.i.forEach(function(x,ii){var k=gi+'_'+ii;
+    if(!x[3]||bst[k])plan+=x[2]; if(bst[k])spent+=x[2]})});
+  document.getElementById('planTot').textContent=money(plan);
+  document.getElementById('spentTot').textContent=money(spent);
+  document.getElementById('leftTot').textContent=money(1000-spent);
+  var b=document.getElementById('spentBar');b.style.width=Math.min(100,spent/10)+'%';b.classList.toggle('over',spent>1000);
+  document.getElementById('barLbl').textContent=spent>1000?'Over budget':Math.round(spent/10)+'% of budget spent';
+}
+document.getElementById('resetBuy').onclick=function(){bst={};store.set('buy',bst);renderBuy()};
+renderBuy();
+
+/* ---------- water calc ---------- */
+function wc(){var p=+wPeople.value||0,d=+wDays.value||0,pets=+wPets.value||0;
+  var g=p*d+pets*0.5*d;document.getElementById('wGal').textContent=Math.ceil(g);
+  document.getElementById('wCont').textContent=Math.ceil(g/7)}
+var wPeople=document.getElementById('wPeople'),wDays=document.getElementById('wDays'),wPets=document.getElementById('wPets');
+[wPeople,wDays,wPets].forEach(function(e){e.oninput=wc});wc();
+function bc(){var g=+bGal.value||0,per=(bPct.value==='6'?8:6)*(+bCloudy.value);var drops=g*per;
+  var out=drops>=48?(Math.round(drops/48*100)/100)+' tsp':Math.round(drops)+' drops';
+  if(drops>=48*3)out=(Math.round(drops/48/3*100)/100)+' tbsp';
+  document.getElementById('bOut').textContent=out+(drops>=48?'  ('+Math.round(drops)+' drops)':'')}
+var bGal=document.getElementById('bGal'),bPct=document.getElementById('bPct'),bCloudy=document.getElementById('bCloudy');
+[bGal,bPct,bCloudy].forEach(function(e){e.oninput=bc;e.onchange=bc});bc();
+
+/* ---------- food calc ---------- */
+function fc(){var p=+fPeople.value||0,d=+fDays.value||0,k=p*d*2000;
+  document.getElementById('fKcal').textContent=k.toLocaleString();
+  document.getElementById('fRice').textContent=Math.ceil(k*0.4/1650)+' lb';
+  document.getElementById('fBeans').textContent=Math.ceil(k*0.2/1550)+' lb';
+  document.getElementById('fRest').textContent='~'+Math.round(k*0.4/1000)+'k'}
+var fPeople=document.getElementById('fPeople'),fDays=document.getElementById('fDays');
+[fPeople,fDays].forEach(function(e){e.oninput=fc});fc();
+
+/* ---------- plan form ---------- */
+var FIELDS=[
+ ['members','Household members (names, ages, meds, allergies)','ta'],
+ ['meet1','Meeting place #1: near home (e.g., the corner by the mailbox)'],
+ ['meet2','Meeting place #2: outside the neighborhood'],
+ ['contact','Out-of-area contact (name + phone)'],
+ ['local','Local contacts: neighbors, family, doctor'],
+ ['pets','Pets and their needs'],
+ ['evac','Evacuation route and backup route'],
+ ['utilities','Where the shutoffs are (gas, water, electric)'],
+ ['docs','Where the documents, cash and go-bag are'],
+ ['notes','Other notes','ta']];
+var pst=store.get('plan',{}),pf=document.getElementById('planForm');
+FIELDS.forEach(function(f){var l=document.createElement('label');l.className='f';l.textContent=f[1];
+  var i=document.createElement(f[2]==='ta'?'textarea':'input');if(f[2]!=='ta')i.type='text';i.value=pst[f[0]]||'';
+  i.oninput=function(){pst[f[0]]=i.value;store.set('plan',pst)};pf.appendChild(l);pf.appendChild(i)});
+document.getElementById('copyPlan').onclick=function(){
+  var txt='HOUSEHOLD EMERGENCY PLAN\n\n'+FIELDS.map(function(f){return f[1].toUpperCase()+':\n'+(pst[f[0]]||'—')}).join('\n\n');
+  var msg=document.getElementById('copyMsg');
+  try{navigator.clipboard.writeText(txt).then(function(){msg.textContent='Copied ✓'},function(){fallback()})}catch(e){fallback()}
+  function fallback(){var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();
+    try{document.execCommand('copy');msg.textContent='Copied ✓'}catch(e){msg.textContent='Select and copy manually'}document.body.removeChild(ta)}
+};
+
+/* ---------- progress ---------- */
+function count(key,n){var s=store.get(key,{}),c=0;for(var k in s)if(s[k])c++;return c+'/'+n}
+function renderProg(){
+  var bought=0,total=0;BUY.forEach(function(g,gi){g.i.forEach(function(x,ii){total++;if(bst[gi+'_'+ii])bought++})});
+  document.getElementById('progStats').innerHTML=
+   '<div class="stat"><b>'+bought+'/'+total+'</b><span>items bought</span></div>'+
+   '<div class="stat"><b>'+count('free',9)+'</b><span>free steps done</span></div>'+
+   '<div class="stat"><b>'+count('medkit',18)+'</b><span>med kit stocked</span></div>'+
+   '<div class="stat"><b>'+Object.keys(pst).filter(function(k){return pst[k]}).length+'/'+FIELDS.length+'</b><span>plan fields filled</span></div>';
+}
+/* =================== MAP =================== */
+(function(){
+var W=document.getElementById('mapWrap'),TL=document.getElementById('tiles'),OV=document.getElementById('overlay'),PL=document.getElementById('pins'),ME=document.getElementById('me');
+var BASES={
+  topo:{n:'Topo',u:'https://a.tile.opentopomap.org/{z}/{x}/{y}.png',max:17,a:'© OpenStreetMap contributors, SRTM · © OpenTopoMap (CC-BY-SA)',save:1},
+  streets:{n:'Streets',u:'https://tile.openstreetmap.org/{z}/{x}/{y}.png',max:19,a:'© OpenStreetMap contributors',save:1},
+  sat:{n:'Satellite',u:'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',max:19,a:'Imagery © Esri, Maxar, Earthstar Geographics'}};
+var OVS={
+  labels:{n:'Roads + place names',u:['https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}','https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}'],a:'Labels © Esri'},
+  hill:{n:'Terrain shading',u:['https://server.arcgisonline.com/ArcGIS/rest/services/Elevation/World_Hillshade/MapServer/tile/{z}/{y}/{x}'],a:'Hillshade © Esri',cls:'hill'}};
+var CATS={
+  water:{n:'Water source',e:'💧',c:'#2f7fc1'},medical:{n:'Medical',e:'✚',c:'#c0392b'},fire:{n:'Fire / police',e:'🚒',c:'#d35400'},
+  shelter:{n:'Shelter',e:'⛺',c:'#7d5ba6'},supply:{n:'Supplies / store',e:'🛒',c:'#b8860b'},fuel:{n:'Fuel',e:'⛽',c:'#6d6d6d'},
+  rally:{n:'Rally point',e:'★',c:'#2e8b57'},camp:{n:'Campground / public land',e:'🌲',c:'#3f6b2a'},
+  route:{n:'Route / crossing',e:'➤',c:'#008b8b'},hazard:{n:'Hazard / avoid',e:'⚠',c:'#8b0000'},civic:{n:'Government / info',e:'🏛',c:'#4a6fa5'},place:{n:'Town names',e:'◦',c:'#444'},home:{n:'Home / family',e:'⌂',c:'#a0522d'},other:{n:'Other',e:'•',c:'#555'}};
+var GN=[["Mid-Columbia Medical Center (ER, now Adventist Health Columbia Gorge)", "medical", 45.587316, -121.164462, "1700 E 19th St · (541) 296-1111 · 24/7 emergency dept · helipad"], ["North Central Public Health District", "medical", 45.59858, -121.182536, "County public health office"], ["Skyline Ambulance (Dallesport, WA)", "medical", 45.618832, -121.179463, "Klickitat County Public Hospital District 2"], ["Mid-Columbia Fire & Rescue", "fire", 45.607039, -121.205023, "Office (541) 296-9445 · after hours (541) 298-4178"], ["Mid-Columbia Fire & Rescue Station 2", "fire", 45.598929, -121.13542, "East side station"], ["Dallesport / Murdock Fire Dept", "fire", 45.619032, -121.179465, "Klickitat County Fire District 6 (WA side)"], ["The Dalles Police Department", "fire", 45.601182, -121.184189, "Downtown, next to City Hall"], ["Wasco County Sheriff's Office", "fire", 45.599811, -121.184088, "At the county courthouse"], ["Oregon State Police, The Dalles", "fire", 45.6063, -121.131829, ""], ["The Dalles Middle School", "shelter", 45.592342, -121.175886, "1100 E 12th St · Used as a Red Cross shelter (pets allowed) during past wildfires"], ["The Dalles Civic Auditorium", "shelter", 45.599835, -121.18216, "Large public building. Watch for official shelter announcements."], ["The Dalles–Wahtonka High School", "shelter", 45.5964, -121.188, "Public school (possible shelter site; confirm with officials)"], ["Columbia Gorge Community College", "shelter", 45.590724, -121.190197, "Public campus (possible shelter site; confirm with officials)"], ["Colonel Wright Elementary", "shelter", 45.597481, -121.198128, "Public school"], ["Dry Hollow Elementary", "shelter", 45.586619, -121.17317, "Public school"], ["Chenowith Elementary", "shelter", 45.625318, -121.221892, "Public school"], ["American Red Cross office (The Dalles)", "shelter", 45.600591, -121.193494, "Red Cross Columbia River District office"], ["The Dalles City Hall", "civic", 45.601582, -121.18391, "City government"], ["Wasco County Courthouse", "civic", 45.599799, -121.18406, "County government, emergency management"], ["The Dalles–Wasco County Library", "civic", 45.598746, -121.185485, "Public building, information"], ["The Dalles Post Office", "civic", 45.602798, -121.184503, ""], ["The Dalles Public Works", "civic", 45.607909, -121.191412, "City water and roads"], ["Wasco County Public Works", "civic", 45.598211, -121.147383, ""], ["Columbia River", "water", 45.605954, -121.165071, "Large river. Must be filtered AND treated. Avoid water near industry and outfalls."], ["Port of The Dalles Marina boat ramp", "water", 45.601426, -121.169847, "River access point"], ["Mill Creek", "water", 45.606509, -121.187293, "Stream through town. Treat before drinking."], ["Chenoweth Creek", "water", 45.634009, -121.200349, "Stream. Treat before drinking."], ["Threemile Creek", "water", 45.60401, -121.147848, "Stream. Treat before drinking."], ["Fifteenmile Creek", "water", 45.61401, -121.122848, "Stream. Treat before drinking."], ["Eightmile Creek", "water", 45.606233, -121.08618, "Stream. Treat before drinking."], ["Fivemile Creek", "water", 45.593177, -121.080903, "Stream. Treat before drinking."], ["Badger Creek", "water", 45.629009, -121.236183, "Stream. Treat before drinking."], ["Brown Creek", "water", 45.612064, -121.260628, "Stream. Treat before drinking."], ["Anderson Spring", "water", 45.566508, -121.223405, "Spring. Flow not verified; treat before drinking. May be on private land."], ["Cold Spring", "water", 45.679878, -121.220187, "Spring. Flow not verified; treat before drinking. May be on private land."], ["Frantz Spring", "water", 45.655186, -121.212602, "Spring. Flow not verified; treat before drinking. May be on private land."], ["Gooseberry Spring", "water", 45.643844, -121.210243, "Spring. Flow not verified; treat before drinking. May be on private land."], ["Marsh Spring", "water", 45.643902, -121.230721, "Spring. Flow not verified; treat before drinking. May be on private land."], ["Rowland Spring", "water", 45.682319, -121.215114, "Spring. Flow not verified; treat before drinking. May be on private land."], ["Taylor Spring", "water", 45.647434, -121.208409, "Spring. Flow not verified; treat before drinking. May be on private land."], ["Thornton Spring", "water", 45.632319, -121.236077, "Spring. Flow not verified; treat before drinking. May be on private land."], ["Spearfish Lake (WA)", "water", 45.628044, -121.130719, "Lake. Treat before drinking."], ["Horsethief Lake (WA)", "water", 45.645354, -121.103103, "Lake in state park. Treat before drinking."], ["Taylor Lake", "water", 45.642214, -121.206169, "Lake. Treat before drinking."], ["Sorosis Reservoir", "water", 45.589287, -121.19396, "City reservoir. Not for public access."], ["Horsethief Lake State Park (WA)", "camp", 45.645399, -121.10507, "Public park, part of Columbia Hills"], ["Seufert County Park", "camp", 45.610399, -121.127848, "Public park by the river"], ["Sorosis Park", "camp", 45.590675, -121.194516, "City park on the bluff with views over town"], ["Thompson Park", "camp", 45.604287, -121.192294, "City park"], ["Hess Park (Dallesport)", "camp", 45.617343, -121.140626, "Park"], ["Howe Park", "camp", 45.591509, -121.173404, "City park"], ["Fort Dalles Rodeo Grounds", "camp", 45.615597, -121.203999, "Large open ground"], ["The Dalles Bridge (US-197)", "route", 45.611232, -121.140626, "Columbia River crossing to Washington"], ["The Dalles Dam", "route", 45.612343, -121.134515, "Dam"], ["Columbia Gorge Regional Airport", "route", 45.618446, -121.17264, "Airport (Dallesport, WA)"], ["Rowena Gap", "route", 45.677065, -121.245628, "Gap west of town (Historic Columbia River Hwy area)"], ["Signal Hill", "rally", 45.623455, -121.092847, "Summit. High ground for line of sight and radio."], ["Horsethief Butte (WA)", "rally", 45.649566, -121.095625, "Summit. High ground."], ["Pulpit Rock", "rally", 45.595548, -121.18928, "Well-known landmark. An easy-to-find meeting point."], ["Big Eddy Substation", "hazard", 45.60651, -121.115625, "High-voltage. Keep clear of downed lines."], ["Celilo Converter Station", "hazard", 45.595121, -121.114514, "High-voltage DC station. Keep clear."], ["The Dalles Substation", "hazard", 45.612342, -121.215072, "High-voltage"], ["Chenoweth Substation", "hazard", 45.635676, -121.20396, "High-voltage"], ["Wastewater Treatment Plant", "hazard", 45.601598, -121.179446, "Don't collect water downstream of here."], ["The Dalles", "place", 45.594564, -121.178682, ""], ["Dallesport (WA)", "place", 45.617343, -121.179515, ""], ["Chenoweth", "place", 45.62762, -121.243406, ""], ["Murdock (WA)", "place", 45.654287, -121.188405, ""], ["Cherry Heights", "place", 45.602897, -121.240906, ""], ["Petersburg", "place", 45.610955, -121.078125, ""], ["Boyd", "place", 45.489288, -121.082291, ""], ["Endersby", "place", 45.492342, -121.152015, ""]];
+var S=store.get('mapstate',{lat:45.5946,lon:-121.1787,z:13,base:'topo',ov:{}});if(S.bi===undefined)S.bi=true;
+var pins=store.get('pins',[]),hidden=store.get('pinhide',{}),gps=null,selId=null,tileFail=0,tileOk=0;
+function save(){store.set('mapstate',S)}function savePins(){store.set('pins',pins)}
+function toast(m,ms){var t=document.getElementById('mToast');t.textContent=m;t.style.display='block';clearTimeout(t._h);t._h=setTimeout(function(){t.style.display='none'},ms||2200)}
+/* projection */
+function ll2w(lat,lon,z){var s=256*Math.pow(2,z),x=(lon+180)/360*s,sn=Math.sin(lat*Math.PI/180);sn=Math.max(-0.9999,Math.min(0.9999,sn));
+  var y=(0.5-Math.log((1+sn)/(1-sn))/(4*Math.PI))*s;return[x,y]}
+function w2ll(x,y,z){var s=256*Math.pow(2,z),lon=x/s*360-180,n=Math.PI-2*Math.PI*y/s;return[180/Math.PI*Math.atan(0.5*(Math.exp(n)-Math.exp(-n))),lon]}
+function size(){return[W.clientWidth||360,W.clientHeight||600]}
+function origin(){var c=ll2w(S.lat,S.lon,S.z),sz=size();return[c[0]-sz[0]/2,c[1]-sz[1]/2]}
+function maxZ(){return BASES[S.base].max}
+/* IndexedDB tile cache */
+var db=null;try{var rq=indexedDB.open('prepmap',1);rq.onupgradeneeded=function(){rq.result.createObjectStore('t')};rq.onsuccess=function(){db=rq.result;render()};rq.onerror=function(){}}catch(e){}
+function idbGet(k,cb){if(!db)return cb(null);try{var r=db.transaction('t').objectStore('t').get(k);r.onsuccess=function(){cb(r.result||null)};r.onerror=function(){cb(null)}}catch(e){cb(null)}}
+function idbPut(k,v,cb){if(!db)return cb&&cb();try{var tx=db.transaction('t','readwrite');tx.objectStore('t').put(v,k);tx.oncomplete=function(){cb&&cb()};tx.onerror=function(){cb&&cb()}}catch(e){cb&&cb()}}
+function url(t,z,x,y){return t.replace('{z}',z).replace('{x}',x).replace('{y}',y)}
+/* tile rendering */
+var live={};
+function setImg(img,key,net){
+  idbGet(key,function(b){ if(img._key!==key)return;
+    if(b){img.onload=function(){URL.revokeObjectURL(img.src);img.style.opacity=1;tileOk++;note()};img.src=URL.createObjectURL(b);return}
+    img.onerror=function(){tileFail++;img.style.visibility='hidden';note()};img.onload=function(){img.style.opacity=1;tileOk++;note()};img.src=net})}
+function layerTiles(container,tmpls,prefix,zz,o,sz,keep){
+  var n=Math.pow(2,zz),x0=Math.floor(o[0]/256),x1=Math.floor((o[0]+sz[0])/256),y0=Math.max(0,Math.floor(o[1]/256)),y1=Math.min(n-1,Math.floor((o[1]+sz[1])/256));
+  for(var x=x0;x<=x1;x++)for(var y=y0;y<=y1;y++){var wx=((x%n)+n)%n;
+    tmpls.forEach(function(tp,ti){var key=prefix+ti+'/'+zz+'/'+wx+'/'+y,id=key+'@'+x;keep[id]=1;var img=live[id];
+      if(!img){img=document.createElement('img');img.alt='';img._key=key;live[id]=img;container.appendChild(img);setImg(img,key,url(tp,zz,wx,y))}
+      img.style.left=(x*256-o[0])+'px';img.style.top=(y*256-o[1])+'px'})}}
+function render(){
+  if(!W.clientWidth)return;var sz=size(),o=origin(),keep={};
+  layerTiles(TL,[BASES[S.base].u],S.base,S.z,o,sz,keep);
+  OV.className=S.ov.hill?'hill':'';
+  Object.keys(OVS).forEach(function(k){if(S.ov[k])layerTiles(OV,OVS[k].u,'ov'+k,Math.min(S.z,18),o,sz,keep)});
+  for(var id in live)if(!keep[id]){live[id].remove();delete live[id]}
+  renderPins(o);renderPoi(o);renderMe(o);readout();poiTick();
+  document.getElementById('bStreet').href='https://www.google.com/maps/@?api=1&map_action=pano&viewpoint='+S.lat.toFixed(6)+','+S.lon.toFixed(6);
+  var a=[BASES[S.base].a];Object.keys(OVS).forEach(function(k){if(S.ov[k])a.push(OVS[k].a)});document.getElementById('mAttr').textContent=a.join(' · ');
+}
+var noteOff=false;function note(){var n=document.getElementById('mNote');if(noteOff)return;
+  if(tileFail>6&&tileOk===0){n.style.display='block';
+    n.innerHTML='Map imagery is blocked in this viewer, or you have no signal and this area isn\'t saved. Open <b>Survival-App.html</b> in Chrome while you have signal, then tap ⤓ to save areas. <u>Dismiss</u>';n.onclick=function(){n.style.display='none';noteOff=true}}
+  else n.style.display='none'}
+/* pins */
+function renderPins(o){PL.innerHTML='';var sz0=size();
+  if(S.bi&&S.z>=11)GN.forEach(function(g){if(hidden[g[1]])return;var w=ll2w(g[2],g[3],S.z),x=w[0]-o[0],y=w[1]-o[1];if(x<-80||y<-40||x>sz0[0]+80||y>sz0[1]+40)return;
+    var c=CATS[g[1]]||CATS.other,d=document.createElement('div');
+    if(g[1]==='place'){d.className='plabel';d.textContent=g[0];d.style.left=x+'px';d.style.top=y+'px';if(S.z<11&&g[0]!=='The Dalles')return;PL.appendChild(d);return}
+    d.className='bpin';d.style.left=x+'px';d.style.top=y+'px';d.innerHTML='<i></i><b></b>';d.firstChild.style.background=c.c;d.firstChild.textContent=c.e;d.lastChild.textContent=g[0];
+    if(S.z<14)d.lastChild.style.display='none';
+    d.addEventListener('pointerdown',function(e){e.stopPropagation()});d.onclick=function(e){e.stopPropagation();openBuiltin(g)};PL.appendChild(d)});
+  pins.forEach(function(p){if(hidden[p.cat]||hidden.mine)return;var w=ll2w(p.lat,p.lon,S.z),x=w[0]-o[0],y=w[1]-o[1],sz=size();
+  if(x<-60||y<-60||x>sz[0]+60||y>sz[1]+60)return;var c=CATS[p.cat]||CATS.other;
+  var d=document.createElement('div');d.className='pin'+(p.id===selId?' sel':'');d.style.left=x+'px';d.style.top=y+'px';
+  d.innerHTML='<div class="dot"><span></span></div><div class="lbl"></div>';d.firstChild.style.background=c.c;d.firstChild.firstChild.textContent=c.e;d.lastChild.textContent=p.name||c.n;
+  if(S.z<12)d.lastChild.style.display='none';
+  d.addEventListener('pointerdown',function(e){e.stopPropagation()});d.onclick=function(e){e.stopPropagation();openPin(p)};PL.appendChild(d)})}
+function renderMe(o){if(!gps){ME.style.display='none';return}var w=ll2w(gps.lat,gps.lon,S.z);ME.style.display='block';ME.style.left=(w[0]-o[0])+'px';ME.style.top=(w[1]-o[1])+'px'}
+function readout(){var r='',ref=gps||null;r=S.lat.toFixed(5)+', '+S.lon.toFixed(5)+' · z'+S.z;
+  if(gps)r+=' · you ±'+Math.round(gps.acc*3.281)+' ft';document.getElementById('mRead').textContent=r}
+/* ===== live points for anywhere in the U.S. (OpenStreetMap via Overpass), cached per area ===== */
+var POI={},POIst={},pq=[],pbusy=false,pfail=0;
+var PQZ=12;
+function poiKeys(){if(S.z<PQZ)return[];var o=origin(),sz=size(),f=Math.pow(2,S.z-PQZ),out=[];
+  for(var x=Math.floor(o[0]/256/f);x<=Math.floor((o[0]+sz[0])/256/f);x++)for(var y=Math.floor(o[1]/256/f);y<=Math.floor((o[1]+sz[1])/256/f);y++)out.push(x+'/'+y);return out}
+function kBox(k){var a=k.split('/'),x=+a[0],y=+a[1],nw=w2ll(x*256,y*256,PQZ),se=w2ll((x+1)*256,(y+1)*256,PQZ);return[se[0],nw[1],nw[0],se[1]]}
+var PQ='[out:json][timeout:25];(node["amenity"~"^(hospital|clinic|doctors|pharmacy|fire_station|police|ranger_station|drinking_water|water_point|fuel|townhall|social_facility)$"](B);'+
+  'way["amenity"~"^(hospital|clinic|fire_station|police|fuel|townhall)$"](B);node["natural"~"^(spring|peak)$"](B);node["man_made"="water_well"](B);node["emergency"="assembly_point"](B);'+
+  'nwr["tourism"="camp_site"](B);nwr["shop"~"^(supermarket|convenience|hardware|doityourself|outdoor|general)$"](B););out center tags 600;';
+function classify(t){var a=t.amenity,n=t.natural,sh=t.shop,nm=t.name||'',info=[];
+  var addr=((t['addr:housenumber']||'')+' '+(t['addr:street']||'')).trim();if(addr)info.push(addr);if(t.phone)info.push(t.phone);if(t.opening_hours)info.push(t.opening_hours);
+  var c=null,d='';
+  if(a==='hospital'){c='medical';d='Hospital';if(t.emergency==='yes')info.unshift('Emergency dept')}
+  else if(a==='clinic'||a==='doctors'){c='medical';d='Clinic'}else if(a==='pharmacy'){c='medical';d='Pharmacy'}
+  else if(a==='fire_station'){c='fire';d='Fire station'}else if(a==='police'){c='fire';d='Police'}else if(a==='ranger_station'){c='fire';d='Ranger station'}
+  else if(a==='drinking_water'||a==='water_point'){c='water';d='Drinking water tap';info.push('Public tap. May stop working in an outage.')}
+  else if(n==='spring'){c='water';d='Spring';info.push('Treat before drinking. Flow not verified.')}
+  else if(t.man_made==='water_well'){c='water';d='Water well';info.push('May be private or have no pump. Treat before drinking.')}
+  else if(a==='social_facility'&&t.social_facility==='shelter'){c='shelter';d='Shelter'}
+  else if(t.emergency==='assembly_point'){c='shelter';d='Emergency assembly point'}
+  else if(a==='fuel'){c='fuel';d='Fuel'}else if(a==='townhall'){c='civic';d='Town hall'}
+  else if(t.tourism==='camp_site'){c='camp';d='Campground'}
+  else if(sh){c='supply';d={supermarket:'Grocery store',convenience:'Convenience store',hardware:'Hardware store',doityourself:'Hardware store',outdoor:'Outdoor store',general:'General store'}[sh]||'Store'}
+  else if(n==='peak'){c='rally';d='Peak';if(t.ele)info.unshift('Elevation '+Math.round(+t.ele*3.281).toLocaleString()+' ft');info.push('High ground')}
+  if(!c)return null;return[nm||d,c,null,null,(nm?d+' · ':'')+info.join(' · ')]}
+function loadPoi(k,force){if(POI[k]||POIst[k]==='q'||POIst[k]==='l')return;POIst[k]='l';
+  idbGet('poi/'+k,function(v){if(v){try{POI[k]=JSON.parse(v);POIst[k]='ok';render();return}catch(e){}}
+    POIst[k]='q';pq.push([k,force]);pump()})}
+function pump(){if(pbusy||!pq.length)return;var it=pq.shift(),k=it[0],vis=poiKeys();
+  if(!it[1]&&vis.indexOf(k)<0){POIst[k]=null;pump();return}
+  pbusy=true;pill();var b=kBox(k),q=PQ.replace(/\(B\)/g,'('+b.map(function(v){return v.toFixed(5)}).join(',')+')');
+  var done=function(){pbusy=false;pill();setTimeout(pump,1100)};
+  try{fetch('https://overpass-api.de/api/interpreter',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'data='+encodeURIComponent(q)})
+    .then(function(r){if(!r.ok)throw r.status;return r.json()}).then(function(j){var arr=[];
+      (j.elements||[]).forEach(function(e){var t=e.tags||{},la=e.lat!=null?e.lat:(e.center&&e.center.lat),lo=e.lon!=null?e.lon:(e.center&&e.center.lon);if(la==null)return;
+        var r=classify(t);if(r){r[2]=+la.toFixed(6);r[3]=+lo.toFixed(6);arr.push(r)}});
+      POI[k]=arr;POIst[k]='ok';pfail=0;idbPut('poi/'+k,JSON.stringify(arr));render();done()})
+    .catch(function(){POIst[k]='err';pfail++;done()})}catch(e){POIst[k]='err';pfail++;done()}}
+var ptk=null;function poiTick(){clearTimeout(ptk);ptk=setTimeout(function(){poiKeys().forEach(function(k){if(!POIst[k]||POIst[k]==='err'&&pfail<3)loadPoi(k)});pill()},700)}
+function pill(){var p=document.getElementById('mPill'),ks=poiKeys();
+  if(S.z<PQZ){p.textContent='Zoom in on a town to load points';return}
+  var n=0;ks.forEach(function(k){if(POI[k])n+=POI[k].length});
+  if(pbusy||pq.length)p.textContent='Loading points… ('+n+' so far)';
+  else if(ks.some(function(k){return POIst[k]==='err'}))p.textContent=n?n+' points (some areas need signal)':'Points need signal: open the app file in Chrome';
+  else p.textContent=n+' points in view'}
+function renderPoi(o){if(S.z<PQZ)return;var sz=size(),cnt=0;poiKeys().forEach(function(k){(POI[k]||[]).forEach(function(g){if(hidden[g[1]]||cnt>700)return;
+  var w=ll2w(g[2],g[3],S.z),x=w[0]-o[0],y=w[1]-o[1];if(x<-20||y<-20||x>sz[0]+20||y>sz[1]+20)return;cnt++;
+  var c=CATS[g[1]]||CATS.other,d=document.createElement('div');d.className='bpin';d.style.left=x+'px';d.style.top=y+'px';d.innerHTML='<i></i><b></b>';
+  d.firstChild.style.background=c.c;d.firstChild.textContent=c.e;d.lastChild.textContent=g[0];if(S.z<15)d.lastChild.style.display='none';
+  d.addEventListener('pointerdown',function(e){e.stopPropagation()});d.onclick=function(e){e.stopPropagation();openBuiltin(g,'Map point')};PL.appendChild(d)})})}
+/* geo math */
+function dist(a,b,c,d){var R=3958.8,t=Math.PI/180,dl=(c-a)*t,dn=(d-b)*t,h=Math.sin(dl/2)*Math.sin(dl/2)+Math.cos(a*t)*Math.cos(c*t)*Math.sin(dn/2)*Math.sin(dn/2);return 2*R*Math.asin(Math.sqrt(h))}
+function brg(a,b,c,d){var t=Math.PI/180,y=Math.sin((d-b)*t)*Math.cos(c*t),x=Math.cos(a*t)*Math.sin(c*t)-Math.sin(a*t)*Math.cos(c*t)*Math.cos((d-b)*t);return(Math.atan2(y,x)/t+360)%360}
+function card(b){return['N','NE','E','SE','S','SW','W','NW'][Math.round(b/45)%8]}
+function fmtD(mi){return mi<0.2?Math.round(mi*5280)+' ft':mi.toFixed(mi<10?1:0)+' mi'}
+/* interaction: pan / pinch / wheel / long-press */
+var ptr={},drag=null,pinch=null,lp=null,moved=false;
+function zoomAt(nz,px,py){nz=Math.max(3,Math.min(maxZ(),nz));if(nz===S.z)return;var o=origin(),ll=w2ll(o[0]+px,o[1]+py,S.z);
+  var w=ll2w(ll[0],ll[1],nz),sz=size(),c=w2ll(w[0]-px+sz[0]/2,w[1]-py+sz[1]/2,nz);S.z=nz;S.lat=c[0];S.lon=c[1];save();render()}
+function panBy(dx,dy){var c=ll2w(S.lat,S.lon,S.z),ll=w2ll(c[0]-dx,c[1]-dy,S.z);S.lat=Math.max(-85,Math.min(85,ll[0]));S.lon=((ll[1]+540)%360)-180;render()}
+function setTf(s,ox,oy){[TL,OV,PL].forEach(function(l){l.style.transform=s===1?'':'translate('+ox+'px,'+oy+'px) scale('+s+')'})}
+W.addEventListener('pointerdown',function(e){if(e.target.closest('.mtop,.mside,.sheet,.mnote,.mbl,.pill'))return;W.setPointerCapture&&W.setPointerCapture(e.pointerId);
+  ptr[e.pointerId]=[e.clientX,e.clientY];var ks=Object.keys(ptr);moved=false;
+  if(ks.length===1){drag=[e.clientX,e.clientY];var r=W.getBoundingClientRect(),lx=e.clientX-r.left,ly=e.clientY-r.top;
+    clearTimeout(lp);lp=setTimeout(function(){if(!moved){var o=origin(),ll=w2ll(o[0]+lx,o[1]+ly,S.z);if(navigator.vibrate)try{navigator.vibrate(30)}catch(x){}newPin(ll[0],ll[1])}},650)}
+  if(ks.length===2){clearTimeout(lp);var a=ptr[ks[0]],b=ptr[ks[1]],r2=W.getBoundingClientRect();
+    pinch={d:Math.hypot(a[0]-b[0],a[1]-b[1]),mx:(a[0]+b[0])/2-r2.left,my:(a[1]+b[1])/2-r2.top,s:1};drag=null}});
+W.addEventListener('pointermove',function(e){if(!ptr[e.pointerId])return;ptr[e.pointerId]=[e.clientX,e.clientY];var ks=Object.keys(ptr);
+  if(pinch&&ks.length>=2){var a=ptr[ks[0]],b=ptr[ks[1]],s=Math.hypot(a[0]-b[0],a[1]-b[1])/pinch.d;pinch.s=s;moved=true;
+    setTf(s,pinch.mx*(1-s),pinch.my*(1-s));return}
+  if(drag){var dx=e.clientX-drag[0],dy=e.clientY-drag[1];if(Math.abs(dx)+Math.abs(dy)>6)moved=true;if(moved){clearTimeout(lp);drag=[e.clientX,e.clientY];panBy(dx,dy)}}});
+function up(e){delete ptr[e.pointerId];clearTimeout(lp);
+  if(pinch&&Object.keys(ptr).length<2){var s=pinch.s,dz=Math.round(Math.log(s)/Math.LN2);setTf(1);var p=pinch;pinch=null;if(dz)zoomAt(S.z+dz,p.mx,p.my);drag=null;return}
+  if(!Object.keys(ptr).length){if(drag&&moved)save();drag=null}}
+W.addEventListener('pointerup',up);W.addEventListener('pointercancel',up);
+W.addEventListener('wheel',function(e){e.preventDefault();var r=W.getBoundingClientRect();zoomAt(S.z+(e.deltaY<0?1:-1),e.clientX-r.left,e.clientY-r.top)},{passive:false});
+var lastTap=0;W.addEventListener('click',function(e){if(e.target.closest('.mtop,.mside,.sheet,.pin,.bpin,.mbl'))return;var now=Date.now();
+  if(now-lastTap<320){var r=W.getBoundingClientRect();zoomAt(S.z+1,e.clientX-r.left,e.clientY-r.top)}lastTap=now});
+function centerZ(d){var sz=size();zoomAt(S.z+d,sz[0]/2,sz[1]/2)}
+document.getElementById("mZin").onclick=function(){centerZ(1)};document.getElementById("mZout").onclick=function(){centerZ(-1)};
+/* sheets */
+function sheet(id){[].forEach.call(W.querySelectorAll('.sheet'),function(s){s.classList.toggle('on',s.id===id&&!s.classList.contains('on'))})}
+[].forEach.call(W.querySelectorAll('[data-close]'),function(b){b.onclick=function(){b.parentNode.classList.remove('on')}});
+document.getElementById('bList').onclick=function(){renderList();sheet('sList')};
+document.getElementById('bSave').onclick=function(){countSave();sheet('sSave')};
+function clearLive(){for(var id in live){live[id].remove();delete live[id]}tileFail=0;tileOk=0}
+/* map type cycle (one button) */
+var MODES=[{n:'Topo',b:'topo',ov:{},sw:'linear-gradient(135deg,#7aa36a,#c9b98a)'},{n:'Satellite',b:'sat',ov:{},sw:'linear-gradient(135deg,#2d3b2a,#5b6b4a 60%,#8a7f63)'},
+  {n:'Hybrid',b:'sat',ov:{labels:1},sw:'linear-gradient(135deg,#2d3b2a,#5b6b4a);'},{n:'Streets',b:'streets',ov:{},sw:'linear-gradient(135deg,#f2efe9,#aad3df)'},{n:'Terrain',b:'streets',ov:{hill:1},sw:'linear-gradient(135deg,#d8d0c0,#8f8a7c)'}];
+if(S.mode==null)S.mode=0;
+function applyMode(){var m=MODES[S.mode%MODES.length];S.base=m.b;S.ov=JSON.parse(JSON.stringify(m.ov));if(S.z>maxZ())S.z=maxZ();
+  document.getElementById('modeName').textContent=m.n;document.querySelector('#bMode .sw').style.background=m.sw.replace(';','');
+  var nx=MODES[(S.mode+1)%MODES.length].n;document.getElementById('bMode').title='Now: '+m.n+'. Tap for '+nx}
+document.getElementById('bMode').onclick=function(){S.mode=(S.mode+1)%MODES.length;applyMode();save();clearLive();render();toast(MODES[S.mode].n)};
+/* filter chips across the top */
+var FILTERS=[['water','Water'],['medical','Medical'],['fire','Fire & police'],['shelter','Shelter'],['supply','Food & supplies'],['fuel','Fuel'],['camp','Camping & parks'],
+  ['rally','High ground'],['route','Routes & bridges'],['civic','Government'],['hazard','Hazards'],['mine','My pins'],['place','Towns']];
+function renderTopChips(){var f=document.getElementById('fbar');f.innerHTML='';
+  var all=document.createElement('button');var anyOff=FILTERS.some(function(x){return hidden[x[0]]});all.className='fchip';all.textContent=anyOff?'Show all':'Hide all';
+  all.onclick=function(){var off=!FILTERS.some(function(x){return hidden[x[0]]});FILTERS.forEach(function(x){hidden[x[0]]=off});store.set('pinhide',hidden);render();renderTopChips()};f.appendChild(all);
+  FILTERS.forEach(function(x){var k=x[0],c=CATS[k]||{e:'📍',c:'#a0522d'};var b=document.createElement('button');b.className='fchip'+(hidden[k]?' off':'');
+    b.innerHTML='<i></i><span></span>';b.firstChild.style.background=c.c;b.firstChild.textContent=c.e;b.lastChild.textContent=x[1];
+    b.onclick=function(){hidden[k]=!hidden[k];store.set('pinhide',hidden);render();renderTopChips()};f.appendChild(b)})}
+function renderList(){var L=document.getElementById('pinList');L.innerHTML='';var ref=gps||{lat:S.lat,lon:S.lon};
+  document.getElementById('listFrom').textContent=gps?'· distance from you':'· distance from map center';
+  if(!pins.length){L.innerHTML='<p class="mute">No pins of your own yet. Long-press the map, or tap ＋📍 to drop a pin at the crosshair.</p>';nearBuiltins(L,ref);return}
+  pins.slice().sort(function(a,b){return dist(ref.lat,ref.lon,a.lat,a.lon)-dist(ref.lat,ref.lon,b.lat,b.lon)}).forEach(function(p){
+    var c=CATS[p.cat]||CATS.other,mi=dist(ref.lat,ref.lon,p.lat,p.lon),b=brg(ref.lat,ref.lon,p.lat,p.lon);
+    var r=document.createElement('div');r.className='prow';r.innerHTML='<div class="ic"></div><div class="t"><b></b><small></small></div><div class="d"></div>';
+    r.children[0].style.background=c.c;r.children[0].textContent=c.e;r.querySelector('b').textContent=p.name||c.n;r.querySelector('small').textContent=c.n+(p.notes?' · '+p.notes:'');
+    r.children[2].innerHTML=fmtD(mi)+'<br>'+Math.round(b)+'° '+card(b);if(hidden[p.cat])r.style.opacity=.45;
+    r.onclick=function(){S.lat=p.lat;S.lon=p.lon;if(S.z<15)S.z=Math.min(15,maxZ());save();render();openPin(p)};L.appendChild(r)});
+  nearBuiltins(L,ref)}
+function nearBuiltins(L,ref){var h=document.createElement('h4');h.style.marginTop='16px';h.textContent='Nearest map points';L.appendChild(h);
+  GN.concat([].concat.apply([],Object.keys(POI).map(function(k){return POI[k]}))).filter(function(g){return g[1]!=='place'&&!hidden[g[1]]}).map(function(g){return[g,dist(ref.lat,ref.lon,g[2],g[3])]}).sort(function(a,b){return a[1]-b[1]}).slice(0,15).forEach(function(a){
+    var g=a[0],c=CATS[g[1]],b=brg(ref.lat,ref.lon,g[2],g[3]),r=document.createElement('div');r.className='prow';
+    r.innerHTML='<div class="ic"></div><div class="t"><b></b><small></small></div><div class="d"></div>';r.children[0].style.background=c.c;r.children[0].textContent=c.e;
+    r.querySelector('b').textContent=g[0];r.querySelector('small').textContent=c.n+(g[4]?' · '+g[4]:'');r.children[2].innerHTML=fmtD(a[1])+'<br>'+Math.round(b)+'° '+card(b);
+    r.onclick=function(){S.lat=g[2];S.lon=g[3];if(S.z<15)S.z=Math.min(15,maxZ());save();render();openBuiltin(g)};L.appendChild(r)})}
+/* pin editor */
+var editing=null;
+function catChips(sel){var el=document.getElementById('pCats');el.innerHTML='';Object.keys(CATS).forEach(function(k){var c=document.createElement('button');c.className='chip'+(sel===k?' on':'');
+  c.textContent=CATS[k].e+' '+CATS[k].n;c.onclick=function(){editing.cat=k;catChips(k)};el.appendChild(c)})}
+function info(p){var s=p.lat.toFixed(5)+', '+p.lon.toFixed(5);if(p.elev!=null)s+=' · elev '+Math.round(p.elev*3.281).toLocaleString()+' ft';
+  if(gps){var mi=dist(gps.lat,gps.lon,p.lat,p.lon),b=brg(gps.lat,gps.lon,p.lat,p.lon);s+=' · '+fmtD(mi)+' at '+Math.round(b)+'° '+card(b)+' from you'}
+  if(p.addr)s+=' · '+p.addr;document.getElementById('pInfo').textContent=s}
+function openBuiltin(g,ttl){editing={id:null,lat:g[2],lon:g[3],cat:g[1]==='place'?'other':g[1],name:g[0],notes:g[4]||''};showEditor('USGS map point');if(ttl)document.getElementById('pinTitle').textContent=ttl;
+  document.getElementById('pSaveBtn').textContent='Save copy to my pins';elev(editing)}
+function newPin(lat,lon){editing={id:null,lat:lat,lon:lon,cat:'other',name:'',notes:''};showEditor('New pin');elev(editing)}
+function openPin(p){selId=p.id;editing=JSON.parse(JSON.stringify(p));render();showEditor('Edit pin');if(p.elev==null)elev(editing)}
+function showEditor(t){document.getElementById('pSaveBtn').textContent='Save pin';document.getElementById('pinTitle').textContent=t;document.getElementById('pName').value=editing.name||'';document.getElementById('pNotes').value=editing.notes||'';
+  catChips(editing.cat);info(editing);if(t==='USGS map point')document.getElementById('pSaveBtn').textContent='Save copy to my pins';document.getElementById('pDel').style.display=editing.id?'':'none';sheet('sPin');document.getElementById('sPin').classList.add('on')}
+function elev(p){try{fetch('https://api.open-meteo.com/v1/elevation?latitude='+p.lat.toFixed(5)+'&longitude='+p.lon.toFixed(5)).then(function(r){return r.json()}).then(function(j){
+  if(j&&j.elevation&&j.elevation.length){p.elev=j.elevation[0];if(editing===p)info(p);var q=pins.filter(function(x){return x.id===p.id})[0];if(q){q.elev=p.elev;savePins()}}}).catch(function(){})}catch(e){}}
+document.getElementById('pSaveBtn').onclick=function(){editing.name=document.getElementById('pName').value.trim();editing.notes=document.getElementById('pNotes').value.trim();
+  if(editing.id){pins=pins.map(function(p){return p.id===editing.id?editing:p})}else{editing.id='p'+Date.now().toString(36)+Math.random().toString(36).slice(2,5);pins.push(editing)}
+  savePins();selId=editing.id;document.getElementById('sPin').classList.remove('on');render();toast('Pin saved')};
+document.getElementById('pDel').onclick=function(){var id=editing.id;pins=pins.filter(function(p){return p.id!==id});savePins();document.getElementById('sPin').classList.remove('on');selId=null;render();toast('Pin deleted')};
+document.getElementById('pGoto').onclick=function(){S.lat=editing.lat;S.lon=editing.lon;save();render()};
+document.getElementById('bAdd').onclick=function(){newPin(S.lat,S.lon)};
+/* GPS */
+var watch=null;document.getElementById('bGps').onclick=function(){
+  if(gps){S.lat=gps.lat;S.lon=gps.lon;if(S.z<15)S.z=Math.min(16,maxZ());save();render();return}
+  if(!navigator.geolocation){toast('No GPS available in this viewer');return}
+  toast('Finding you…',4000);
+  try{watch=navigator.geolocation.watchPosition(function(p){var first=!gps;gps={lat:p.coords.latitude,lon:p.coords.longitude,acc:p.coords.accuracy};
+    document.getElementById('bGps').classList.add('on');if(first){S.lat=gps.lat;S.lon=gps.lon;if(S.z<15)S.z=Math.min(16,maxZ());save();toast('Located ±'+Math.round(gps.acc*3.281)+' ft')}render()},
+    function(err){toast(err.code===1?'Location blocked here: open the downloaded file in Chrome':'GPS unavailable right now',4000)},{enableHighAccuracy:true,maximumAge:5000,timeout:20000})}catch(e){toast('GPS unavailable in this viewer')}};
+/* search (online) */
+function doSearch(){var q=document.getElementById('mSearch').value.trim();if(!q)return;
+  var m=q.match(/^\s*(-?\d+(\.\d+)?)\s*[, ]\s*(-?\d+(\.\d+)?)\s*$/);if(m){S.lat=+m[1];S.lon=+m[3];S.z=Math.max(S.z,15);save();render();return}
+  toast('Searching…');
+  try{fetch('https://nominatim.openstreetmap.org/search?format=json&limit=6&q='+encodeURIComponent(q)+'&countrycodes=us').then(function(r){return r.json()}).then(function(js){
+    if(!js.length){toast('No results');return}var L=document.getElementById('pinList');renderList();
+    var box=document.createElement('div');box.innerHTML='<h4>Search results</h4>';
+    js.forEach(function(r){var d=document.createElement('div');d.className='prow';d.innerHTML='<div class="t"><b></b><small></small></div><div class="d">Go ›</div>';
+      d.querySelector('b').textContent=r.display_name.split(',')[0];d.querySelector('small').textContent=r.display_name;
+      d.onclick=function(){S.lat=+r.lat;S.lon=+r.lon;S.z=Math.min(16,maxZ());save();render();document.getElementById('sList').classList.remove('on');
+        editing={id:null,lat:+r.lat,lon:+r.lon,cat:'other',name:r.display_name.split(',')[0],notes:'',addr:r.display_name.split(',').slice(0,3).join(',')};};box.appendChild(d)});
+    L.insertBefore(box,L.firstChild);sheet('sList');document.getElementById('sList').classList.add('on')}).catch(function(){toast('Search needs a signal (and won\'t work inside the Claude viewer)',3500)})}catch(e){toast('Search unavailable here')}}
+document.getElementById('mGo').onclick=doSearch;document.getElementById('mSearch').addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();doSearch();e.target.blur()}});
+/* starter pins */
+var SEED=[
+ ['Mid-Columbia Medical Center (24/7 ER)','medical','1700 E 19th St, The Dalles, OR 97058','Main (541) 296-1111'],
+ ['Mid-Columbia Fire & Rescue main station','fire','1400 W 8th St, The Dalles, OR 97058','Office (541) 296-9445 · after hours (541) 298-4178'],
+ ['The Dalles Middle School','shelter','1100 E 12th St, The Dalles, OR 97058','Used as a Red Cross shelter (pets allowed) during past wildfires'],
+ ['Gloria Center (MCCAC)','shelter','2505 W 7th St, The Dalles, OR 97058','Emergency shelter; severe-weather supply bundles'],
+ ['Sawyer\'s Ace Hardware','supply','500 E 3rd St, The Dalles, OR 97058','(541) 296-4814'],
+ ['Big 5 Sporting Goods','supply','420 Mt Hood St, The Dalles, OR 97058','(541) 506-0018']];
+STORES.forEach(function(s){if(s.q)SEED.push([s.n.replace(/^\d · /,''),'supply',s.q,s.a.split('·')[1]?s.a.split('·')[1].trim():''])});
+document.getElementById('seedBtn').onclick=function(){var btn=this,i=0,added=0;btn.disabled=true;
+  function next(){if(i>=SEED.length){btn.disabled=false;toast(added?('Added '+added+' pins'):'Couldn\'t look them up. Try again with signal in Chrome.',3500);render();renderList();return}
+    var s=SEED[i++];if(pins.some(function(p){return p.name===s[0]})){next();return}
+    btn.textContent='Looking up '+i+'/'+SEED.length+'…';
+    try{fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&q='+encodeURIComponent(s[2])).then(function(r){return r.json()}).then(function(j){
+      if(j&&j[0]){pins.push({id:'s'+i+Date.now().toString(36),lat:+j[0].lat,lon:+j[0].lon,cat:s[1],name:s[0],notes:s[3],addr:s[2]});savePins();added++}
+      setTimeout(next,1100)}).catch(function(){i=SEED.length;btn.textContent='Add starter pins';next()})}catch(e){i=SEED.length;next()}
+    if(i>=SEED.length)btn.textContent='Add starter pins'}
+  next()};
+/* GPX / KML export */
+function esc(t){return String(t==null?'':t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function allPts(){var a=pins.map(function(p){return{n:p.name||CATS[p.cat].n,c:p.cat,lat:p.lat,lon:p.lon,d:p.notes||''}});
+  if(S.bi)GN.forEach(function(g){if(g[1]!=='place')a.push({n:g[0],c:g[1],lat:g[2],lon:g[3],d:g[4]||''})});return a}
+function gpx(){return '<?xml version="1.0" encoding="UTF-8"?>\n<gpx version="1.1" creator="Home Preparedness Station" xmlns="http://www.topografix.com/GPX/1/1">\n<metadata><name>The Dalles emergency points</name></metadata>\n'+
+  allPts().map(function(p){return '<wpt lat="'+p.lat.toFixed(6)+'" lon="'+p.lon.toFixed(6)+'"><name>'+esc(p.n)+'</name><desc>'+esc(p.d)+'</desc><type>'+esc(CATS[p.c]?CATS[p.c].n:p.c)+'</type></wpt>'}).join('\n')+'\n</gpx>\n'}
+function kml(){var cats={};allPts().forEach(function(p){(cats[p.c]=cats[p.c]||[]).push(p)});
+  return '<?xml version="1.0" encoding="UTF-8"?>\n<kml xmlns="http://www.opengis.net/kml/2.2"><Document><name>The Dalles emergency points</name>\n'+
+  Object.keys(cats).map(function(k){return '<Folder><name>'+esc(CATS[k]?CATS[k].n:k)+'</name>'+cats[k].map(function(p){return '<Placemark><name>'+esc(p.n)+'</name><description>'+esc(p.d)+'</description><Point><coordinates>'+p.lon.toFixed(6)+','+p.lat.toFixed(6)+',0</coordinates></Point></Placemark>'}).join('')+'</Folder>'}).join('\n')+'\n</Document></kml>\n'}
+var claudeDl=null;try{if(window.claude&&window.claude.use)window.claude.use('downloads').then(function(d){claudeDl=d}).catch(function(){})}catch(e){}
+function dl(name,txt,type){if(claudeDl){claudeDl.save({filename:name,data:txt}).then(function(){toast('Saved '+name)},function(){toast('Save declined or failed. Use Copy instead.',3000)});return}
+  try{var b=new Blob([txt],{type:type}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(u)},4000);toast('If nothing downloaded, use Copy instead',3000)}catch(e){toast('Download blocked here. Use Copy.')}}
+document.getElementById('gpxBtn').onclick=function(){dl('the-dalles-emergency-points.gpx',gpx(),'application/gpx+xml')};
+document.getElementById('kmlBtn').onclick=function(){dl('the-dalles-emergency-points.kml',kml(),'application/vnd.google-earth.kml+xml')};
+document.getElementById('gpxCopy').onclick=function(){var t=gpx();try{navigator.clipboard.writeText(t).then(function(){toast('GPX copied')},function(){fb()})}catch(e){fb()}
+  function fb(){var ta=document.getElementById('impTxt');ta.style.display='block';ta.value=t;ta.select();toast('Select all and copy')}};
+/* export / import */
+document.getElementById('expBtn').onclick=function(){var t=JSON.stringify(pins);try{navigator.clipboard.writeText(t).then(function(){toast('Copied '+pins.length+' pins. Paste them into Notes.')},function(){fb()})}catch(e){fb()}
+  function fb(){var ta=document.getElementById('impTxt');ta.style.display='block';ta.value=t;ta.select();toast('Select all and copy')}};
+document.getElementById('impBtn').onclick=function(){var ta=document.getElementById('impTxt');ta.style.display='block';ta.value='';document.getElementById('impGo').style.display='inline-block';ta.focus()};
+document.getElementById('impGo').onclick=function(){try{var a=JSON.parse(document.getElementById('impTxt').value),n=0;a.forEach(function(p){if(typeof p.lat==='number'&&typeof p.lon==='number'&&!pins.some(function(q){return q.id===p.id})){
+  pins.push({id:String(p.id||('i'+Math.random())),lat:p.lat,lon:p.lon,cat:CATS[p.cat]?p.cat:'other',name:String(p.name||''),notes:String(p.notes||''),addr:p.addr?String(p.addr):'',elev:typeof p.elev==='number'?p.elev:null});n++}});
+  savePins();render();renderList();toast('Imported '+n+' pins')}catch(e){toast('That doesn\'t look like copied pins')}};
+/* offline save */
+function saveList(){var L=document.getElementById('svLayer').value,mz=+document.getElementById('svZoom').value,sz=size(),o=origin(),out=[];
+  var a=w2ll(o[0],o[1],S.z),b=w2ll(o[0]+sz[0],o[1]+sz[1],S.z);mz=Math.min(mz,BASES[L].max);
+  for(var z=Math.max(6,Math.min(S.z,mz)-6);z<=mz;z++){var p=ll2w(a[0],a[1],z),q=ll2w(b[0],b[1],z);
+    for(var x=Math.floor(p[0]/256);x<=Math.floor(q[0]/256);x++)for(var y=Math.floor(p[1]/256);y<=Math.floor(q[1]/256);y++)out.push([L,z,x,y])}
+  return out}
+function countSave(){var n=saveList().length;document.getElementById('svCount').textContent='About '+n.toLocaleString()+' map tiles (~'+Math.round(n*0.025)+' MB). '+(n>1500?'That\'s too large. Zoom the map in closer, or pick a lower detail level.':'')}
+document.getElementById('svLayer').onchange=countSave;document.getElementById('svZoom').onchange=countSave;
+document.getElementById('svGo').onclick=function(){var list=saveList(),pr=document.getElementById('svProg');if(list.length>1500){countSave();return}
+  if(S.z>=PQZ)poiKeys().forEach(function(k){loadPoi(k,true)});
+  if(!db){pr.textContent='This viewer can\'t store maps. Open the downloaded file in Chrome.';return}
+  var done=0,bad=0,i=0,run=0;pr.textContent='Starting…';
+  function pump(){while(run<3&&i<list.length){(function(t){run++;var key=t[0]+'0/'+t[1]+'/'+t[2]+'/'+t[3];
+    idbGet(key,function(have){if(have){fin(true);return}
+      try{fetch(url(BASES[t[0]].u,t[1],t[2],t[3])).then(function(r){if(!r.ok)throw 0;return r.blob()}).then(function(bl){idbPut(key,bl,function(){fin(true)})}).catch(function(){fin(false)})}catch(e){fin(false)}});
+    function fin(ok){run--;done++;if(!ok)bad++;pr.textContent='Saved '+(done-bad)+' / '+list.length+(bad?' ('+bad+' failed)':'');
+      if(done===list.length){pr.textContent=bad===list.length?'No tiles saved. You need signal, and this must be opened as the downloaded file in Chrome.':'Done ✓ This area now works offline on this phone ('+(done-bad)+' tiles).';
+        var sv=store.get('saved',[]);sv.push({l:t[0],lat:S.lat,lon:S.lon,z:S.z,n:done-bad,d:new Date().toISOString().slice(0,10)});store.set('saved',sv);clearLive();render()}else pump()}})(list[i++])}}
+  pump()};
+document.getElementById('svClear').onclick=function(){if(!db)return;try{var tx=db.transaction('t','readwrite');tx.objectStore('t').clear();tx.oncomplete=function(){store.set('saved',[]);clearLive();render();document.getElementById('svProg').textContent='Saved maps deleted.'}}catch(e){}};
+/* lifecycle */
+applyMode();renderTopChips();
+window.__mapShown=function(){setTimeout(function(){clearLive();render()},30)};
+window.addEventListener('resize',function(){if(document.body.classList.contains('mapmode'))render()});
+})();
+
+show(location.hash.slice(1)||'start');
+})();
+</script>
+</body>
+</html>
