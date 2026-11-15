@@ -8,8 +8,54 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
+
+      # ---- Nationwide map points (rebuilt from OpenStreetMap at most once a week, then cached) ----
+      - name: Week key
+        id: wk
+        run: echo "key=poi-v1-$(date +%G-%V)-${{ hashFiles('tools/build_poi.py') }}" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@v4
+        id: poicache
+        with:
+          path: build/poi
+          key: ${{ steps.wk.outputs.key }}
+      - name: Build U.S. points from OpenStreetMap
+        if: steps.poicache.outputs.cache-hit != 'true'
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq osmium-tool
+          sudo mkdir -p /mnt/osm && sudo chown "$USER" /mnt/osm && cd /mnt/osm
+          wget -q https://download.geofabrik.de/north-america/us-latest.osm.pbf
+          osmium tags-filter us-latest.osm.pbf \
+            nwr/amenity=hospital,clinic,doctors,pharmacy,fire_station,police,ranger_station,drinking_water,water_point,fuel,townhall,social_facility \
+            n/natural=spring,peak n/man_made=water_well n/emergency=assembly_point,defibrillator \
+            nwr/tourism=camp_site nwr/shop=supermarket,convenience,hardware,doityourself,outdoor,general \
+            n/place=city,town,village,hamlet \
+            -o filtered.osm.pbf --overwrite
+          rm us-latest.osm.pbf
+          osmium export filtered.osm.pbf -f geojsonseq -o us.geojsonseq --overwrite
+          cd "$GITHUB_WORKSPACE"
+          python3 tools/build_poi.py build/poi /mnt/osm/us.geojsonseq
+      - name: Add points to the app
+        run: |
+          mkdir -p app/src/main/assets
+          rm -rf app/src/main/assets/poi && cp -r build/poi app/src/main/assets/poi
+          du -sh app/src/main/assets/poi
+
+      # ---- App page: inline Tailwind + icons so it runs offline ----
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Build app page
+        run: |
+          npm install --no-audit --no-fund
+          npx tailwindcss -c tailwind.config.js -i tools/tw.in.css -o build/tw.css --minify
+          mkdir -p dist
+          python3 tools/build_web.py web/index.src.html build/tw.css node_modules/lucide/dist/umd/lucide.min.js \
+            app/src/main/assets/index.html dist/Survival-App.html
+
+      # ---- Android APK ----
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -19,17 +65,20 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.7'
-      - name: Build
+      - name: Build APK
         run: gradle assembleDebug --no-daemon
-      - name: Rename APK
-        run: cp app/build/outputs/apk/debug/app-debug.apk Survival-App.apk
+      - name: Collect files
+        run: cp app/build/outputs/apk/debug/app-debug.apk dist/Survival-App.apk && ls -la dist
       - name: Publish download
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v1.${{ github.run_number }}
           name: Survival App v1.${{ github.run_number }}
           make_latest: true
-          files: Survival-App.apk
+          files: |
+            dist/Survival-App.apk
+            dist/Survival-App.html
           body: |
             Tap **Survival-App.apk** below to download, then open it to install.
-            Android will ask you to allow installs from your browser the first time.
+            Android asks you to allow installs from your browser the first time.
+            See the README for what changed.

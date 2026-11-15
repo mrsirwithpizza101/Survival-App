@@ -88,5 +88,10 @@ public class MainActivity extends Activity {
     @Override protected void onSaveInstanceState(Bundle out) { super.onSaveInstanceState(out); web.saveState(out); }
 
     @Override
-    public void onBackPressed() { if (web.canGoBack()) web.goBack(); else super.onBackPressed(); }
+    public void onBackPressed() {
+        // Let the page close an open app screen first; exit only from the home screen.
+        web.evaluateJavascript("(window.__back && window.__back()) ? '1' : '0'", value -> {
+            if (!"\"1\"".equals(value)) finish();
+        });
+    }
 }

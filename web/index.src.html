@@ -1,37 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Home Preparedness Station — Offline Manual</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#080c14">
+<title>AEGIS — Survival App</title>
+<!-- Built at release time: Tailwind CSS and Lucide icons are inlined so the app needs no internet. -->
+<style>/*TAILWIND_CSS*/</style>
 <style>
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Helvetica,Arial,sans-serif;background-color:#080c14;-webkit-tap-highlight-color:transparent}
+.font-mono{font-family:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace}
+.no-scrollbar::-webkit-scrollbar{display:none}.no-scrollbar{-ms-overflow-style:none;scrollbar-width:none}
+.app-tile{transition:transform .18s cubic-bezier(.4,0,.2,1),box-shadow .18s ease;user-select:none}
+.app-tile:active{transform:scale(.93)}
+.app-screen{transition:transform .28s cubic-bezier(.32,.72,0,1),opacity .2s ease}
+.app-screen.closed{transform:translateY(100%);opacity:0;pointer-events:none}
+.app-screen.open{transform:translateY(0);opacity:1;pointer-events:auto}
 :root{
-  --bg:#14130f;--panel:#1d1c17;--panel2:#262520;--line:#38362e;
-  --ink:#ece8dc;--mute:#a7a291;--accent:#e0a33a;--ok:#7fb069;--warn:#e26d4f;--info:#6fa8c9;
+  --bg:#080c14;--panel:#111827;--panel2:#1e293b;--line:#334155;
+  --ink:#e2e8f0;--mute:#94a3b8;--accent:#10b981;--ok:#10b981;--warn:#f43f5e;--info:#38bdf8;
 }
 *{box-sizing:border-box}
-html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-header{padding:20px 16px 8px;max-width:860px;margin:0 auto}
-header h1{margin:0;font-size:1.45rem;letter-spacing:.01em}
-header p{margin:4px 0 0;color:var(--mute);font-size:.92rem}
-nav{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
-nav .tabs{display:flex;gap:6px;overflow-x:auto;padding:10px 16px;max-width:860px;margin:0 auto;scrollbar-width:none}
-nav .tabs::-webkit-scrollbar{display:none}
-nav button{flex:0 0 auto;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:8px 14px;font:inherit;font-size:.9rem;cursor:pointer}
-nav button.on{background:var(--accent);color:#1a1408;border-color:var(--accent);font-weight:600}
-main{max-width:860px;margin:0 auto;padding:16px 16px 80px}
 section{display:none}
 section.on{display:block}
-h2{font-size:1.2rem;margin:8px 0 10px}
-h3{font-size:1rem;margin:22px 0 8px;color:var(--accent);text-transform:uppercase;letter-spacing:.06em}
-p,li{color:var(--ink)}
+.legacy h2{font-size:1.2rem;margin:8px 0 10px}
+.legacy h3{font-size:1rem;margin:22px 0 8px;color:var(--accent);text-transform:uppercase;letter-spacing:.06em}
+.legacy p,.legacy li{color:var(--ink)}
 .mute{color:var(--mute)}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:12px 0}
 .card.warn{border-color:var(--warn);background:#2a1a15}
 .card.info{border-color:#3b5566;background:#16212a}
 .card.ok{border-color:#4b6b3d;background:#18221a}
-ol,ul{padding-left:22px;margin:6px 0}
-li{margin:4px 0}
+.legacy ol,.legacy ul{padding-left:22px;margin:6px 0}
+.legacy li{margin:4px 0}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
 .stat{background:var(--panel2);border-radius:10px;padding:10px 12px}
 .stat b{display:block;font-size:1.35rem}
@@ -47,31 +48,29 @@ li{margin:4px 0}
 .item .p{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--mute)}
 .item.done .t{text-decoration:line-through;opacity:.6}
 .tag{display:inline-block;font-size:.7rem;padding:1px 7px;border-radius:99px;background:#3a3222;color:var(--accent);margin-left:6px;vertical-align:middle}
-label.f{display:block;margin:10px 0 4px;color:var(--mute);font-size:.88rem}
-input[type=number],input[type=text],textarea,select{width:100%;background:var(--panel2);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:10px;font:inherit}
-textarea{min-height:70px}
+.legacy label.f{display:block;margin:10px 0 4px;color:var(--mute);font-size:.88rem}
+.legacy input[type=number],.legacy input[type=text],.legacy textarea,.legacy select{width:100%;background:var(--panel2);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:10px;font:inherit}
+.legacy textarea{min-height:70px}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.btn{background:var(--accent);color:#1a1408;border:0;border-radius:8px;padding:10px 14px;font:inherit;font-weight:600;cursor:pointer;margin-top:10px}
+.btn{background:var(--accent);color:#052e1f;border:0;border-radius:8px;padding:10px 14px;font:inherit;font-weight:600;cursor:pointer;margin-top:10px}
 .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
-table{width:100%;border-collapse:collapse;font-size:.92rem}
-td,th{text-align:left;padding:7px 6px;border-top:1px solid var(--line);vertical-align:top}
-th{color:var(--mute);font-weight:500}
-details{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:0 16px}
-details summary{cursor:pointer;padding:13px 0;font-weight:600;list-style:none}
-details summary::after{content:"+";float:right;color:var(--accent)}
-details[open] summary::after{content:"–"}
-details>div{padding-bottom:14px}
+.legacy table{width:100%;border-collapse:collapse;font-size:.92rem}
+.legacy td,.legacy th{text-align:left;padding:7px 6px;border-top:1px solid var(--line);vertical-align:top}
+.legacy th{color:var(--mute);font-weight:500}
+.legacy details{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:0 16px}
+.legacy details summary{cursor:pointer;padding:13px 0;font-weight:600;list-style:none}
+.legacy details summary::after{content:"+";float:right;color:var(--accent)}
+.legacy details[open] summary::after{content:"–"}
+.legacy details>div{padding-bottom:14px}
 .big{font-size:1.6rem;font-weight:700}
 /* view toggle */
 .seg{display:inline-flex;background:var(--panel2);border:1px solid var(--line);border-radius:999px;padding:3px;margin:6px 0 4px}
 .seg button{background:transparent;border:0;color:var(--mute);font:inherit;font-size:.88rem;padding:7px 14px;border-radius:999px;cursor:pointer}
-.seg button.on{background:var(--accent);color:#1a1408;font-weight:600}
+.seg button.on{background:var(--accent);color:#052e1f;font-weight:600}
 .storehead{margin:22px 0 4px}
 .storehead b{color:var(--accent);text-transform:uppercase;letter-spacing:.06em;font-size:.95rem}
 .storehead small{display:block;color:var(--mute)}
 /* map */
-body.mapmode main{max-width:none;padding:0}
-body.mapmode footer,body.mapmode header{display:none}
 #mapWrap{position:relative;height:calc(100vh - 58px);height:calc(100dvh - 58px);overflow:hidden;background:#1b1f1c;
   background-image:linear-gradient(#2a2f2b 1px,transparent 1px),linear-gradient(90deg,#2a2f2b 1px,transparent 1px);background-size:64px 64px;touch-action:none;user-select:none;-webkit-user-select:none}
 #tiles,#overlay,#pins{position:absolute;left:0;top:0;width:100%;height:100%;transform-origin:0 0}
@@ -85,6 +84,7 @@ body.mapmode footer,body.mapmode header{display:none}
 .bpin{position:absolute;transform:translate(-11px,-11px);display:flex;align-items:center;gap:4px;cursor:pointer;pointer-events:auto}
 .bpin i{width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:12px;border:1.5px solid #fff;box-shadow:0 1px 4px #0009;flex:0 0 auto}
 .bpin b{font-weight:500;font-size:11px;color:#fff;text-shadow:0 0 3px #000,0 0 3px #000;white-space:nowrap;max-width:150px;overflow:hidden;text-overflow:ellipsis}
+.plabel.small{font-size:10px;font-weight:600;letter-spacing:.04em;color:#fff;opacity:.9}
 .plabel{position:absolute;transform:translate(-50%,-50%);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#f3e6c4;text-shadow:0 0 4px #000,0 0 4px #000;white-space:nowrap;pointer-events:none}
 #me{position:absolute;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;background:#3d8bfd;border:3px solid #fff;box-shadow:0 0 0 6px #3d8bfd44;display:none;pointer-events:none}
 .mtop{position:absolute;left:0;right:0;top:0;z-index:3;padding:10px 10px 0;background:linear-gradient(#000a,#0000)}
@@ -100,7 +100,7 @@ body.mapmode footer,body.mapmode header{display:none}
 .pill{position:absolute;left:50%;top:112px;transform:translateX(-50%);z-index:3;background:#202124e6;color:#e8eaed;font-size:.78rem;padding:6px 12px;border-radius:999px;white-space:nowrap;box-shadow:0 1px 4px #0008;max-width:60%;overflow:hidden;text-overflow:ellipsis}
 .mbar input{flex:1;background:#202124e6;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid #ffffff22;color:#e8eaed;border-radius:999px;padding:11px 16px;font:inherit;box-shadow:0 2px 6px #0008}
 .mbtn{background:#202124e6;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid #ffffff22;color:#e8eaed;border-radius:50%;min-width:44px;height:44px;text-decoration:none;box-shadow:0 2px 6px #0008;font:inherit;font-size:1.05rem;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0 10px}
-.mbtn.on{background:var(--accent);color:#1a1408;border-color:var(--accent)}
+.mbtn.on{background:var(--accent);color:#052e1f;border-color:var(--accent)}
 .mside{position:absolute;right:10px;top:150px;display:flex;flex-direction:column;gap:6px;z-index:3}
 .mread{position:absolute;left:10px;bottom:8px;z-index:3;background:#000a;color:#ddd;font-size:11px;padding:4px 8px;border-radius:6px;font-variant-numeric:tabular-nums}
 .mattr{position:absolute;right:10px;bottom:8px;z-index:3;background:#000a;color:#bbb;font-size:10px;padding:3px 6px;border-radius:6px;max-width:60%}
@@ -122,20 +122,89 @@ body.mapmode footer,body.mapmode header{display:none}
 .toast{position:absolute;left:50%;bottom:76px;transform:translateX(-50%);z-index:6;background:#000d;color:#fff;padding:8px 14px;border-radius:99px;font-size:.85rem;display:none;white-space:nowrap}
 footer{color:var(--mute);font-size:.8rem;max-width:860px;margin:0 auto;padding:0 16px 40px}
 @media print{nav,.btn{display:none}section{display:block!important;page-break-before:always}body{background:#fff;color:#000}.card,details{border-color:#999;background:#fff}}
+.legacy ul{list-style:disc}.legacy ol{list-style:decimal}
+.legacy h2{font-weight:700;color:#fff}.legacy h3{font-weight:700}
+.legacy a{color:var(--info);text-decoration:underline}
+.legacy b,.legacy strong{font-weight:700}
+.legacy .card.warn{background:#2a0f17}.legacy .card.info{background:#0c1f2e;border-color:#1e3a5f}.legacy .card.ok{background:#052e1f;border-color:#065f46}
+.legacy input[type=checkbox]{accent-color:var(--ok)}
+#mapWrap{height:calc(100vh - 57px)!important;height:calc(100dvh - 57px)!important}
+#appDrawerContent.full{padding:0!important;max-width:none!important}
+#appDrawerContent.full>section{margin:0}
+
 </style>
 </head>
-<body>
-<header>
-  <h1>Home Preparedness Station</h1>
-  <p>Offline manual · $1,000 budget · Built for a 2–4 week disruption: grid, water, supply chain</p>
+<body class="text-slate-100 min-h-screen flex flex-col justify-between overflow-x-hidden">
+
+<!-- TOP BAR -->
+<header class="sticky top-0 z-30 bg-slate-950/80 backdrop-blur-xl border-b border-slate-800/80 px-4 py-3">
+  <div class="max-w-md md:max-w-3xl lg:max-w-5xl mx-auto space-y-3">
+    <div class="flex items-center justify-between text-xs font-mono text-slate-400">
+      <div class="flex items-center gap-2 text-emerald-400 font-semibold"><i data-lucide="shield-check" class="w-4 h-4"></i><span>AEGIS · Survival App</span></div>
+      <div class="flex items-center gap-3">
+        <span id="netStatus" class="flex items-center gap-1"></span>
+        <span id="batStatus" class="flex items-center gap-1 text-emerald-400"></span>
+      </div>
+    </div>
+    <div class="relative">
+      <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400"></i>
+      <input type="text" id="searchInput" placeholder="Search apps, guides, first aid…" class="w-full bg-slate-900/90 border border-slate-700/70 rounded-2xl pl-10 pr-10 py-2.5 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 shadow-inner transition-all">
+      <button id="clearSearch" class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"><i data-lucide="circle-x" class="w-4 h-4"></i></button>
+    </div>
+    <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pt-1 pb-1" id="filterPills">
+      <button data-cat="all" class="chip px-3.5 py-1.5 rounded-full text-xs whitespace-nowrap border border-slate-800 transition-all">All Apps</button>
+      <button data-cat="maps" class="chip px-3.5 py-1.5 rounded-full text-xs whitespace-nowrap border border-slate-800 transition-all">🗺️ Maps</button>
+      <button data-cat="medical" class="chip px-3.5 py-1.5 rounded-full text-xs whitespace-nowrap border border-slate-800 transition-all">🩺 Medical</button>
+      <button data-cat="survival" class="chip px-3.5 py-1.5 rounded-full text-xs whitespace-nowrap border border-slate-800 transition-all">💧 Food &amp; Water</button>
+      <button data-cat="prep" class="chip px-3.5 py-1.5 rounded-full text-xs whitespace-nowrap border border-slate-800 transition-all">🎒 Prep &amp; Plan</button>
+      <button data-cat="tools" class="chip px-3.5 py-1.5 rounded-full text-xs whitespace-nowrap border border-slate-800 transition-all">🧮 Tools</button>
+      <button data-cat="library" class="chip px-3.5 py-1.5 rounded-full text-xs whitespace-nowrap border border-slate-800 transition-all">📚 Library</button>
+    </div>
+  </div>
 </header>
-<nav><div class="tabs" id="tabs"></div></nav>
-<main>
+
+<!-- HOME SCREEN APP GRID -->
+<main class="flex-1 max-w-md md:max-w-3xl lg:max-w-5xl w-full mx-auto p-4 sm:p-6">
+  <div class="flex items-center justify-between mb-4">
+    <span class="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold flex items-center gap-2"><i data-lucide="layout-grid" class="w-3.5 h-3.5 text-emerald-400"></i> Off-Grid Apps</span>
+    <span id="appCount" class="text-xs font-mono text-slate-500"></span>
+  </div>
+  <div id="appGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 sm:gap-6"></div>
+  <div id="emptySearch" class="hidden text-center py-12 space-y-3 bg-slate-900/40 rounded-3xl border border-slate-800">
+    <i data-lucide="search-x" class="w-8 h-8 text-slate-500 mx-auto"></i>
+    <p class="text-sm text-slate-400">No app or guide matches your search.</p>
+    <button onclick="resetSearch()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-emerald-400 text-xs font-semibold rounded-xl border border-slate-700">Reset search</button>
+  </div>
+  <p class="text-[11px] text-slate-500 mt-6 leading-relaxed">Swipe left for the map. General preparedness info from FEMA/Ready.gov, CDC, USDA, Red Cross and WHO guidance. This isn't medical or legal advice. In an emergency, follow instructions from local officials.</p>
+</main>
+
+<!-- DOCK -->
+<footer class="sticky bottom-0 z-20 p-3 bg-slate-950/90 border-t border-slate-800/80 backdrop-blur-xl">
+  <div class="max-w-md mx-auto bg-slate-900/90 border border-slate-800/80 rounded-3xl p-2.5 flex items-center justify-around shadow-2xl">
+    <button onclick="openApp('map')" class="flex flex-col items-center gap-1 group"><div class="p-2.5 rounded-2xl bg-blue-500/10 text-blue-400 group-hover:bg-blue-500 group-hover:text-slate-950 transition-all"><i data-lucide="map" class="w-5 h-5"></i></div><span class="text-[10px] font-medium text-slate-400">Map</span></button>
+    <button onclick="openApp('med')" class="flex flex-col items-center gap-1 group"><div class="p-2.5 rounded-2xl bg-rose-500/10 text-rose-400 group-hover:bg-rose-500 group-hover:text-slate-950 transition-all"><i data-lucide="heart-pulse" class="w-5 h-5"></i></div><span class="text-[10px] font-medium text-slate-400">First Aid</span></button>
+    <button onclick="openApp('water')" class="flex flex-col items-center gap-1 group"><div class="p-2.5 rounded-2xl bg-sky-500/10 text-sky-400 group-hover:bg-sky-500 group-hover:text-slate-950 transition-all"><i data-lucide="droplet" class="w-5 h-5"></i></div><span class="text-[10px] font-medium text-slate-400">Water</span></button>
+    <button onclick="openApp('buy')" class="flex flex-col items-center gap-1 group"><div class="p-2.5 rounded-2xl bg-amber-500/10 text-amber-400 group-hover:bg-amber-500 group-hover:text-slate-950 transition-all"><i data-lucide="shopping-cart" class="w-5 h-5"></i></div><span class="text-[10px] font-medium text-slate-400">Supplies</span></button>
+  </div>
+</footer>
+
+<!-- FULLSCREEN APP SCREEN -->
+<div id="appDrawer" class="app-screen closed fixed inset-0 z-50 bg-slate-950 flex flex-col">
+  <div class="px-4 py-3 bg-slate-900 border-b border-slate-800 flex items-center justify-between sticky top-0 z-20" style="height:57px">
+    <button id="closeAppBtn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-colors"><i data-lucide="chevron-left" class="w-4 h-4 text-emerald-400"></i><span>Home</span></button>
+    <div class="flex items-center gap-2 min-w-0"><div id="appDrawerIcon" class="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-400"><i data-lucide="app-window" class="w-4 h-4"></i></div><h2 id="appDrawerTitle" class="text-sm font-bold text-white truncate">App</h2></div>
+    <span id="appDrawerBadge" class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700 whitespace-nowrap">Category</span>
+  </div>
+  <div id="appDrawerContent" class="legacy flex-1 overflow-y-auto p-4 sm:p-6 max-w-4xl w-full mx-auto"></div>
+</div>
+
+<!-- The original manual's sections live here and are moved into the app screen when opened -->
+<div id="sections" class="legacy" hidden>
 
 <!-- OVERVIEW -->
 <section id="start" data-title="Start">
   <h2>Start here</h2>
-  <p class="mute" style="margin-top:-4px">Swipe left for the Map. Keep swiping, or tap the tabs, to move between sections.</p>
+  
   <div class="card info">
     <b>What the video actually describes.</b> The Fox News segment covers the Pentagon's <b>FORTRESS</b> plan, which requires major U.S. military bases to run on their own power, water, fuel and communications for at least 90 days if a major war damaged civilian infrastructure. It's a plan for military bases. It is not an order or warning for civilians to evacuate or stockpile. The post's caption saying the Pentagon and FBI are "calling on citizens" goes further than the report itself does.
   </div>
@@ -235,9 +304,8 @@ footer{color:var(--mute);font-size:.8rem;max-width:860px;margin:0 auto;padding:0
 
   <h3>Help others</h3>
   <ul>
-    <li>Send people the <b>the-dalles-emergency-points.kml</b> or <b>.gpx</b> file by text or email. Anyone can import it into either app.</li>
-    <li>Send this page as a file (<b>prep-station.html</b>). It opens in any phone browser with no signal.</li>
-    <li>To share the online version, use the Share button on its page in Claude.</li>
+    <li>Share the app download link: <b>github.com/mrsirwithpizza101/Survival-App/releases/latest</b></li>
+    <li>From the Map's list (☰), export the points as GPX/KML and send them. Anyone can import them into either map app.</li>
   </ul>
   <div class="card warn">These points come from USGS map data. Locations are listed as accurate, but things change. A shelter is only open when officials announce it. Treat all natural water before drinking, and respect private land.</div>
 </section>
@@ -451,33 +519,19 @@ footer{color:var(--mute);font-size:.8rem;max-width:860px;margin:0 auto;padding:0
   </ul>
 </section>
 
-</main>
-<footer>General preparedness info drawn from FEMA/Ready.gov, CDC, USDA, Red Cross and WHO guidance. This isn't medical or legal advice. In an emergency, follow instructions from local officials. To print a paper copy, use your browser's Print or Share → Print option.</footer>
+</div>
 
+<script>/*LUCIDE_JS*/</script>
 <script>
 (function(){
 var store={get:function(k,d){try{var v=localStorage.getItem('prep_'+k);return v?JSON.parse(v):d}catch(e){return d}},
            set:function(k,v){try{localStorage.setItem('prep_'+k,JSON.stringify(v))}catch(e){}}};
 
-/* ---------- tabs ---------- */
-var secs=[].slice.call(document.querySelectorAll('section')),tabs=document.getElementById('tabs');
-secs.forEach(function(s){var b=document.createElement('button');b.textContent=s.dataset.title;b.dataset.id=s.id;
-  b.onclick=function(){show(s.id);try{history.replaceState(null,'','#'+s.id)}catch(e){location.hash=s.id}};tabs.appendChild(b)});
-function show(id){if(!document.getElementById(id))id='start';
-  secs.forEach(function(s){s.classList.toggle('on',s.id===id)});
-  [].forEach.call(tabs.children,function(b){b.classList.toggle('on',b.dataset.id===id);if(b.dataset.id===id&&b.scrollIntoView)try{b.scrollIntoView({inline:'center',block:'nearest'})}catch(e){}});
-  document.body.classList.toggle('mapmode',id==='map');window.scrollTo(0,0);if(id==='start')renderProg();if(id==='map'&&window.__mapShown)window.__mapShown();cur=id;}
-var cur='start';
-window.addEventListener('hashchange',function(){show(location.hash.slice(1))});
-function go(id){show(id);try{history.replaceState(null,'','#'+id)}catch(e){}}
-/* swipe between tabs (not on the map itself) */
-(function(){var sx=0,sy=0,t0=0,ok=false;
-  document.addEventListener('touchstart',function(e){var tg=e.target;ok=!(tg.closest&&(tg.closest('#mapWrap')||tg.closest('input,textarea,select,.tabs')));
-    if(e.touches.length!==1)ok=false;sx=e.touches[0].clientX;sy=e.touches[0].clientY;t0=Date.now()},{passive:true});
-  document.addEventListener('touchend',function(e){if(!ok)return;var t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;
-    if(Math.abs(dx)>70&&Math.abs(dy)<Math.abs(dx)*0.5&&Date.now()-t0<700){
-      var ids=secs.map(function(s){return s.id}),i=ids.indexOf(cur);i+=dx<0?1:-1;if(i>=0&&i<ids.length)go(ids[i])}},{passive:true});
-})();
+/* ---------- sections are opened by the home-screen shell ---------- */
+var secs=[].slice.call(document.querySelectorAll('#sections section'));
+function show(id){if(window.openApp)window.openApp(id)}
+function go(id){show(id)}
+window.__appOpened=function(id){if(id==='start')renderProg();if(id==='map'&&window.__mapShown)window.__mapShown()};
 
 /* ---------- checklist helper ---------- */
 function checklist(elId,key,items){
@@ -724,13 +778,13 @@ function render(){
   OV.className=S.ov.hill?'hill':'';
   Object.keys(OVS).forEach(function(k){if(S.ov[k])layerTiles(OV,OVS[k].u,'ov'+k,Math.min(S.z,18),o,sz,keep)});
   for(var id in live)if(!keep[id]){live[id].remove();delete live[id]}
-  renderPins(o);renderPoi(o);renderMe(o);readout();poiTick();
+  renderPlaces(o);renderPins(o);if(BUNDLED)renderBundled(o);else renderPoi(o);renderMe(o);readout();if(BUNDLED)bundledTick();else poiTick();
   document.getElementById('bStreet').href='https://www.google.com/maps/@?api=1&map_action=pano&viewpoint='+S.lat.toFixed(6)+','+S.lon.toFixed(6);
   var a=[BASES[S.base].a];Object.keys(OVS).forEach(function(k){if(S.ov[k])a.push(OVS[k].a)});document.getElementById('mAttr').textContent=a.join(' · ');
 }
 var noteOff=false;function note(){var n=document.getElementById('mNote');if(noteOff)return;
   if(tileFail>6&&tileOk===0){n.style.display='block';
-    n.innerHTML='Map imagery is blocked in this viewer, or you have no signal and this area isn\'t saved. Open <b>Survival-App.html</b> in Chrome while you have signal, then tap ⤓ to save areas. <u>Dismiss</u>';n.onclick=function(){n.style.display='none';noteOff=true}}
+    n.innerHTML='No map imagery here: you\'re offline and this area isn\'t saved yet. Points still work. With signal, view an area and tap ⤓ to keep it. <u>Dismiss</u>';n.onclick=function(){n.style.display='none';noteOff=true}}
   else n.style.display='none'}
 /* pins */
 function renderPins(o){PL.innerHTML='';var sz0=size();
@@ -789,6 +843,7 @@ function pump(){if(pbusy||!pq.length)return;var it=pq.shift(),k=it[0],vis=poiKey
     .catch(function(){POIst[k]='err';pfail++;done()})}catch(e){POIst[k]='err';pfail++;done()}}
 var ptk=null;function poiTick(){clearTimeout(ptk);ptk=setTimeout(function(){poiKeys().forEach(function(k){if(!POIst[k]||POIst[k]==='err'&&pfail<3)loadPoi(k)});pill()},700)}
 function pill(){var p=document.getElementById('mPill'),ks=poiKeys();
+  if(BUNDLED){if(S.z<10){p.textContent='Zoom in to see emergency points';return}var bn=0;bKeys().forEach(function(k){if(BT[k])BT[k].forEach(function(g){if(!hidden[g[1]]&&S.z>=(g[5]||10))bn++})});p.textContent=bn.toLocaleString()+' points nearby · stored on phone';return}
   if(S.z<PQZ){p.textContent='Zoom in on a town to load points';return}
   var n=0;ks.forEach(function(k){if(POI[k])n+=POI[k].length});
   if(pbusy||pq.length)p.textContent='Loading points… ('+n+' so far)';
@@ -799,6 +854,26 @@ function renderPoi(o){if(S.z<PQZ)return;var sz=size(),cnt=0;poiKeys().forEach(fu
   var c=CATS[g[1]]||CATS.other,d=document.createElement('div');d.className='bpin';d.style.left=x+'px';d.style.top=y+'px';d.innerHTML='<i></i><b></b>';
   d.firstChild.style.background=c.c;d.firstChild.textContent=c.e;d.lastChild.textContent=g[0];if(S.z<15)d.lastChild.style.display='none';
   d.addEventListener('pointerdown',function(e){e.stopPropagation()});d.onclick=function(e){e.stopPropagation();openBuiltin(g,'Map point')};PL.appendChild(d)})})}
+/* ===== points bundled inside the app (whole U.S., built from OpenStreetMap at release time) ===== */
+var BUNDLED=false,BMETA=null,BZ=9,BT={},BTst={},BORDER=[],PLACES=[];
+try{fetch('poi/meta.json').then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(m){BMETA=m;BMETA.set={};(m.tiles||[]).forEach(function(k){BMETA.set[k]=1});BUNDLED=true;render()}).catch(function(){})}catch(e){}
+try{fetch('poi/places.json').then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(a){PLACES=a;render()}).catch(function(){})}catch(e){}
+function bKeys(){var o=origin(),sz=size(),f=Math.pow(2,S.z-BZ),out=[];if(S.z<10)return out;
+  for(var x=Math.floor(o[0]/256/f);x<=Math.floor((o[0]+sz[0])/256/f);x++)for(var y=Math.floor(o[1]/256/f);y<=Math.floor((o[1]+sz[1])/256/f);y++)out.push(x+'_'+y);return out}
+function bundledTick(){bKeys().forEach(function(k){if(BTst[k]||!BMETA.set[k])return;BTst[k]='l';
+  fetch('poi/9/'+k+'.json').then(function(r){return r.json()}).then(function(a){BT[k]=a;BTst[k]='ok';BORDER.push(k);
+    while(BORDER.length>40){var d=BORDER.shift();delete BT[d];delete BTst[d]}render()}).catch(function(){BTst[k]='err'})});pill()}
+function renderBundled(o){if(S.z<10)return;var sz=size(),cnt=0,keys=bKeys();
+  keys.forEach(function(k){(BT[k]||[]).forEach(function(g){if(cnt>900||hidden[g[1]]||S.z<(g[5]||10))return;
+    var w=ll2w(g[2],g[3],S.z),x=w[0]-o[0],y=w[1]-o[1];if(x<-20||y<-20||x>sz[0]+20||y>sz[1]+20)return;cnt++;
+    if(g[1]==='place'){var lb=document.createElement('div');lb.className='plabel small';lb.textContent=g[0];lb.style.left=x+'px';lb.style.top=y+'px';PL.appendChild(lb);return}
+    var c=CATS[g[1]]||CATS.other,d=document.createElement('div');d.className='bpin';d.style.left=x+'px';d.style.top=y+'px';d.innerHTML='<i></i><b></b>';
+    d.firstChild.style.background=c.c;d.firstChild.textContent=c.e;d.lastChild.textContent=g[0];if(S.z<15)d.lastChild.style.display='none';
+    d.addEventListener('pointerdown',function(e){e.stopPropagation()});d.onclick=function(e){e.stopPropagation();openBuiltin(g,'Map point')};PL.appendChild(d)})})}
+function renderPlaces(o){if(!PLACES.length||hidden.place||S.z>=12)return;var sz=size(),n=0;
+  PLACES.forEach(function(p){if(n>160)return;var rk=p[3];if(rk===1&&S.z<5||rk===2&&S.z<9)return;
+    var w=ll2w(p[1],p[2],S.z),x=w[0]-o[0],y=w[1]-o[1];if(x<-60||y<-20||x>sz[0]+60||y>sz[1]+20)return;n++;
+    var lb=document.createElement('div');lb.className='plabel'+(rk===2?' small':'');lb.textContent=p[0];lb.style.left=x+'px';lb.style.top=y+'px';PL.appendChild(lb)})}
 /* geo math */
 function dist(a,b,c,d){var R=3958.8,t=Math.PI/180,dl=(c-a)*t,dn=(d-b)*t,h=Math.sin(dl/2)*Math.sin(dl/2)+Math.cos(a*t)*Math.cos(c*t)*Math.sin(dn/2)*Math.sin(dn/2);return 2*R*Math.asin(Math.sqrt(h))}
 function brg(a,b,c,d){var t=Math.PI/180,y=Math.sin((d-b)*t)*Math.cos(c*t),x=Math.cos(a*t)*Math.sin(c*t)-Math.sin(a*t)*Math.cos(c*t)*Math.cos((d-b)*t);return(Math.atan2(y,x)/t+360)%360}
@@ -838,7 +913,7 @@ function clearLive(){for(var id in live){live[id].remove();delete live[id]}tileF
 /* map type cycle (one button) */
 var MODES=[{n:'Topo',b:'topo',ov:{},sw:'linear-gradient(135deg,#7aa36a,#c9b98a)'},{n:'Satellite',b:'sat',ov:{},sw:'linear-gradient(135deg,#2d3b2a,#5b6b4a 60%,#8a7f63)'},
   {n:'Hybrid',b:'sat',ov:{labels:1},sw:'linear-gradient(135deg,#2d3b2a,#5b6b4a);'},{n:'Streets',b:'streets',ov:{},sw:'linear-gradient(135deg,#f2efe9,#aad3df)'},{n:'Terrain',b:'streets',ov:{hill:1},sw:'linear-gradient(135deg,#d8d0c0,#8f8a7c)'}];
-if(S.mode==null)S.mode=0;
+if(S.mode==null)S.mode=2;
 function applyMode(){var m=MODES[S.mode%MODES.length];S.base=m.b;S.ov=JSON.parse(JSON.stringify(m.ov));if(S.z>maxZ())S.z=maxZ();
   document.getElementById('modeName').textContent=m.n;document.querySelector('#bMode .sw').style.background=m.sw.replace(';','');
   var nx=MODES[(S.mode+1)%MODES.length].n;document.getElementById('bMode').title='Now: '+m.n+'. Tap for '+nx}
@@ -974,11 +1049,191 @@ document.getElementById('svClear').onclick=function(){if(!db)return;try{var tx=d
 /* lifecycle */
 applyMode();renderTopChips();
 window.__mapShown=function(){setTimeout(function(){clearLive();render()},30)};
-window.addEventListener('resize',function(){if(document.body.classList.contains('mapmode'))render()});
+window.addEventListener('resize',function(){if(W.offsetParent!==null)render()});
 })();
 
-show(location.hash.slice(1)||'start');
+
 })();
+/* ================= AEGIS home-screen shell ================= */
+(function(){
+var apps=[
+ {id:'map',type:'section',category:'maps',categoryName:'Maps',title:'Survival Map',subtitle:'Water, medical, shelter · whole U.S.',icon:'map',gradient:'from-blue-600 to-indigo-700',iconColor:'text-blue-400',badge:'Map',summary:'satellite topo streets street view water springs hospital fire police shelter fuel food stores campground peaks pins gps offline'},
+ {id:'med',type:'section',category:'medical',categoryName:'Medical',title:'First Aid',subtitle:'Bleeding, CPR, burns, heat',icon:'heart-pulse',gradient:'from-rose-600 to-red-700',iconColor:'text-rose-400',badge:'Trauma',summary:'tourniquet bleeding cpr choking burns dehydration hypothermia heat stroke med kit'},
+ {id:'triage',type:'html',category:'medical',categoryName:'Medical',title:'Triage Tree',subtitle:'S.T.A.R.T. decision assistant',icon:'activity',gradient:'from-red-600 to-rose-900',iconColor:'text-red-400',badge:'Tool',summary:'triage start immediate delayed minor expectant mass casualty'},
+ {id:'water',type:'section',category:'survival',categoryName:'Food & Water',title:'Water',subtitle:'Storage & purification',icon:'droplet',gradient:'from-sky-600 to-blue-800',iconColor:'text-sky-400',badge:'Water',summary:'gallons bleach boil filter water heater hidden water purify'},
+ {id:'food',type:'section',category:'survival',categoryName:'Food & Water',title:'Food',subtitle:'Stockpile & outages',icon:'utensils',gradient:'from-orange-600 to-amber-700',iconColor:'text-orange-400',badge:'Food',summary:'calories rice beans pantry shelf life fridge freezer power outage'},
+ {id:'calc',type:'html',category:'tools',categoryName:'Tools',title:'Calculators',subtitle:'Bleach dose & rations',icon:'calculator',gradient:'from-emerald-600 to-teal-800',iconColor:'text-emerald-400',badge:'Tool',summary:'bleach drops liters gallons calories ration grains beans'},
+ {id:'buy',type:'section',category:'prep',categoryName:'Prep & Plan',title:'Supplies',subtitle:'$1,000 list & store route',icon:'shopping-cart',gradient:'from-amber-500 to-orange-600',iconColor:'text-amber-400',badge:'$1,000',summary:'shopping list budget home depot bi-mart coastal fred meyer the dalles buy'},
+ {id:'checklist',type:'html',category:'prep',categoryName:'Prep & Plan',title:'Offline Downloads',subtitle:'Get these while you have signal',icon:'square-check',gradient:'from-amber-600 to-yellow-700',iconColor:'text-amber-400',badge:'Checklist',summary:'kiwix wikipedia osmand organic maps pdf manuals downloads'},
+ {id:'grid',type:'section',category:'survival',categoryName:'Food & Water',title:'Grid Down',subtitle:'First hour to 72 hours',icon:'zap-off',gradient:'from-slate-600 to-slate-800',iconColor:'text-slate-300',badge:'Playbook',summary:'power outage carbon monoxide phone battery sanitation toilet evacuate stay or go'},
+ {id:'plan',type:'section',category:'prep',categoryName:'Prep & Plan',title:'Family Plan',subtitle:'Contacts & meeting places',icon:'users',gradient:'from-violet-600 to-purple-800',iconColor:'text-violet-400',badge:'Plan',summary:'household plan meeting place contacts evacuation route documents'},
+ {id:'start',type:'section',category:'prep',categoryName:'Prep & Plan',title:'Situation Brief',subtitle:'Priorities & free steps',icon:'radio',gradient:'from-teal-600 to-cyan-800',iconColor:'text-teal-300',badge:'Start',summary:'fortress pentagon rule of threes priorities free steps progress'},
+ {id:'gun',type:'section',category:'prep',categoryName:'Prep & Plan',title:'Home Security',subtitle:'Firearm facts & alternatives',icon:'shield',gradient:'from-stone-600 to-stone-800',iconColor:'text-stone-300',badge:'Security',summary:'firearm gun california law waiting period safe storage door security'},
+ {id:'apps',type:'section',category:'maps',categoryName:'Maps',title:'Offline Map Apps',subtitle:'OsmAnd & Organic Maps',icon:'navigation',gradient:'from-indigo-600 to-blue-900',iconColor:'text-indigo-300',badge:'Setup',summary:'osmand organic maps gpx kml import offline maps setup'},
+ {id:'wiki',type:'html',category:'library',categoryName:'Library',title:'Offline Wikipedia',subtitle:'Kiwix knowledge library',icon:'book-open',gradient:'from-purple-600 to-indigo-800',iconColor:'text-purple-400',badge:'Kiwix',summary:'wikipedia kiwix zim gutenberg stack exchange medical manuals where there is no doctor'},
+ {id:'repair',type:'html',category:'library',categoryName:'Library',title:'Repair Guides',subtitle:'iFixit & gear manuals',icon:'wrench',gradient:'from-amber-500 to-orange-700',iconColor:'text-amber-400',badge:'iFixit',summary:'ifixit repair generator solar radio car manuals'}
+];
+var HTML={
+ calc:`<div class="space-y-6">
+  <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4">
+   <h3 class="text-sm font-bold text-white flex items-center gap-2" style="margin:0;text-transform:none;letter-spacing:0;color:#fff"><i data-lucide="droplet" class="w-4 h-4 text-emerald-400"></i> Bleach water calculator</h3>
+   <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+    <div><span class="block font-semibold text-slate-300 mb-1">Water volume</span><div class="flex gap-2">
+     <input type="number" id="calcVol" value="1" min="0.1" step="0.5" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono">
+     <select id="calcUnit" class="bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono" style="width:auto"><option value="gallons">Gallons</option><option value="liters">Liters</option></select></div></div>
+    <div><span class="block font-semibold text-slate-300 mb-1">Water clarity</span>
+     <select id="calcClarity" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white"><option value="clear">Clear</option><option value="cloudy">Cloudy / discolored</option></select></div>
+   </div>
+   <div class="bg-emerald-950/30 border border-emerald-500/30 rounded-xl p-4 flex items-center justify-between">
+    <div><span class="text-[10px] uppercase font-mono text-emerald-400 font-bold block">Dose (6% plain, unscented)</span><span id="bleachOutput" class="text-2xl font-extrabold text-white font-mono">8 drops</span></div>
+    <div class="text-right text-[11px] text-slate-400"><p style="margin:0">Wait: <b class="text-white">30 min</b></p><p style="margin:0">Or boil: <b class="text-white">1 min</b></p></div>
+   </div>
+   <p class="text-[11px] text-slate-400" style="margin:0">8.25% bleach: use about ¾ of this dose. It should smell faintly of chlorine after 30 minutes.</p>
+  </div>
+  <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4">
+   <h3 class="text-sm font-bold text-white flex items-center gap-2" style="margin:0;text-transform:none;letter-spacing:0;color:#fff"><i data-lucide="chart-pie" class="w-4 h-4 text-amber-400"></i> Calorie & ration estimator</h3>
+   <div class="grid grid-cols-2 gap-4 text-xs">
+    <div><span class="block font-semibold text-slate-300 mb-1">People</span><input type="number" id="calcPeople" value="2" min="1" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono"></div>
+    <div><span class="block font-semibold text-slate-300 mb-1">Days</span><input type="number" id="calcDays" value="90" min="1" class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-white font-mono"></div>
+   </div>
+   <div class="bg-slate-950 border border-slate-800 rounded-xl p-4 flex items-center justify-between text-xs font-mono">
+    <div><span class="text-slate-400 block">Total calories</span><span id="kcalOutput" class="text-lg font-bold text-amber-400"></span></div>
+    <div class="text-right"><span class="text-slate-400 block">Dry grains / beans</span><span id="grainOutput" class="text-sm font-bold text-white"></span></div>
+   </div>
+   <div class="text-xs text-slate-400 font-mono" id="waterOutput"></div>
+  </div></div>`,
+ triage:`<div class="space-y-5"><div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4">
+   <div class="flex justify-between items-center border-b border-slate-800 pb-2"><span id="triageStepLabel" class="text-xs font-mono text-emerald-400 uppercase font-bold">Step 1</span>
+    <button onclick="restartTriage()" class="text-xs text-slate-400 hover:text-white flex items-center gap-1"><i data-lucide="rotate-ccw" class="w-3 h-3"></i> Restart</button></div>
+   <h3 id="triageQ" class="text-base font-bold text-white" style="margin:0;text-transform:none;letter-spacing:0;color:#fff"></h3>
+   <p id="triageDesc" class="text-xs text-slate-400"></p>
+   <div id="triageButtons" class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2"></div></div>
+   <p class="text-[11px] text-slate-500">S.T.A.R.T. is for sorting many casualties fast. Treat life-threatening bleeding first, and call 911 if phones work.</p></div>`,
+ checklist:`<div class="space-y-4">
+   <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 flex items-center justify-between gap-3">
+    <div class="w-2/3 bg-slate-950 h-3 rounded-full overflow-hidden border border-slate-800"><div id="checklistBar" class="bg-emerald-500 h-full w-0 transition-all"></div></div>
+    <span id="checklistText" class="text-xs font-mono font-bold text-emerald-400"></span></div>
+   <div id="checklistItems" class="space-y-2"></div>
+   <button onclick="resetChecklist()" class="text-xs text-slate-500 hover:text-rose-400 font-mono transition-colors pt-2">Reset checklist</button></div>`,
+ wiki:`<div class="space-y-6">
+   <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3">
+    <h3 class="text-base font-bold text-white flex items-center gap-2" style="margin:0;text-transform:none;letter-spacing:0;color:#fff"><i data-lucide="globe" class="w-5 h-5 text-purple-400"></i> A whole library with no internet</h3>
+    <p class="text-xs text-slate-300 leading-relaxed">The free <b>Kiwix</b> app reads Wikipedia and other references stored on your phone or a microSD card. Download it and the archives below while you have signal.</p></div>
+   <div class="p-4 bg-purple-950/20 border border-purple-500/30 rounded-2xl space-y-2">
+    <h4 class="text-xs font-bold text-purple-300">Recommended archives (download inside Kiwix)</h4>
+    <ul class="text-xs text-slate-300 space-y-1 font-mono" style="list-style:none;padding:0">
+     <li>• Wikipedia "top articles" (small) or full English (~100 GB with images)</li>
+     <li>• WikiMed: medical encyclopedia</li>
+     <li>• Stack Exchange: DIY, electronics, outdoors</li>
+     <li>• Project Gutenberg: free classic books</li></ul></div>
+   <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+    <div class="p-4 bg-slate-900 border border-slate-800 rounded-xl space-y-2"><h4 class="text-xs font-bold text-white flex items-center gap-2"><i data-lucide="book-open" class="w-4 h-4 text-rose-400"></i> Where There Is No Doctor</h4><p class="text-[11px] text-slate-400">Free PDF from Hesperian (hesperian.org). The classic community health manual for when care is far away.</p></div>
+    <div class="p-4 bg-slate-900 border border-slate-800 rounded-xl space-y-2"><h4 class="text-xs font-bold text-white flex items-center gap-2"><i data-lucide="file-text" class="w-4 h-4 text-rose-400"></i> Where There Is No Dentist</h4><p class="text-[11px] text-slate-400">Free PDF from Hesperian on dental pain, infection and emergencies.</p></div></div></div>`,
+ repair:`<div class="space-y-6">
+   <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-3">
+    <h3 class="text-base font-bold text-white flex items-center gap-2" style="margin:0;text-transform:none;letter-spacing:0;color:#fff"><i data-lucide="cpu" class="w-5 h-5 text-amber-400"></i> Keep your gear running</h3>
+    <p class="text-xs text-slate-300 leading-relaxed">iFixit publishes free step-by-step repair guides. Kiwix offers an offline iFixit archive, so download it along with your other archives.</p></div>
+   <div class="space-y-2">
+    <div class="p-3.5 bg-slate-900 border border-slate-800 rounded-xl"><p class="text-xs font-bold text-white" style="margin:0">iFixit offline archive (in Kiwix)</p><p class="text-[11px] text-slate-400" style="margin:0">Phones, radios, small engines, appliances</p></div>
+    <div class="p-3.5 bg-slate-900 border border-slate-800 rounded-xl"><p class="text-xs font-bold text-white" style="margin:0">Manuals for your own gear</p><p class="text-[11px] text-slate-400" style="margin:0">Save PDFs for your vehicle, generator, stove, radio and water filter to your phone</p></div>
+   </div>
+   <div class="p-4 bg-blue-950/20 border border-blue-500/30 rounded-2xl text-xs text-blue-200"><b class="block">Tip</b>Store big downloads on a microSD card if your phone has one, so they don't fill internal storage.</div></div>`
+};
+var checkDefault=[
+ {id:1,label:'Install this app on every family phone',done:false},
+ {id:2,label:'Install OsmAnd or Organic Maps and download Oregon + Washington maps (or your state)',done:false},
+ {id:3,label:'Import the emergency-points file into your map app (Map tab → list → Send to OsmAnd/Organic Maps)',done:false},
+ {id:4,label:'Install Kiwix and download Wikipedia + WikiMed archives',done:false},
+ {id:5,label:'Save "Where There Is No Doctor" and "Where There Is No Dentist" PDFs (hesperian.org)',done:false},
+ {id:6,label:'In this app: open the Map with signal and save your home area (⤓)',done:false},
+ {id:7,label:'Store 1 gallon of water per person per day (2 weeks minimum)',done:false},
+ {id:8,label:'Keep plain unscented bleach for water purification (replace yearly)',done:false}];
+var savedChecklist;try{savedChecklist=JSON.parse(localStorage.getItem('aegis_prep_check2'))||checkDefault}catch(e){savedChecklist=checkDefault}
+var currentFilter='all',openId=null;
+function ic(){if(window.lucide)try{lucide.createIcons()}catch(e){}}
+/* status bar: real connectivity and battery */
+function net(){var on=navigator.onLine!==false,el=document.getElementById('netStatus');
+  el.innerHTML='<i data-lucide="'+(on?'wifi':'wifi-off')+'" class="w-3.5 h-3.5 '+(on?'text-emerald-400':'text-amber-400')+'"></i> '+(on?'Online':'Offline');ic()}
+window.addEventListener('online',net);window.addEventListener('offline',net);
+function bat(){try{navigator.getBattery().then(function(b){function u(){document.getElementById('batStatus').innerHTML='<i data-lucide="'+(b.charging?'battery-charging':'battery')+'" class="w-3.5 h-3.5"></i> '+Math.round(b.level*100)+'%';ic()}
+  u();b.addEventListener('levelchange',u);b.addEventListener('chargingchange',u)}).catch(function(){})}catch(e){}}
+/* grid */
+function renderAppGrid(){var grid=document.getElementById('appGrid'),empty=document.getElementById('emptySearch'),q=document.getElementById('searchInput').value.toLowerCase().trim();grid.innerHTML='';
+  var f=apps.filter(function(a){return(currentFilter==='all'||a.category===currentFilter)&&(!q||(a.title+' '+a.subtitle+' '+a.summary).toLowerCase().indexOf(q)>=0)});
+  document.getElementById('appCount').textContent=f.length+' app'+(f.length!==1?'s':'');empty.classList.toggle('hidden',f.length>0);
+  f.forEach(function(a){var t=document.createElement('div');t.className='app-tile bg-gradient-to-br '+a.gradient+' p-4 rounded-3xl shadow-xl border border-white/10 cursor-pointer flex flex-col justify-between aspect-square group relative overflow-hidden';
+    t.onclick=function(){openApp(a.id)};
+    t.innerHTML='<div class="flex justify-between items-start z-10"><div class="p-2.5 rounded-2xl bg-slate-950/40 backdrop-blur-md border border-white/10 text-white"><i data-lucide="'+a.icon+'" class="w-6 h-6"></i></div><span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-slate-950/50 backdrop-blur-md text-white/90 border border-white/10">'+a.badge+'</span></div>'+
+      '<div class="space-y-0.5 z-10"><h3 class="text-sm sm:text-base font-bold text-white leading-snug">'+a.title+'</h3><p class="text-[11px] text-white/80 font-medium line-clamp-1">'+a.subtitle+'</p></div>'+
+      '<div class="absolute -right-3 -bottom-3 opacity-15 text-white pointer-events-none"><i data-lucide="'+a.icon+'" class="w-24 h-24"></i></div>';grid.appendChild(t)});ic()}
+function pills(){var ps=document.querySelectorAll('#filterPills .chip');[].forEach.call(ps,function(p){var on=p.getAttribute('data-cat')===currentFilter;
+  p.className='chip px-3.5 py-1.5 rounded-full text-xs whitespace-nowrap transition-all '+(on?'bg-emerald-500 text-slate-950 font-semibold shadow-md border border-emerald-500':'bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 font-medium');
+  p.onclick=function(){currentFilter=p.getAttribute('data-cat');pills();renderAppGrid()}})}
+function search(){var i=document.getElementById('searchInput'),c=document.getElementById('clearSearch');
+  i.addEventListener('input',function(){c.classList.toggle('hidden',!i.value);renderAppGrid()});c.onclick=function(){i.value='';c.classList.add('hidden');renderAppGrid()}}
+window.resetSearch=function(){document.getElementById('searchInput').value='';document.getElementById('clearSearch').classList.add('hidden');currentFilter='all';pills();renderAppGrid()};
+/* open / close an app */
+var parked=document.getElementById('sections');
+function closeApp(){var d=document.getElementById('appDrawer'),c=document.getElementById('appDrawerContent');
+  [].forEach.call(c.querySelectorAll(':scope > section'),function(s){s.classList.remove('on');parked.appendChild(s)});
+  d.classList.remove('open');d.classList.add('closed');openId=null;try{history.replaceState(null,'',location.pathname)}catch(e){}}
+window.openApp=function(id){var a=apps.filter(function(x){return x.id===id})[0];if(!a)return;
+  var d=document.getElementById('appDrawer'),c=document.getElementById('appDrawerContent');
+  [].forEach.call(c.querySelectorAll(':scope > section'),function(s){s.classList.remove('on');parked.appendChild(s)});c.innerHTML='';
+  document.getElementById('appDrawerTitle').textContent=a.title;document.getElementById('appDrawerBadge').textContent=a.categoryName;
+  var ico=document.getElementById('appDrawerIcon');ico.className='p-1.5 rounded-lg bg-slate-800 '+a.iconColor;ico.innerHTML='<i data-lucide="'+a.icon+'" class="w-4 h-4"></i>';
+  c.classList.toggle('full',id==='map');c.scrollTop=0;
+  if(a.type==='section'){var s=document.getElementById(id);c.appendChild(s);s.classList.add('on')}else c.innerHTML=HTML[id];
+  d.classList.remove('closed');d.classList.add('open');openId=id;
+  if(id==='calc')calc();if(id==='triage')restartTriage();if(id==='checklist')renderChecklist();
+  try{history.replaceState(null,'','#'+id)}catch(e){}
+  if(window.__appOpened)window.__appOpened(id);ic()};
+document.getElementById('closeAppBtn').onclick=closeApp;
+/* swipe: left on home opens the map, right inside an app goes home */
+(function(){var sx=0,sy=0,t0=0,ok=false;
+  document.addEventListener('touchstart',function(e){var tg=e.target;ok=e.touches.length===1&&!(tg.closest&&tg.closest('#mapWrap,input,textarea,select,#filterPills,table,.fbar'));
+    sx=e.touches[0].clientX;sy=e.touches[0].clientY;t0=Date.now()},{passive:true});
+  document.addEventListener('touchend',function(e){if(!ok)return;var t=e.changedTouches[0],dx=t.clientX-sx,dy=t.clientY-sy;
+    if(Math.abs(dx)>80&&Math.abs(dy)<Math.abs(dx)*0.5&&Date.now()-t0<700){if(!openId&&dx<0)openApp('map');else if(openId&&dx>0)closeApp()}},{passive:true})})();
+/* Android back button / browser back closes the app screen */
+window.addEventListener('popstate',function(){if(openId)closeApp()});
+/* calculators (CDC: 8 drops of 6% bleach per gallon of clear water, double for cloudy) */
+function calc(){var vol=document.getElementById('calcVol'),unit=document.getElementById('calcUnit'),cl=document.getElementById('calcClarity'),pp=document.getElementById('calcPeople'),dd=document.getElementById('calcDays');
+  function w(){var v=parseFloat(vol.value)||0,gal=unit.value==='liters'?v/3.785:v,drops=gal*8*(cl.value==='cloudy'?2:1);
+    document.getElementById('bleachOutput').textContent=drops>=48?(drops/48).toFixed(2).replace(/\.?0+$/,'')+' tsp':Math.max(1,Math.round(drops))+' drops'}
+  function f(){var p=parseInt(pp.value)||1,d=parseInt(dd.value)||1,k=p*d*2000;document.getElementById('kcalOutput').textContent=k.toLocaleString()+' kcal';
+    document.getElementById('grainOutput').textContent=Math.ceil(k*0.4/1650)+' lb rice / '+Math.ceil(k*0.2/1550)+' lb beans';
+    document.getElementById('waterOutput').textContent='Water to store: '+(p*d).toLocaleString()+' gallons (1 gal/person/day)'}
+  vol.oninput=w;unit.onchange=w;cl.onchange=w;w();pp.oninput=f;dd.oninput=f;f()}
+/* S.T.A.R.T. triage */
+var T={1:{s:'Step 1 of 4',q:'Can the patient walk?',d:'Tell everyone who can walk to move to one spot.',o:[['Yes, can walk','MINOR'],['No','2']]},
+ 2:{s:'Step 2 of 4',q:'Are they breathing?',d:'Look, listen and feel for breathing.',o:[['Yes','3'],['No','AIRWAY']]},
+ AIRWAY:{s:'Airway',q:'Do they start breathing once you open the airway?',d:'Head-tilt, chin-lift.',o:[['Yes, now breathing','IMMEDIATE'],['No','EXPECTANT']]},
+ 3:{s:'Step 3 of 4',q:'Breathing rate?',d:'Count breaths for 15 seconds and multiply by 4.',o:[['More than 30 per minute','IMMEDIATE'],['30 or fewer','4']]},
+ 4:{s:'Step 4 of 4',q:'Circulation: radial pulse or capillary refill?',d:'Feel the wrist pulse, or press a nail bed and count how long the color takes to return.',o:[['No radial pulse, or refill over 2 sec','IMMEDIATE'],['Pulse present and refill under 2 sec','5']]},
+ 5:{s:'Mental status',q:'Can they follow a simple command?',d:'For example: "Squeeze my hand."',o:[['No','IMMEDIATE'],['Yes','DELAYED']]},
+ MINOR:{t:'GREEN · MINOR',c:'bg-emerald-950/60 border-emerald-500/40 text-emerald-400',d:'Walking wounded. Give basic first aid later.'},
+ IMMEDIATE:{t:'RED · IMMEDIATE',c:'bg-rose-950/60 border-rose-500/40 text-rose-400',d:'Life-threatening. Control bleeding and position the airway, then get help first.'},
+ DELAYED:{t:'YELLOW · DELAYED',c:'bg-amber-950/60 border-amber-500/40 text-amber-400',d:'Serious but stable for now. Recheck often.'},
+ EXPECTANT:{t:'BLACK · EXPECTANT',c:'bg-slate-950 border-slate-700 text-slate-400',d:'Not breathing even after the airway is opened.'}};
+window.restartTriage=function(){step('1')};
+window.triageStep=step;
+function step(k){var n=T[k];if(!n)return;var L=document.getElementById('triageStepLabel'),Q=document.getElementById('triageQ'),D=document.getElementById('triageDesc'),B=document.getElementById('triageButtons');
+  if(n.t){L.textContent='Result';Q.textContent=n.t;D.textContent=n.d;B.innerHTML='<div class="sm:col-span-2 p-4 rounded-xl border '+n.c+' text-center"><span class="font-bold text-base block font-mono">'+n.t+'</span></div>'}
+  else{L.textContent=n.s;Q.textContent=n.q;D.textContent=n.d;B.innerHTML=n.o.map(function(o){return '<button onclick="triageStep(\''+o[1]+'\')" class="p-3 bg-slate-800 hover:bg-slate-700 text-white rounded-xl text-xs font-semibold text-left border border-slate-700 flex justify-between items-center"><span>'+o[0]+'</span><i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i></button>'}).join('');ic()}}
+/* downloads checklist */
+window.renderChecklist=function(){var c=document.getElementById('checklistItems');if(!c)return;c.innerHTML='';var n=0;
+  savedChecklist.forEach(function(it){if(it.done)n++;var r=document.createElement('div');r.className='p-3 rounded-xl border flex items-center gap-3 cursor-pointer '+(it.done?'bg-emerald-950/20 border-emerald-500/30':'bg-slate-900 border-slate-800');
+    r.onclick=function(){savedChecklist=savedChecklist.map(function(i){return i.id===it.id?{id:i.id,label:i.label,done:!i.done}:i});try{localStorage.setItem('aegis_prep_check2',JSON.stringify(savedChecklist))}catch(e){}renderChecklist()};
+    r.innerHTML='<input type="checkbox" '+(it.done?'checked':'')+' class="w-4 h-4" style="pointer-events:none"><span class="text-xs '+(it.done?'line-through text-slate-400':'text-slate-200')+'"></span>';r.lastChild.textContent=it.label;c.appendChild(r)});
+  var pct=Math.round(n/savedChecklist.length*100);document.getElementById('checklistBar').style.width=pct+'%';document.getElementById('checklistText').textContent=n+'/'+savedChecklist.length+' ('+pct+'%)'};
+window.resetChecklist=function(){savedChecklist=checkDefault.map(function(i){return{id:i.id,label:i.label,done:false}});try{localStorage.setItem('aegis_prep_check2',JSON.stringify(savedChecklist))}catch(e){}renderChecklist()};
+window.__back=function(){if(openId){closeApp();return true}return false};
+/* init */
+net();bat();pills();search();renderAppGrid();
+var h=location.hash.slice(1);if(h&&apps.some(function(a){return a.id===h}))openApp(h);
+})();
+
 </script>
 </body>
 </html>
