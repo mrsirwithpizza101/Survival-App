@@ -871,8 +871,10 @@ function renderBundled(o){if(S.z<10)return;var sz=size(),cnt=0,keys=bKeys();
     d.firstChild.style.background=c.c;d.firstChild.textContent=c.e;d.lastChild.textContent=g[0];if(S.z<15)d.lastChild.style.display='none';
     d.addEventListener('pointerdown',function(e){e.stopPropagation()});d.onclick=function(e){e.stopPropagation();openBuiltin(g,'Map point')};PL.appendChild(d)})})}
 function renderPlaces(o){if(!PLACES.length||hidden.place||S.z>=12)return;var sz=size(),n=0;
+  var taken=[];
   PLACES.forEach(function(p){if(n>160)return;var rk=p[3];if(rk===1&&S.z<5||rk===2&&S.z<9)return;
-    var w=ll2w(p[1],p[2],S.z),x=w[0]-o[0],y=w[1]-o[1];if(x<-60||y<-20||x>sz[0]+60||y>sz[1]+20)return;n++;
+    var w=ll2w(p[1],p[2],S.z),x=w[0]-o[0],y=w[1]-o[1];if(x<-60||y<-20||x>sz[0]+60||y>sz[1]+20)return;
+    var half=Math.min(90,p[0].length*4.5+6);if(taken.some(function(t){return Math.abs(t[0]-x)<t[2]+half&&Math.abs(t[1]-y)<16}))return;taken.push([x,y,half]);n++;
     var lb=document.createElement('div');lb.className='plabel'+(rk===2?' small':'');lb.textContent=p[0];lb.style.left=x+'px';lb.style.top=y+'px';PL.appendChild(lb)})}
 /* geo math */
 function dist(a,b,c,d){var R=3958.8,t=Math.PI/180,dl=(c-a)*t,dn=(d-b)*t,h=Math.sin(dl/2)*Math.sin(dl/2)+Math.cos(a*t)*Math.cos(c*t)*Math.sin(dn/2)*Math.sin(dn/2);return 2*R*Math.asin(Math.sqrt(h))}
