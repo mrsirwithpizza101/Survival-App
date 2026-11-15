@@ -129,7 +129,4 @@ jobs:
           files: |
             dist/Survival-App.apk
             dist/Survival-App.html
-          body: |
-            Tap **Survival-App.apk** below to download, then open it to install.
-            Android asks you to allow installs from your browser the first time.
-            See the README for what changed.
+          body_path: dist/notes.md
