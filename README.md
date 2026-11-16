@@ -4,6 +4,8 @@ An offline emergency app for Android. It has a home screen of tools: a U.S. surv
 
 **Download:** open [Releases](../../releases/latest) on your phone and tap **Survival-App.apk**.
 
+> **Also in this repo: [OFFGRID 180](offgrid180/)**, a separate offline app for living independently for 90–180 days: calculators, inventory, a training center and emergency decision guides. It has its own APK under Releases (tags `offgrid180-v1.N`).
+
 ## How it works
 
 | Part | Where it lives |
